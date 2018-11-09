@@ -27,7 +27,7 @@ sidebarLayout(
           ),
           
           awesomeCheckboxGroup(
-            inputId = "Choose topics",
+            inputId = "Choose interesting topics",
             label = "Choose a cancellation policy:",
             choices = c("głód", "bieda", "równość"),
             selected = NULL, 
@@ -41,8 +41,8 @@ sidebarLayout(
         #leafletOutput("map")
       ),
       tabPanel(
-        "Other countries"#,
-        #dataTableOutput("searchTable")
+        "Other countries",
+        plotlyOutput("plot_inter")
       )
     )
   )
