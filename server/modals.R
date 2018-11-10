@@ -1,6 +1,8 @@
 modalStartName <- reactiveValues(name="Dear user")
+
 # modalStartCountry <- reactiveValues(country="Wasteland")
 #modalUserAge <- reactiveValues()
+
 
 observe( {
 showModal(

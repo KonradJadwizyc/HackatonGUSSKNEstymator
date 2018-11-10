@@ -9,7 +9,9 @@ sidebarLayout(
         style="text-align: center;",
         selectInput(
           inputId = "gender",
-          label = "Pick YOUR data",
+
+          label = "Choose data you want to see!",
+
           choices = (c("Zero hunger", "Gender equality")),
           selected = "Gender equality"
         )),
@@ -26,20 +28,21 @@ sidebarLayout(
           options = list(maxItems = 5,
                          placeholder = "Choose countries (max. 5)")
         ),
-        selectizeInput(
-          inputId = "",
-          label = "Choose chart",
-          multiple = TRUE,
-          selected = "line char",
-          options = list(maxItems = 5,
-                         placeholder = "Choose countries (max. 5)")
-        ),
+        
         radioButtons(
-          inputId = "Choose interesting topics",
-          label = "Choose an interesting theme:",
+          inputId = "Choose_topic",
+          label = "Choose topics interesting for you:",
           choices = c("% of women in managarial positions", "% of women in government"),
           selected = NULL
         ),
+
+        radioButtons(
+          inputId = "chartType",
+          label = "Choose chart type!",
+          choices = c("bar", "line", "pie"),
+          selected = "line"
+        )),
+
         
         actionButton("add_my_page", 
                      "Add this plot to your page"),
@@ -50,18 +53,26 @@ sidebarLayout(
         actionButton("add_to_quiz", 
                      "Add this chart to quiz")
         
-        
-        
-        
-      )
+
     
 ),
+
   
   mainPanel(
     tabsetPanel(
-      tabPanel(
-        "Other countries",
+      tabPanel("Other countries",
+        conditionalPanel(
+          condition = "input.chartType == 'line'",
         plotlyOutput("plot_inter")
+        ),
+        conditionalPanel(
+          condition = "input.chartType == 'bar'",
+          plotlyOutput("plot_inter_bar")
+        ),
+        conditionalPanel(
+          condition = "input.chartType == 'pie'",
+          plotlyOutput("plot_inter_pie")
+        )
       ),
       tabPanel(
         "Poland",
