@@ -9,8 +9,11 @@ output$question <- renderText ({
 
 bad_ans <- reactiveValues(countervalue = 0)
 good_ans <- reactiveValues(countervalue = 0)
+user_xp <- reactiveValues(countervalue = 0)
 
-hideTab("navbar", "Quiz2")
+reac <- reactive ({input$answer_4})
+
+hideTab("navbar", "Question2")
 
 answer_rea <- observeEvent(input$answer_1, {
   output$answer <- renderText ({"Your answer is wrong."})
@@ -28,13 +31,17 @@ answer_rea2 <- observeEvent(input$answer_3, {
   output$count_test <- renderText ({bad_ans$countervalue})
 })
 
+
 answer_rea3 <- observeEvent(input$answer_4, {
-  output$answer <- renderText ({"Your answer is correct! +50 XP."})
+  output$answer <- renderText ({"Your answer is correct!"})
+  if (input$exp_gain == T) {output$answer_xp <- renderText ({"You gained 50xp!"}) }
+  user_xp$countervalue <- user_xp$countervalue + 50
   good_ans$countervalue <- good_ans$countervalue + 1
   output$count_test <- renderText ({good_ans$countervalue})
-  updateTabsetPanel(session,"navbar",selected = "Quiz2")
+  delay(1200,updateTabsetPanel(session,"navbar",selected = "Question2"))
+  delay(1200,showTab("navbar", "Question2"))
+  delay(1200,hideTab("navbar", "Quiz"))
 })
-
 
 
 
