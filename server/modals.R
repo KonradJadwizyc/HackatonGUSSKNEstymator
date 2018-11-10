@@ -55,3 +55,4 @@ observeEvent(input$done, {
 
 output$modalName <- renderText({ modalStartName$name})
 # output$modalCountry <- renderText({ modalStartCountry$country})
+
