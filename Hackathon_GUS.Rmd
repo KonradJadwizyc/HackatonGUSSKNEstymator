@@ -5,7 +5,6 @@ output: html_notebook
 ```{r}
 # pakiety
 install.packages("openxlsx")
-install.packages("DT")
 install.packages("shinythemes")
 install.packages("shinyWidgets")
 install.packages("shinyjs")
@@ -16,7 +15,6 @@ install.packages("shinyjs")
 library(openxlsx)
 library(dplyr)
 library(plotly)
-
 ```
 
 
