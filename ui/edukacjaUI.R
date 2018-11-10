@@ -23,7 +23,14 @@ sidebarLayout(
           options = list(maxItems = 5,
                          placeholder = "Choose countries (max. 5)")
         ),
-        
+        selectizeInput(
+          inputId = "",
+          label = "Choose chart",
+          multiple = TRUE,
+          selected = "line char",
+          options = list(maxItems = 5,
+                         placeholder = "Choose countries (max. 5)")
+        ),
         radioButtons(
           inputId = "Choose interesting topics",
           label = "Choose an interesting theme:",
