@@ -3,9 +3,11 @@ data_manager <- data %>% filter(SeriesDescription == "Proportion of women in man
 glod <- read.csv("data (2).csv")
 sidebarLayout(
   sidebarPanel(
-    hidden(htmlOutput("new_panel")),
+    div(id = "panel",
+        h4(textOutput("modalName"))),
     div(id = "upper_panel",
         selectInput(
+<<<<<<< HEAD
           inputId = "Choose_SDG",
           label = "Choose SDG",
           choices = (c("Zero Hunger",
@@ -24,6 +26,11 @@ sidebarLayout(
           label = "Arrivial / Departure",
           start = today(),
           end = today() + 1
+=======
+          inputId = "gender",
+          label = "Choose gender",
+          choices = (c("woman", "man"))
+>>>>>>> 100e288666dc426cc9516920be4e2866da9a048e
         )),
     
       div(id = 'hidden_part',
@@ -40,7 +47,11 @@ sidebarLayout(
           radioButtons(
             inputId = "Choose_topics",
             label = "Choose an interesting theme:",
+<<<<<<< HEAD
             choices = "ome",
+=======
+            choices = c("% of women in managarial positions", "% of women in government", "% of women in"),
+>>>>>>> 100e288666dc426cc9516920be4e2866da9a048e
             selected = NULL
           ))),
     

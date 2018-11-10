@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 
 
+=======
+observeEvent(input$img_1, {
+  updateTabsetPanel(session, "Nav",
+                    selected = "Education")
+  
+})
+>>>>>>> 100e288666dc426cc9516920be4e2866da9a048e
 
 data <- read.csv2("data.csv", sep = ",")
 data_manager <- data %>% filter(SeriesDescription == "Proportion of women in managerial positions (%)")
