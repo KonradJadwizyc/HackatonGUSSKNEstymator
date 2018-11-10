@@ -1,5 +1,5 @@
 modalStartName <- reactiveValues(name="Dear user")
-
+modalUserAge <- reactiveValues()
 
 observe({
 showModal(
@@ -7,7 +7,7 @@ showModal(
     "What is your name",
     textInput("modalUserName", label = "Name..."),
     
-    footer = div(actionButton(inputId = "done", "Done"),
+    footer = div(actionButton(inputId = "done", "Done", style="color: #fff; background-color: #337ab7; border-color: #2e6da4"),
                  modalButton("Ignore")),
    
     size = "m", # s, l

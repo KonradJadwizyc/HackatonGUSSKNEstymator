@@ -1,5 +1,5 @@
 observeEvent(input$img_1, {
-  updateTabsetPanel(session, "Nav",
+  updateTabsetPanel(session, "navbar",
                     selected = "Education")
   
 })

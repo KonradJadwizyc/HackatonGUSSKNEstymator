@@ -7,8 +7,9 @@ sidebarLayout(
     div(id = "upper_panel",
         selectInput(
           inputId = "gender",
-          label = "Choose gender",
-          choices = (c("woman", "man"))
+          label = "Choose SDG",
+          choices = (c("Zero hunger", "Gender equality")),
+          selected = "Gender equality"
         )),
     
       div(id = 'hidden_part',
@@ -18,6 +19,7 @@ sidebarLayout(
             label = "Choose countries to compare:",
             choices = c(as.character(unique(data_manager$GeoAreaName))),
             multiple = TRUE,
+            selected = "Poland",
             options = list(maxItems = 5,
                            placeholder = "Choose countries (max. 5)")
           ),
@@ -25,20 +27,21 @@ sidebarLayout(
           radioButtons(
             inputId = "Choose interesting topics",
             label = "Choose an interesting theme:",
-            choices = c("% of women in managarial positions", "% of women in government", "% of women in"),
+            choices = c("% of women in managarial positions", "% of women in government"),
             selected = NULL
           ))),
     
   mainPanel(
     tabsetPanel(
       tabPanel(
-        "Poland",
-        plotlyOutput("plot_poland")
-      ),
-      tabPanel(
         "Other countries",
         plotlyOutput("plot_inter")
+      ),
+      tabPanel(
+        "Poland",
+        plotlyOutput("plot_poland")
       )
+      
     )
   )
 )
