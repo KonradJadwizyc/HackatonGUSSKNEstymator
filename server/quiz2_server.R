@@ -25,7 +25,7 @@ answer_rea1 <- observeEvent(input$answer_2_2, {
   output$answer2 <- renderText ({"Your answer is correct!"})
   if (input$exp_gain == T) {output$answer_xp_2 <- renderText ({"You gained 100xp!"}) }
   user_xp$countervalue <- user_xp$countervalue + 100
-  output$xp_test <- renderText ({user_xp$countervalue})
+  output$xp_test2 <- renderText ({user_xp$countervalue})
   good_ans$countervalue <- good_ans$countervalue + 1
   output$count_test2 <- renderText ({good_ans$countervalue})
   # delay(1200,updateTabsetPanel(session,"navbar",selected = "Question2"))
