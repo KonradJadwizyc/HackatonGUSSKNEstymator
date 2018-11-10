@@ -1,0 +1,181 @@
+---
+title: "Hackaton"
+output: html_notebook
+---
+```{r}
+# pakiety
+install.packages("openxlsx")
+install.packages("DT")
+install.packages("shinythemes")
+install.packages("shinyWidgets")
+install.packages("shinyjs")
+```
+
+```{r}
+#biblioteki
+library(openxlsx)
+library(dplyr)
+library(plotly)
+
+```
+
+
+```{r}
+# data dla głodu 
+glod <- read.csv("data (2).csv")
+# powszechnie występujące niedożywienie 
+
+# filtrowanie polski 
+glod_poland <- glod %>%
+  select(c(GeoAreaCode,GeoAreaName,TimePeriod,Time_Detail,Value)) %>% 
+  filter(GeoAreaName == "Poland") %>% 
+  arrange(TimePeriod)
+
+# Dane dla świata
+glod$Value <- as.numeric(as.character(glod$Value))
+
+glod_world <- glod %>% select(c(GeoAreaCode,GeoAreaName,TimePeriod,Time_Detail,Value)) %>% 
+  filter(GeoAreaName == c("Europe",
+                          "Africa",
+                          "South America",
+                          "Northern America",
+                          "Australia",
+                          "Oceania")) %>% arrange(TimePeriod) %>% group_by(GeoAreaName) 
+  
+
+plot1 <- plot_ly(data = glod_world, x =~ TimePeriod,
+                                y =~ Value,
+                                color = ~GeoAreaName,
+                                type = "scatter",
+                                mode = "lines+markers")
+                                
+plot1
+
+```
+
+
+
+```{r}
+
+GMO <- read.csv("data_genetic_modification.csv")
+
+poland_gmo <- GMO %>% select(c(GeoAreaCode,GeoAreaName,TimePeriod,Time_Detail,Value)) %>%
+  filter(GeoAreaName == "Poland") %>%
+  arrange(TimePeriod) %>% slice(1:7)
+
+plot2 <- plot_ly(data = poland_gmo, x =~ TimePeriod,
+                                y =~ Value,
+                                color = ~GeoAreaName,
+                                type = "scatter",
+                                mode = "lines+markers")
+                                
+plot2
+
+
+world_gmo <- GMO %>% 
+  select(c(GeoAreaCode,GeoAreaName,TimePeriod,Value)) %>% 
+  filter(TimePeriod <2018) %>% 
+  group_by(TimePeriod) 
+
+
+```
+
+
+```{r}
+# dane dla nierówności płci
+inequality <- read.csv("data_nierownosc.csv") 
+
+# dla polski 
+inequality_poland <- inequality %>% select(c(GeoAreaCode,GeoAreaName,TimePeriod,Time_Detail,Value)) %>% 
+  filter(GeoAreaName == "Poland") %>% filter(TimePeriod < 2018) %>% slice(1:7)
+
+plot4 <- plot_ly(data = inequality_poland, x =~ TimePeriod,
+                                y =~ Value,
+                                color = ~GeoAreaName,
+                                type = "scatter",
+                                mode = "lines+markers")
+                                
+plot4
+
+# dane dla nierówności płci dla świata
+inequality_world <- inequality %>% 
+  select(c(GeoAreaCode,GeoAreaName,TimePeriod,Value)) %>% 
+  arrange(TimePeriod) %>% 
+  filter(TimePeriod < 2018)
+  
+plot5 <- plot_ly(data = inequality_world, x =~ TimePeriod,
+                                y =~ Value,
+                                color = ~GeoAreaName,
+                                type = "bar",
+                                mode = "lines+markers")
+                                
+plot5
+```
+
+
+
+```{r}
+# data dla nierówności płacowych
+inequality_paid <- read.csv("data nier_plac.csv")
+
+# dla polski 
+inequality_paid_poland <- inequality_paid %>%
+  select(c(GeoAreaCode,GeoAreaName,TimePeriod,Value,X.Age.)) %>% 
+  filter(GeoAreaName == "Poland", TimePeriod == 2013)
+
+plot6 <- plot_ly(data = inequality_paid_poland, x =~ X.Age.,
+                                y =~ Value,
+                                color = ~X.Age.,
+                                type = "bar",
+                                mode = "lines+markers")
+                                
+plot6
+
+inequality_paid_world <- inequality_paid %>%
+  select(c(GeoAreaCode,GeoAreaName,TimePeriod,Value,X.Age.))
+
+
+# nierównaść na stanowiska menagmen
+
+inequality_paid_menager <- read.csv("data_nier_na_stan_menager.csv")
+
+inequality_paid_menager_poland <- inequality_paid_menager %>%
+  select(c(GeoAreaCode,GeoAreaName,TimePeriod,Value)) %>%
+  filter(GeoAreaName == "Poland") %>% 
+  group_by(TimePeriod,GeoAreaName) %>% 
+  summarise(n = mean(Value)) 
+
+plot9 <- plot_ly(data = inequality_paid_menager_poland, x =~ TimePeriod,
+                                y =~ n,
+                                type = "scatter",
+                                mode = "line")
+                                
+plot9
+```
+
+
+```{r}
+# ilość kobiet w rządzie 
+
+government <- read.csv("data_goverment_pozycje_kobiet.csv")
+
+# dla polski
+poland_gover <- government %>% filter(GeoAreaName == "Poland") %>% 
+    select(c(GeoAreaCode,GeoAreaName,TimePeriod,Value))
+
+plot9 <- plot_ly(data = poland_gover, x =~ TimePeriod,
+                                y =~ Value,
+                                type = "scatter",
+                                mode = "line")
+                                
+plot9
+
+
+
+# dla świata
+world_gover <- government %>% 
+    select(c(GeoAreaCode,GeoAreaName,TimePeriod,Value))
+
+
+```
+

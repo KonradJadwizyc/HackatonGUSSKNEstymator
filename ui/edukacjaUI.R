@@ -1,13 +1,23 @@
 data <- read.csv2("data.csv", sep = ",")
 data_manager <- data %>% filter(SeriesDescription == "Proportion of women in managerial positions (%)")
+glod <- read.csv("data (2).csv")
 sidebarLayout(
   sidebarPanel(
     hidden(htmlOutput("new_panel")),
     div(id = "upper_panel",
         selectInput(
-          inputId = "gender",
-          label = "Choose gender",
-          choices = (c("woman", "man"))
+          inputId = "Choose_SDG",
+          label = "Choose SDG",
+          choices = (c("Zero Hunger",
+                       "Gender Equality",
+                       "No Poverty",
+                       "Climate Action",
+                       "",
+                       "",
+                       "",
+                       "",
+                       "")),
+          selected = "Zero Hunger"
         ),
         dateRangeInput(
           inputId = "searchDateRange",
@@ -28,9 +38,9 @@ sidebarLayout(
           ),
           
           radioButtons(
-            inputId = "Choose interesting topics",
+            inputId = "Choose_topics",
             label = "Choose an interesting theme:",
-            choices = c("% of women in ", "% of women in", "% of women in"),
+            choices = "ome",
             selected = NULL
           ))),
     
