@@ -2,18 +2,13 @@ data <- read.csv2("data.csv", sep = ",")
 data_manager <- data %>% filter(SeriesDescription == "Proportion of women in managerial positions (%)")
 sidebarLayout(
   sidebarPanel(
-    hidden(htmlOutput("new_panel")),
+    div(id = "panel",
+        h4(textOutput("modalName"))),
     div(id = "upper_panel",
         selectInput(
           inputId = "gender",
           label = "Choose gender",
           choices = (c("woman", "man"))
-        ),
-        dateRangeInput(
-          inputId = "searchDateRange",
-          label = "Arrivial / Departure",
-          start = today(),
-          end = today() + 1
         )),
     
       div(id = 'hidden_part',
@@ -30,7 +25,7 @@ sidebarLayout(
           radioButtons(
             inputId = "Choose interesting topics",
             label = "Choose an interesting theme:",
-            choices = c("% of women in ", "% of women in", "% of women in"),
+            choices = c("% of women in managarial positions", "% of women in government", "% of women in"),
             selected = NULL
           ))),
     
