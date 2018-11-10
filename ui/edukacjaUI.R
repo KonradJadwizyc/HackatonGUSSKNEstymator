@@ -1,4 +1,5 @@
-
+data <- read.csv2("data.csv", sep = ",")
+data_manager <- data %>% filter(SeriesDescription == "Proportion of women in managerial positions (%)")
 sidebarLayout(
   sidebarPanel(
     hidden(htmlOutput("new_panel")),
@@ -20,25 +21,24 @@ sidebarLayout(
           selectizeInput(
             inputId = "searchCountry",
             label = "Choose countries to compare:",
-            choices = NULL,
+            choices = c(as.character(unique(data_manager$GeoAreaName))),
             multiple = TRUE,
             options = list(maxItems = 5,
                            placeholder = "Choose countries (max. 5)")
           ),
           
-          awesomeCheckboxGroup(
+          radioButtons(
             inputId = "Choose interesting topics",
-            label = "Choose a cancellation policy:",
-            choices = c("głód", "bieda", "równość"),
-            selected = NULL, 
-            status = "danger"
+            label = "Choose an interesting theme:",
+            choices = c("% of women in ", "% of women in", "% of women in"),
+            selected = NULL
           ))),
     
   mainPanel(
     tabsetPanel(
       tabPanel(
-        "Poland"#,
-        #leafletOutput("map")
+        "Poland",
+        plotlyOutput("plot_poland")
       ),
       tabPanel(
         "Other countries",
