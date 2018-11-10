@@ -1,8 +1,9 @@
 
 
 sidebarLayout(
-  sidebarPanel (width = 3,
-                
+  sidebarPanel (width = 4,
+                wellPanel(
+                  h3("Difficult lvl:"),
                 checkboxInput(inputId = "easy",
                               label = "Easy",
                               value = TRUE),
@@ -13,12 +14,14 @@ sidebarLayout(
                 
                 checkboxInput(inputId = "hard",
                               label = "Hard",
-                              value = FALSE),
-                
+                              value = FALSE)
+                ),
+                wellPanel(
                 checkboxInput(inputId = "exp_gain",
                               label = "Show exp gain",
                               value = FALSE)
                 
+              )
               ), 
               
               
@@ -38,7 +41,8 @@ sidebarLayout(
                 br(),
                 br(),
                 div(textOutput("answer"), style="text-align: center;"),
-                div(textOutput("count_test"), style="text-align: center;")
+                div(textOutput("count_test"), style="text-align: center;"),
+                div(textOutput("answer_xp"), style="text-align: center;")
                 
               )
               
