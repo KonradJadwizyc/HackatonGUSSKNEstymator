@@ -1,6 +1,6 @@
 fluidPage(
-actionLink("img_1", label = img(src="E_SDG goals_icons-individual-cmyk-01.jpg", width = "20%")),
-actionLink("img_2", label = img(src="E_SDG goals_icons-individual-cmyk-02.jpg", width = "20%")),
+  actionLink("img_1", label = img(src="E_SDG goals_icons-individual-cmyk-01.jpg", width = "20%")),
+actionLink("img_2", label = img(src="E_SDG goals_icons-individual-cmyk-02.jpg", width = "20%")),             
 actionLink("img_3", label = img(src="E_SDG goals_icons-individual-cmyk-03.jpg", width = "20%")),
 actionLink("img_4", label = img(src="E_SDG goals_icons-individual-cmyk-04.jpg", width = "20%")),
 actionLink("img_5", label = img(src="E_SDG goals_icons-individual-cmyk-05.jpg", width = "20%")),
