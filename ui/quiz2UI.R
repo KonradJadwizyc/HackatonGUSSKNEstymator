@@ -40,7 +40,7 @@ sidebarLayout(
     div(textOutput("answer2"), style="text-align: center;"),
     div(textOutput("count_test2"), style="text-align: center;"),
     div(textOutput("answer_xp_2"), style="text-align: center;"),
-    div(textOutput("xp_test"), style="text-align: center;")
+    div(textOutput("xp_test2"), style="text-align: center;")
     
   )
   
