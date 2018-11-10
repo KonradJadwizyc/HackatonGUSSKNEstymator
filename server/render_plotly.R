@@ -19,6 +19,17 @@ output$plot_poland <- renderPlotly(
 )
 
 output$plot_inter <- renderPlotly(
-  p <- plot_ly(data = data_inter()) %>% 
+  p <- plot_ly(data = data_inter()) %>%
     add_lines( x = ~TimePeriod, y = ~Value, color = ~GeoAreaName, mode = "lines", line = list(width = 3))
+)
+
+
+#)
+output$plot_inter_bar <- renderPlotly(
+  p <- plot_ly(data = data_inter()) %>% 
+    add_trace( x = ~TimePeriod, y = ~Value, color = ~GeoAreaName, type = "bar")
+)
+
+output$plot_inter_pie <- renderPlotly(
+  p <- plot_ly(data = data_inter(), labels = ~GeoAreaName, values = ~Value, type = "pie")
 )

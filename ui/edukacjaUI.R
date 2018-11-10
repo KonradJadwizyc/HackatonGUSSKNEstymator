@@ -7,7 +7,7 @@ sidebarLayout(
     div(id = "upper_panel",
         selectInput(
           inputId = "gender",
-          label = "Choose SDG",
+          label = "Choose data you want to see!",
           choices = (c("Zero hunger", "Gender equality")),
           selected = "Gender equality"
         )),
@@ -25,17 +25,33 @@ sidebarLayout(
         ),
         
         radioButtons(
-          inputId = "Choose interesting topics",
-          label = "Choose an interesting theme:",
+          inputId = "Choose_topic",
+          label = "Choose topics interesting for you:",
           choices = c("% of women in managarial positions", "% of women in government"),
           selected = NULL
+        ),
+        radioButtons(
+          inputId = "chartType",
+          label = "Choose chart type!",
+          choices = c("bar", "line", "pie"),
+          selected = "line"
         ))),
   
   mainPanel(
     tabsetPanel(
-      tabPanel(
-        "Other countries",
+      tabPanel("Other countries",
+        conditionalPanel(
+          condition = "input.chartType == 'line'",
         plotlyOutput("plot_inter")
+        ),
+        conditionalPanel(
+          condition = "input.chartType == 'bar'",
+          plotlyOutput("plot_inter_bar")
+        ),
+        conditionalPanel(
+          condition = "input.chartType == 'pie'",
+          plotlyOutput("plot_inter_pie")
+        )
       ),
       tabPanel(
         "Poland",

@@ -1,12 +1,14 @@
 fluidPage(
 
-actionLink("img_1", label = img(src="E_SDG goals_icons-individual-cmyk-01.jpg", width = "20%")),
+img(src="E_SDG goals_icons-individual-cmyk-01.jpg", width = "20%"),
+# actionLink("img_1", label = img(src="E_SDG goals_icons-individual-cmyk-01.jpg", width = "20%")),
 actionLink("img_2", label = img(src="E_SDG goals_icons-individual-cmyk-02.jpg", width = "20%")),
 #img(src="E_SDG goals_icons-individual-cmyk-01.jpg", width = "20%"),
 #img(src="E_SDG goals_icons-individual-cmyk-02.jpg", width = "20%"),
 img(src="E_SDG goals_icons-individual-cmyk-03.jpg", width = "20%"),
 img(src="E_SDG goals_icons-individual-cmyk-04.jpg", width = "20%"),
-img(src="E_SDG goals_icons-individual-cmyk-05.jpg", width = "20%"),
+#img(src="E_SDG goals_icons-individual-cmyk-05.jpg", width = "20%"),
+actionLink("img_1", label = img(src="E_SDG goals_icons-individual-cmyk-05.jpg", width = "20%")),
 img(src="E_SDG goals_icons-individual-cmyk-06.jpg", width = "20%"),
 img(src="E_SDG goals_icons-individual-cmyk-07.jpg", width = "20%"),
 img(src="E_SDG goals_icons-individual-cmyk-08.jpg", width = "20%"),
