@@ -3,16 +3,19 @@ data_manager <- data %>% filter(SeriesDescription == "Proportion of women in man
 sidebarLayout(
   sidebarPanel(
     div(id = "panel",
+        style="text-align: center;",
         h4(textOutput("modalName"))),
     div(id = "upper_panel",
+        style="text-align: center;",
         selectInput(
           inputId = "gender",
-          label = "Choose SDG",
+          label = "Pick YOUR data",
           choices = (c("Zero hunger", "Gender equality")),
           selected = "Gender equality"
         )),
     
     div(id = 'hidden_part',
+        style="text-align: center;",
         #uiOutput("searchPriceUI"),
         selectizeInput(
           inputId = "searchCountry",
@@ -29,7 +32,23 @@ sidebarLayout(
           label = "Choose an interesting theme:",
           choices = c("% of women in managarial positions", "% of women in government"),
           selected = NULL
-        ))),
+        ),
+        
+        actionButton("add_my_page", 
+                     "Add this plot to your page"),
+        
+        br(),
+        br(),
+        
+        actionButton("add_to_quiz", 
+                     "Add this chart to quiz")
+        
+        
+        
+        
+      )
+    
+),
   
   mainPanel(
     tabsetPanel(

@@ -4,6 +4,10 @@ observeEvent(input$img_1, {
   
 })
 
+observeEvent(input$add_my_page, {
+  alert("You can download this chart ;) Just point mouse at the top of the chart and pick camera icon. ")
+})
+
 data <- read.csv2("data.csv", sep = ",")
 data_manager <- data %>% filter(SeriesDescription == "Proportion of women in managerial positions (%)")
 library(tidyverse)
