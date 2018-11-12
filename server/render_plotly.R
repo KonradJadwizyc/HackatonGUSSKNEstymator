@@ -1,7 +1,3 @@
-
-
-
-
 observeEvent(input$img_1, {
   updateTabsetPanel(session, "navbar",
                     selected = "Education")
@@ -24,7 +20,7 @@ data_inter <- reactive(
 )
 
 output$plot_poland <- renderPlotly(
-plotly::plot_ly(data_poland, x= ~TimePeriod, y=~Value, type = "scatter", mode = "lines")
+  plotly::plot_ly(data_poland, x= ~TimePeriod, y=~Value, type = "scatter", mode = "lines")
 )
 
 output$plot_inter <- renderPlotly(
@@ -40,4 +36,3 @@ output$plot_inter_bar <- renderPlotly(
 output$plot_inter_pie <- renderPlotly(
   p <- plot_ly(data = data_inter(), labels = ~GeoAreaName, values = ~Value, type = "pie")
 )
-

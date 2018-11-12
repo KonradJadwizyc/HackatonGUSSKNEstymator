@@ -1,7 +1,5 @@
-
-
 output$question2 <- renderText ({
-  "Ile Jasiu ma kremowek?"
+  "Whose flag you see?"
 })
 
 br()
@@ -45,5 +43,4 @@ answer_rea3 <- observeEvent(input$answer_2_4, {
   output$answer2 <- renderText ({"Your answer is wrong."})
   bad_ans$countervalue <- bad_ans$countervalue + 1
 })
-
 

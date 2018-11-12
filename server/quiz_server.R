@@ -1,11 +1,10 @@
-
 output$question <- renderText ({
-   "Test question number one."
- })
+  "Which country have the best situation in case of women discrimination?"
+})
 
- # output$answer <- renderText ({
- #   "Your answer is wrong."
- # })
+# output$answer <- renderText ({
+#   "Your answer is wrong."
+# })
 
 bad_ans <- reactiveValues(countervalue = 0)
 good_ans <- reactiveValues(countervalue = 0)
@@ -44,6 +43,9 @@ answer_rea3 <- observeEvent(input$answer_4, {
 })
 
 
+output$hint <- renderText ({
+"Place for something interesting. Maybe in the future ;)"
+})
 
 
 
