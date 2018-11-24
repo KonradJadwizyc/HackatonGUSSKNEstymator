@@ -8,12 +8,21 @@ sidebarLayout(
     div(id = "upper_panel",
         style="text-align: center;",
         selectInput(
-          inputId = "gender",
+          inputId = "data_panel",
           
           label = "Choose data you want to see!",
           
-          choices = (c("Zero hunger", "Gender equality")),
-          selected = "Gender equality"
+          choices = (c("No poverty", "Zero hunger", "Good health and well-being",  
+                       'Quality education', 'Gender equality', 
+                       'Clean water and sanitation', 'Affordable and clean energy', 
+                       'Decent work and economic growth', 
+                       'Industry, innovation and infrastructure', 'Reduced inequality', 
+                       'Sustainable cities and communities', 
+                       'Responsible consumption and production', 'Climate action', 
+                       'Life below water', 'Life on land',  
+                       'Peace,  justice and strong institutions', 
+                       'Partnership for the goals'))
+          #selected = "Gender equality"
         )),
     
     div(id = 'hidden_part',
