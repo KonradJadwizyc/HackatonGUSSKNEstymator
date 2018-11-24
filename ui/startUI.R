@@ -16,5 +16,6 @@ fluidPage(
   actionLink("img_14", label = img(src="E_SDG goals_icons-individual-cmyk-14.jpg", width = "15%")),
   actionLink("img_15", label = img(src="E_SDG goals_icons-individual-cmyk-15.jpg", width = "15%")),
   actionLink("img_16", label = img(src="E_SDG goals_icons-individual-cmyk-16.jpg", width = "15%")),
-  actionLink("img_17", label = img(src="E_SDG goals_icons-individual-cmyk-17.jpg", width = "15%"))
+  actionLink("img_17", label = img(src="E_SDG goals_icons-individual-cmyk-17.jpg", width = "15%")),
+  actionLink("img_18", label = img(src="E_SDG_logo_with_UN_Emblem_square_cmyk.jpg", width = "15%"))
 )
