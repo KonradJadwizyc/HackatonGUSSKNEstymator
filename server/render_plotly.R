@@ -1,8 +1,4 @@
-observeEvent(input$img_1, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  
-})
+
 
 observeEvent(input$add_my_page, {
   alert("You can download this chart ;) Just point mouse at the top of the chart and pick camera icon. ")
