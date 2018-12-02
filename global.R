@@ -11,7 +11,7 @@ library(plotly)
 library(shinyjs)
 library(openxlsx)
 
-My_SDG <- My_SDG
+My_SDG <- readRDS("My_SDG")
 
 My_SDG$Value <- as.numeric((My_SDG$Value))
 
