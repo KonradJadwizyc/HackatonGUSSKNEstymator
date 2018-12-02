@@ -29,8 +29,6 @@ sidebarLayout(
         
         uiOutput("description"),
         uiOutput("countries"),
-        #uiOutput("group"),
-        #uiOutput("group2"),
         
         radioButtons(
           inputId = "chartType",

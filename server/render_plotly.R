@@ -39,11 +39,9 @@ output$group <- renderUI({
   
   goal <- My_SDG %>%
     dplyr::filter(Goal == as.numeric(input$goal))
-  
+ 
   selectInput("group",
-              label = "Group by:")#,
-              #choices = unique(goal$X.Age.),
-              #selected = unique(goal$X.Age.)[1])
+              label = "Group by:")
   
 })
 
@@ -53,9 +51,7 @@ output$group2 <- renderUI({
     dplyr::filter(Goal == as.numeric(input$goal))
   
   selectInput("group2",
-              label = "Group by:")#,
-             # choices = unique(goal$X.Sex.),
-            #  selected = unique(goal$X.sex.))
+              label = "Group by:")
 })
 
 
@@ -81,14 +77,14 @@ output$plot_inter <- renderPlotly({
 })
 
 output$plot_bar_inter <- renderPlotly({
-  
+
   seria_2 <- My_SDG %>% 
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)#
                   #X.Age. == input$group,
                   #X.Sex. == input$group2) %>% group_by(X.Age.)
-  
+ 
   
   plotly::plot_ly(data = seria_2,
                   x = ~TimePeriod,
@@ -108,7 +104,7 @@ output$plot_scatter_inter <- renderPlotly({
   
   seria_3 <- My_SDG %>% 
     dplyr::filter(Goal == as.numeric(input$goal), GeoAreaName %in% input$countries, SeriesDescription == input$description)
-  
+
   plotly::plot_ly(data = seria_3,
                   x = ~TimePeriod,
                   y = ~Value,
@@ -123,54 +119,3 @@ output$plot_scatter_inter <- renderPlotly({
     )
 })
 
-
-output$plot_poland <- renderPlotly({
-  
-  
-  seria_pl <- My_SDG %>% 
-    dplyr::filter(Goal == as.numeric(input$goal), GeoAreaName == "Poland", SeriesDescription == input$description)
-  validate("seria_pl")
-  plotly::plot_ly(data = seria_pl,
-                  x = ~TimePeriod,
-                  y = ~Value,
-                  color = ~GeoAreaName,
-                  type = "scatter",
-                  mode = "line+markers") %>% 
-    layout(title = input$description,
-           xaxis=list(range=c(2000,2018)))
-})
-output$plot_poland_bar <- renderPlotly({
-  
-  seria_pl <- My_SDG %>% 
-    dplyr::filter(Goal == as.numeric(input$goal), GeoAreaName == "Poland", SeriesDescription == input$description)
-  validate("seria_pl")
-  plotly::plot_ly(data = seria_pl,
-                  x = ~TimePeriod,
-                  y = ~Value,
-                  color = ~GeoAreaName,
-                  type = "bar",
-                  mode = "markers") %>% 
-    layout(title = input$description,
-           xaxis=list(range=c(2000,2018),
-                      title = "Time"),
-           ysxis = list(title = "Value")
-    )
-})
-
-output$plot_poland_scatter <- renderPlotly({
-  validate("My_SDG")
-  seria_pl <- My_SDG %>% 
-    dplyr::filter(Goal == as.numeric(input$goal), GeoAreaName == "Poland", SeriesDescription == input$description)
-  validate("seria_pl")
-  plotly::plot_ly(data = seria_pl,
-                  x = ~TimePeriod, 
-                  y = ~Value,
-                  color = ~GeoAreaName,
-                  type = "scatter",
-                  mode = "markers") %>% 
-    layout(title = input$description,
-           xaxis=list(range=c(2000,2018),
-                      title = "Time"),
-           ysxis = list(title = "Value")
-    )
-})
