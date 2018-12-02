@@ -1,85 +1,249 @@
 observeEvent(input$img_1, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = "No poverty")
+  progress1 <- shiny::Progress$new()
+  on.exit(progress1$close())
+  progress1$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 1) 
+    progress1$inc(1/n, detail = "zerrro", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_2, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = "Zero hunger")
+  progress2 <- shiny::Progress$new()
+  on.exit(progress2$close())
+  progress2$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 2) 
+    
+    progress2$inc(1/n, detail = "cos tammmm", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_3, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = "Good health and well-being")
+  progress3 <- shiny::Progress$new()
+  on.exit(progress3$close())
+  progress3$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 3) 
+    
+    progress3$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_4, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Quality education')
+  progress4 <- shiny::Progress$new()
+  on.exit(progress4$close())
+  progress4$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 4) 
+    progress4$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_5, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Gender equality')
+  progress5 <- shiny::Progress$new()
+  on.exit(progress5$close())
+  progress5$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 5) 
+    progress5$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_6, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Clean water and sanitation')
+  progress6 <- shiny::Progress$new()
+  on.exit(progress6$close())
+  progress6$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 6) 
+    
+    progress6$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_7, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Affordable and clean energy')
+  progress7 <- shiny::Progress$new()
+  on.exit(progress7$close())
+  progress7$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 7) 
+    
+    progress7$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_8, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Decent work and economic growth')
+  progress8 <- shiny::Progress$new()
+  on.exit(progress8$close())
+  progress8$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 8) 
+    
+    progress8$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_9, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Industry, innovation and infrastructure')
+  progress9 <- shiny::Progress$new()
+  on.exit(progress9$close())
+  progress9$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 9) 
+    
+    progress9$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_10, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Reduced inequality')
+  progress10 <- shiny::Progress$new()
+  on.exit(progress10$close())
+  progress10$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 10) 
+    
+    progress10$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_11, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Sustainable cities and communities')
+  progress11 <- shiny::Progress$new()
+  on.exit(progress11$close())
+  progress11$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 11) 
+    
+    progress11$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_12, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Responsible consumption and production')
+  progress12 <- shiny::Progress$new()
+  on.exit(progress12$close())
+  progress12$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 12) 
+    progress12$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_13, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Climate action')
+  progress13 <- shiny::Progress$new()
+  on.exit(progress13$close())
+  progress13$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 13) 
+    progress13$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_14, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Life below water')
+  progress14 <- shiny::Progress$new()
+  on.exit(progress14$close())
+  progress14$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 14) 
+    progress14$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_15, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Life on land')
+  progress15 <- shiny::Progress$new()
+  on.exit(progress15$close())
+  progress15$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 15) 
+    progress15$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_16, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Peace,  justice and strong institutions')
+  progress16 <- shiny::Progress$new()
+  on.exit(progress16$close())
+  progress16$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 16) 
+    progress16$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })
 observeEvent(input$img_17, {
-  updateTabsetPanel(session, "navbar",
-                    selected = "Education")
-  updateSelectInput(session, "data_panel", selected = 'Partnership for the goals')
+  progress17 <- shiny::Progress$new()
+  on.exit(progress17$close())
+  progress17$set(message = "waiting", value = 0)
+  
+  n <- 5 
+  for (i in 1:n) {
+    updateTabsetPanel(session, "navbar",
+                      selected = "Education")
+    updateSelectInput(session = session, "goal", selected = 17) 
+    progress17$inc(1/n, detail = "loading", i)
+    Sys.sleep(0.1)
+  }
 })

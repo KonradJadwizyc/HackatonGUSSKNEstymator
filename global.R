@@ -9,3 +9,5 @@ library(shinythemes)
 library(shinyWidgets)
 library(plotly)
 library(shinyjs)
+
+My_SDG <- My_SDG
