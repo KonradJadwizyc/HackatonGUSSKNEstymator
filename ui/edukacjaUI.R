@@ -29,8 +29,8 @@ sidebarLayout(
         
         uiOutput("description"),
         uiOutput("countries"),
-        uiOutput("group"),
-        uiOutput("group2"),
+        #uiOutput("group"),
+        #uiOutput("group2"),
         
         radioButtons(
           inputId = "chartType",
@@ -53,8 +53,6 @@ sidebarLayout(
   
   
   mainPanel(
-    tabsetPanel(
-      tabPanel("Other countries",
                conditionalPanel(
                  condition = "input.chartType == 'line'",
                  plotlyOutput("plot_inter")
@@ -67,22 +65,8 @@ sidebarLayout(
                  condition = "input.chartType == 'scatter'",
                  plotlyOutput("plot_scatter_inter")
                )
-      ),
-      tabPanel(
-        "Poland",
-        conditionalPanel(
-          condition = "input.chartType == 'line'",
-          plotlyOutput("plot_poland")
-        ),
-        conditionalPanel(
-          condition = "input.chartType == 'bar'",
-          plotlyOutput("plot_poland_bar")
-        ),
-        conditionalPanel(
-          condition = "input.chartType == 'scatter'",
-          plotlyOutput("plot_poland_scatter")
-        ))
-    )
+      
+    
   )
 )
 
