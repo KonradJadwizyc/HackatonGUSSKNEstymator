@@ -10,6 +10,7 @@ library(shinyWidgets)
 library(plotly)
 library(shinyjs)
 library(openxlsx)
+library(shiny.i18n)
 
 My_SDG <- readRDS("My_SDG")
 
