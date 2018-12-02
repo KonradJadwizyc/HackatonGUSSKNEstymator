@@ -21,8 +21,6 @@ output$countries <- renderUI({
 
 output$description <- renderUI({
   
-  
-  
   goal <- My_SDG %>%
     dplyr::filter(Goal == as.numeric(input$goal))
   
@@ -30,29 +28,26 @@ output$description <- renderUI({
               label = "Choose description",
               choices = unique(goal$SeriesDescription),
               selected = unique(goal$SeriesDescription)[1])
-  
-  
 })
 
-output$group <- renderUI({
-  
-  
-  goal <- My_SDG %>%
-    dplyr::filter(Goal == as.numeric(input$goal))
- 
-  selectInput("group",
-              label = "Group by:")
-  
-})
-
-output$group2 <- renderUI({
-  
-  goal <- My_SDG %>% 
-    dplyr::filter(Goal == as.numeric(input$goal))
-  
-  selectInput("group2",
-              label = "Group by:")
-})
+# output$group <- renderUI({
+#   
+#   goal <- My_SDG %>%
+#     dplyr::filter(Goal == as.numeric(input$goal))
+#  
+#   selectInput("group",
+#               label = "Group by:")
+#   
+# })
+# 
+# output$group2 <- renderUI({
+#   
+#   goal <- My_SDG %>% 
+#     dplyr::filter(Goal == as.numeric(input$goal))
+#   
+#   selectInput("group2",
+#               label = "Group by:")
+# })
 
 
 output$plot_inter <- renderPlotly({
