@@ -43,7 +43,7 @@ observeEvent(input$img_3_pl, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_4, {
+observeEvent(input$img_4_pl, {
   progress4 <- shiny::Progress$new()
   on.exit(progress4$close())
   progress4$set(message = "waiting", value = 0)
@@ -57,7 +57,7 @@ observeEvent(input$img_4, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_5, {
+observeEvent(input$img_5_pl, {
   progress5 <- shiny::Progress$new()
   on.exit(progress5$close())
   progress5$set(message = "waiting", value = 0)
@@ -71,7 +71,7 @@ observeEvent(input$img_5, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_6, {
+observeEvent(input$img_6_pl, {
   progress6 <- shiny::Progress$new()
   on.exit(progress6$close())
   progress6$set(message = "waiting", value = 0)
@@ -87,7 +87,7 @@ observeEvent(input$img_6, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_7, {
+observeEvent(input$img_7_pl, {
   progress7 <- shiny::Progress$new()
   on.exit(progress7$close())
   progress7$set(message = "waiting", value = 0)
@@ -103,7 +103,7 @@ observeEvent(input$img_7, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_8, {
+observeEvent(input$img_8_pl, {
   progress8 <- shiny::Progress$new()
   on.exit(progress8$close())
   progress8$set(message = "waiting", value = 0)
@@ -118,7 +118,7 @@ observeEvent(input$img_8, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_9, {
+observeEvent(input$img_9_pl, {
   progress9 <- shiny::Progress$new()
   on.exit(progress9$close())
   progress9$set(message = "waiting", value = 0)
@@ -133,7 +133,7 @@ observeEvent(input$img_9, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_10, {
+observeEvent(input$img_10_pl, {
   progress10 <- shiny::Progress$new()
   on.exit(progress10$close())
   progress10$set(message = "waiting", value = 0)
@@ -148,7 +148,7 @@ observeEvent(input$img_10, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_11, {
+observeEvent(input$img_11_pl, {
   progress11 <- shiny::Progress$new()
   on.exit(progress11$close())
   progress11$set(message = "waiting", value = 0)
@@ -163,7 +163,7 @@ observeEvent(input$img_11, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_12, {
+observeEvent(input$img_12_pl, {
   progress12 <- shiny::Progress$new()
   on.exit(progress12$close())
   progress12$set(message = "waiting", value = 0)
@@ -177,7 +177,7 @@ observeEvent(input$img_12, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_13, {
+observeEvent(input$img_13_pl, {
   progress13 <- shiny::Progress$new()
   on.exit(progress13$close())
   progress13$set(message = "waiting", value = 0)
@@ -191,7 +191,7 @@ observeEvent(input$img_13, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_14, {
+observeEvent(input$img_14_pl, {
   progress14 <- shiny::Progress$new()
   on.exit(progress14$close())
   progress14$set(message = "waiting", value = 0)
@@ -205,7 +205,7 @@ observeEvent(input$img_14, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_15, {
+observeEvent(input$img_15_pl, {
   progress15 <- shiny::Progress$new()
   on.exit(progress15$close())
   progress15$set(message = "waiting", value = 0)
@@ -219,7 +219,7 @@ observeEvent(input$img_15, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_16, {
+observeEvent(input$img_16_pl, {
   progress16 <- shiny::Progress$new()
   on.exit(progress16$close())
   progress16$set(message = "waiting", value = 0)
@@ -233,7 +233,7 @@ observeEvent(input$img_16, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_17, {
+observeEvent(input$img_17_pl, {
   progress17 <- shiny::Progress$new()
   on.exit(progress17$close())
   progress17$set(message = "waiting", value = 0)

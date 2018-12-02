@@ -11,7 +11,7 @@ output$countries <- renderUI({
     dplyr::filter(Goal == as.numeric(input$goal))
   
   selectInput("countries", 
-              label = "Choose country",
+              label = i18n$t("Choose region"),
               choices = unique(goal$GeoAreaName),
               selected = unique(goal$GeoAreaName)[2], multiple = TRUE)
   
@@ -25,7 +25,7 @@ output$description <- renderUI({
     dplyr::filter(Goal == as.numeric(input$goal))
   
   selectInput("description", 
-              label = "Choose description",
+              label = i18n$t("Choose topic/indicator"),
               choices = unique(goal$SeriesDescription),
               selected = unique(goal$SeriesDescription)[1])
 })
