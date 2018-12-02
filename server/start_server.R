@@ -8,7 +8,7 @@ observeEvent(input$img_1, {
     updateTabsetPanel(session, "navbar",
                       selected = "Education")
     updateSelectInput(session = session, "goal", selected = 1) 
-    progress1$inc(1/n, detail = "zerrro", i)
+    progress1$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
   }
 })
@@ -23,7 +23,7 @@ observeEvent(input$img_2, {
                       selected = "Education")
     updateSelectInput(session = session, "goal", selected = 2) 
     
-    progress2$inc(1/n, detail = "cos tammmm", i)
+    progress2$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
   }
 })
