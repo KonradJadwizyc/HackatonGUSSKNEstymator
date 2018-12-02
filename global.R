@@ -11,3 +11,5 @@ library(plotly)
 library(shinyjs)
 
 My_SDG <- My_SDG
+
+My_SDG$Value <- as.numeric((My_SDG$Value))
