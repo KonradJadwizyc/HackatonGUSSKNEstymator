@@ -6,7 +6,7 @@ observeEvent(input$img_1_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 1) 
     progress1$inc(1/n, detail = "zerrro", i)
     Sys.sleep(0.1)
@@ -20,7 +20,7 @@ observeEvent(input$img_2_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 2) 
     
     progress2$inc(1/n, detail = "cos tammmm", i)
@@ -36,7 +36,7 @@ observeEvent(input$img_3_pl, {
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 3) 
     
     progress3$inc(1/n, detail = "loading", i)
@@ -51,7 +51,7 @@ observeEvent(input$img_4_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 4) 
     progress4$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -65,7 +65,7 @@ observeEvent(input$img_5_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 5) 
     progress5$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -80,7 +80,7 @@ observeEvent(input$img_6_pl, {
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 6) 
     
     progress6$inc(1/n, detail = "loading", i)
@@ -96,7 +96,7 @@ observeEvent(input$img_7_pl, {
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 7) 
     
     progress7$inc(1/n, detail = "loading", i)
@@ -111,7 +111,7 @@ observeEvent(input$img_8_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 8) 
     
     progress8$inc(1/n, detail = "loading", i)
@@ -126,7 +126,7 @@ observeEvent(input$img_9_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 9) 
     
     progress9$inc(1/n, detail = "loading", i)
@@ -141,7 +141,7 @@ observeEvent(input$img_10_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 10) 
     
     progress10$inc(1/n, detail = "loading", i)
@@ -156,7 +156,7 @@ observeEvent(input$img_11_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 11) 
     
     progress11$inc(1/n, detail = "loading", i)
@@ -171,7 +171,7 @@ observeEvent(input$img_12_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 12) 
     progress12$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -185,7 +185,7 @@ observeEvent(input$img_13_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 13) 
     progress13$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -199,7 +199,7 @@ observeEvent(input$img_14_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 14) 
     progress14$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -213,7 +213,7 @@ observeEvent(input$img_15_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 15) 
     progress15$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -227,7 +227,7 @@ observeEvent(input$img_16_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 16) 
     progress16$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -241,7 +241,7 @@ observeEvent(input$img_17_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Education")
+                      selected = "Edukacja")
     updateSelectInput(session = session, "goal", selected = 17) 
     progress17$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
