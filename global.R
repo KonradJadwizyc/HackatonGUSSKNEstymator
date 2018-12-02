@@ -21,4 +21,5 @@ pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
 
 # save(pyt, file="pytania.RData")
 
-
+i18n <- Translator$new(translation_csvs_path = "data")
+i18n$set_translation_language("pl")

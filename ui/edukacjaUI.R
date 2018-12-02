@@ -6,7 +6,7 @@ sidebarLayout(
     div(id = "upper_panel",
         style="text-align: center;",
         selectInput("goal", 
-                    label = "Choose goal",
+                    label = i18n$t("Choose goal you want to see"),
                     choices = c("No poverty" = 1,
                                 "Zero hunger" = 2,
                                 "Good health and well-being" = 3,
@@ -32,19 +32,19 @@ sidebarLayout(
         
         radioButtons(
           inputId = "chartType",
-          label = "Choose chart type!",
+          label = i18n$t("Choose chart type!"),
           choices = c("line","bar","scatter"),
           selected = "line"
           
         )),
     
     actionButton("add_my_page", 
-                 "Add this plot to your page"),
+                 i18n$t("Add this plot to your page")),
     br(),
     br(),
     
     actionButton("add_to_quiz", 
-                 "Add this chart to quiz")
+                 i18n$t("Add this chart to quiz"))
   ),    
   
   

@@ -1,4 +1,4 @@
-observeEvent(input$img_1, {
+observeEvent(input$img_1_pl, {
   progress1 <- shiny::Progress$new()
   on.exit(progress1$close())
   progress1$set(message = "waiting", value = 0)
@@ -12,7 +12,7 @@ observeEvent(input$img_1, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_2, {
+observeEvent(input$img_2_pl, {
   progress2 <- shiny::Progress$new()
   on.exit(progress2$close())
   progress2$set(message = "waiting", value = 0)
@@ -27,7 +27,7 @@ observeEvent(input$img_2, {
     Sys.sleep(0.1)
   }
 })
-observeEvent(input$img_3, {
+observeEvent(input$img_3_pl, {
   progress3 <- shiny::Progress$new()
   on.exit(progress3$close())
   progress3$set(message = "waiting", value = 0)
