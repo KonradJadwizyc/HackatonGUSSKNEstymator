@@ -30,25 +30,6 @@ output$description <- renderUI({
               selected = unique(goal$SeriesDescription)[1])
 })
 
-# output$group <- renderUI({
-#   
-#   goal <- My_SDG %>%
-#     dplyr::filter(Goal == as.numeric(input$goal))
-#  
-#   selectInput("group",
-#               label = "Group by:")
-#   
-# })
-# 
-# output$group2 <- renderUI({
-#   
-#   goal <- My_SDG %>% 
-#     dplyr::filter(Goal == as.numeric(input$goal))
-#   
-#   selectInput("group2",
-#               label = "Group by:")
-# })
-
 
 output$plot_inter <- renderPlotly({
   
@@ -56,8 +37,6 @@ output$plot_inter <- renderPlotly({
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)
-                  #X.Age. == input$group,
-                  #X.Sex. == input$group2) %>% group_by(X.Age.)
   
   plotly::plot_ly(data = seria,
                   y = ~Value,
@@ -77,8 +56,6 @@ output$plot_bar_inter <- renderPlotly({
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)#
-                  #X.Age. == input$group,
-                  #X.Sex. == input$group2) %>% group_by(X.Age.)
  
   
   plotly::plot_ly(data = seria_2,

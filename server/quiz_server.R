@@ -69,8 +69,13 @@ observeEvent(input$answer, {
       }
     }
   } else {
-    showModal(modalDialog("abc"))
-  }
+    showModal(modalDialog("All questions from this category were used. Congratulations!"))
+    updateRadioButtons(session = session,
+                       input = "radiopyt",
+                       label =  "All questions used",
+                       choices = c("Pick another lvl")
+                       )
+    }
 })
 
 usuwanie <- reactive({
