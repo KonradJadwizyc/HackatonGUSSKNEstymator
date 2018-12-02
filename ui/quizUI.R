@@ -1,48 +1,31 @@
+#i18n$t
+
 sidebarLayout(
   sidebarPanel (width = 4,
                 wellPanel(
-                  h3("Difficult lvl:"),
-                  checkboxInput(inputId = "easy",
-                                label = "Easy",
-                                value = TRUE),
-                  
-                  checkboxInput(inputId = "medium",
-                                label = "Medium",
-                                value = FALSE),
-                  
-                  checkboxInput(inputId = "hard",
-                                label = "Hard",
-                                value = FALSE)
+                  h3(("Difficult lvl:")),
+                  radioButtons(inputId = 'question_lvl', 
+                               label =  NULL, 
+                               choiceNames = c("easy","medium","hard"),
+                               choiceValues = c(1,2,3),
+                               width = "50%")
                 ),
                 wellPanel(
                   checkboxInput(inputId = "exp_gain",
-                                label = "Show exp gain",
+                                label = ("Show exp gain"),
                                 value = FALSE)
-                  
                 )
   ), 
   
-  
-  
   mainPanel(
     
-    img(src = "wykres_interaktywny_fejsbuk.png", height = '300px', width = '98%'), 
-    div(textOutput("question"), style="text-align: center;"),
-    br(),
-    actionButton("answer_1", "France", width = "49%"),
-    actionButton("answer_2", "Germany", width = "49%"),
-    br(),
-    br(),
-    actionButton("answer_3", "Poland", width = "49%"),
-    actionButton("answer_4", "USA", width = "49%"),
-    br(),
-    br(),
-    br(),
+    htmlOutput(outputId = "obrazek"),
+    htmlOutput(outputId = "pytanie"),
+    actionButton(inputId = "answer", label = ("ANSWER"), width = "50%"),
     div(textOutput("answer"), style="text-align: center;"),
     div(textOutput("count_test"), style="text-align: center;"),
     div(textOutput("answer_xp"), style="text-align: center;"),
-    div(textOutput("hint"), style="text-align: center;")
-    
+    div(textOutput("count_test_xp"), style="text-align: center;"),
+    htmlOutput(outputId = "usuwanie")
   )
-  
 )

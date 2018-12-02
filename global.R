@@ -15,7 +15,7 @@ My_SDG <- readRDS("My_SDG")
 
 My_SDG$Value <- as.numeric((My_SDG$Value))
 
-pyt <- read.xlsx(xlsxFile = "Pytania.xlsx", 
+pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
                  colNames = TRUE) %>%
   mutate(praw=as.logical(praw))
 
