@@ -1,5 +1,9 @@
 sidebarLayout(
   sidebarPanel(
+    tags$style(type="text/css",
+               ".shiny-output-error { visibility: hidden; }",
+               ".shiny-output-error:before { visibility: hidden; }"
+    ),
     div(id = "panel",
         style="text-align: center;",
         h4(textOutput("modalName"))),
@@ -24,6 +28,7 @@ sidebarLayout(
                                 "Life on land" = 15,
                                 "Peace, justice and strong institutions" = 16,
                                 "Partnership for the goals" = 17),
+                    selected = 1,
                     multiple = TRUE),
         
         
@@ -43,8 +48,8 @@ sidebarLayout(
     br(),
     br(),
     
-    actionButton("add_to_quiz", 
-                 "Add this chart to quiz")
+    actionButton("save", "Add this chart to quiz")
+    
   ),    
   
   
