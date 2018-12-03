@@ -1,9 +1,11 @@
 observeEvent(input$add_my_page, {
   alert("You can download this chart ;) Just point mouse at the top of the chart and pick camera icon. ")
 })
-
+ # przypisanie wartości pustej i dodawanie numeru do zapisu wykresu
 plot <- reactiveValues(plot = NULL, numer = 1)
 
+
+# wybór opisów do listy rozwijanej na podstawie wybranego celu
 output$description <- renderUI({
   
   goal <- My_SDG %>%
@@ -14,7 +16,7 @@ output$description <- renderUI({
               choices = unique(goal$SeriesDescription),
               selected = unique(goal$SeriesDescription)[1])
 })
-
+# wybór krajów do listy rozwijanej na podstawie wybranego celu
 output$countries <- renderUI({
   
   goal <- My_SDG %>%
@@ -76,7 +78,7 @@ output$plot_inter <- renderPlotly({
   p
   
 })
-
+# funkcja która ma zapisywać wykres do bazy danych wykresów które będą dodane do quizu
 output$save <- downloadHandler(
   
   if(!is.null(plot$plot)){
@@ -93,6 +95,7 @@ output$save <- downloadHandler(
   
 )
 
+ # wyświetlenie u Ui wykresó wybranych przez użytkownika 
 output$plot_bar_inter <- renderPlotly({
 
   seria_2 <- My_SDG %>% 
