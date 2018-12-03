@@ -58,8 +58,7 @@ output$plot_inter <- renderPlotly({
   seria <- My_SDG %>%
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
-                  SeriesDescription == input$description) %>%
-    mutate(Value = Value*0.001)
+                  SeriesDescription == input$description)
   
                   #X.Age. == input$group,
                   #X.Sex. == input$group2) %>% group_by(X.Age.)
@@ -90,7 +89,7 @@ output$save <- downloadHandler(
     
     i <- plot$numer
     
-    plotly::export(p, file = paste0("plot/imgtest",i,".png"))
+    save(p, file = paste0("plot/imgtest",i,".RData"))
     
     plot$numer <- i + 1
   }

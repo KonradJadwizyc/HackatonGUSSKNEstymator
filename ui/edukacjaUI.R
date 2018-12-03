@@ -48,7 +48,7 @@ sidebarLayout(
     br(),
     br(),
     
-    downloadButton("save", "Add this chart to quiz")
+    actionButton("save", "Add this chart to quiz")
     
   ),    
   

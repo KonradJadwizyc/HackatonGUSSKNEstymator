@@ -11,8 +11,14 @@ library(plotly)
 library(shinyjs)
 library(openxlsx)
 
+# My_SDG <- read.csv("SDG.csv", sep = ",", dec=".")
+# 
+# My_SDG <- My_SDG %>%
+#   mutate(Value=as.numeric(levels(Value))[Value])
+# 
+# saveRDS(My_SDG, file = "My_SDG.rds")
 
-My_SDG <- readRDS("My_SDG")
+My_SDG <- readRDS("My_SDG.rds")
 
 My_SDG$Value <- as.numeric((My_SDG$Value))
 
