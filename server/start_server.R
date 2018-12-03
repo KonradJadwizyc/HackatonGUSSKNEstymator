@@ -1,4 +1,5 @@
 observeEvent(input$img_1_pl, {
+  # wskakujące okienko ładowania 
   progress1 <- shiny::Progress$new()
   on.exit(progress1$close())
   progress1$set(message = "waiting", value = 0)
@@ -7,6 +8,7 @@ observeEvent(input$img_1_pl, {
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
                       selected = "Edukacja")
+    # ładowanie danych z danego celu po kliknieciu w kafelek tak samo dal wszystkich funkcji poniżej
     updateSelectInput(session = session, "goal", selected = 1) 
     progress1$inc(1/n, detail = "zerrro", i)
     Sys.sleep(0.1)

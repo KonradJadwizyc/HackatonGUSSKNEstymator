@@ -6,7 +6,9 @@ sidebarLayout(
     div(id = "upper_panel",
         style="text-align: center;",
         selectInput("goal", 
+                    # wybieranie celu zrównoważonego rozwoju
                     label = i18n$t("Choose goal you want to see"),
+                    # wczytanie danych po kliknieciu na kafelek z celem
                     choices = c("No poverty" = 1,
                                 "Zero hunger" = 2,
                                 "Good health and well-being" = 3,
@@ -24,25 +26,28 @@ sidebarLayout(
                                 "Life on land" = 15,
                                 "Peace, justice and strong institutions" = 16,
                                 "Partnership for the goals" = 17),
+                    # dzięki true można dodawac kolejne graje
                     multiple = TRUE),
         
-        
+        # wyświetlanie opisu
         uiOutput("description"),
+        # wyswietlenie kraju
         uiOutput("countries"),
         
         radioButtons(
+          # przyciski do wyboru wykresu
           inputId = "chartType",
           label = i18n$t("Choose chart type!"),
           choices = c("line","bar","scatter"),
           selected = "line"
           
         )),
-    
+    # wyswietlenie informacji o zapisie wykresu
     actionButton("add_my_page", 
                  i18n$t("Add this plot to your page")),
     br(),
     br(),
-    
+    # przycisk zapisu wykresu na zwenętrzny serwer potrzebna zewnętrzna baza danych
     actionButton("add_to_quiz", 
                  i18n$t("Add this chart to quiz"))
   ),    
@@ -51,20 +56,20 @@ sidebarLayout(
   
   
   mainPanel(
-               conditionalPanel(
-                 condition = "input.chartType == 'line'",
-                 plotlyOutput("plot_inter")
-               ),
-               conditionalPanel(
-                 condition = "input.chartType == 'bar'",
-                 plotlyOutput("plot_bar_inter")
-               ),
-               conditionalPanel(
-                 condition = "input.chartType == 'scatter'",
-                 plotlyOutput("plot_scatter_inter")
-               )
-      
+    # miejsce wyświetlenia wyboru wykresu 
+    conditionalPanel(
+      condition = "input.chartType == 'line'",
+      plotlyOutput("plot_inter")
+    ),
+    conditionalPanel(
+      condition = "input.chartType == 'bar'",
+      plotlyOutput("plot_bar_inter")
+    ),
+    conditionalPanel(
+      condition = "input.chartType == 'scatter'",
+      plotlyOutput("plot_scatter_inter")
+    )
+    
     
   )
 )
-

@@ -27,12 +27,8 @@ pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
 
 
 
-
 # save(pyt, file="pytania.RData")
-summary(My_SDG)
-My_SDG <- My_SDG %>% filter(Value != "", !is.na(Value),
-                            GeoAreaName != "", !is.na(GeoAreaName))
-summary(My_SDG)
 
-#11284 to są NA
+i18n <- Translator$new(translation_csvs_path = "data")
+i18n$set_translation_language("pl")
 
