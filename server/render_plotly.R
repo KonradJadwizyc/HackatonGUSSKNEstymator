@@ -4,21 +4,6 @@ observeEvent(input$add_my_page, {
 
 plot <- reactiveValues(plot = NULL, numer = 1)
 
-output$countries <- renderUI({
-  
-  
-  goal <- My_SDG %>%
-    dplyr::filter(Goal == as.numeric(input$goal))
-  
-  selectInput("countries", 
-              label = "Choose country",
-              choices = unique(goal$GeoAreaName),
-              selected = unique(goal$GeoAreaName)[2], multiple = TRUE)
-  
-  
-})
-
-
 output$description <- renderUI({
   
   goal <- My_SDG %>%
@@ -29,6 +14,20 @@ output$description <- renderUI({
               choices = unique(goal$SeriesDescription),
               selected = unique(goal$SeriesDescription)[1])
 })
+
+output$countries <- renderUI({
+  
+  goal <- My_SDG %>%
+    dplyr::filter(Goal == as.numeric(input$goal), SeriesDescription == input$description)
+  
+  selectInput("countries", 
+              label = "Choose country",
+              choices = unique(goal$GeoAreaName),
+              selected = unique(goal$GeoAreaName)[2], multiple = TRUE)
+  
+  
+})
+
 
 # output$group <- renderUI({
 #   

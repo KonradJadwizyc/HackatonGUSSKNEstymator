@@ -20,11 +20,14 @@ library(openxlsx)
 
 My_SDG <- readRDS("My_SDG.rds")
 
-My_SDG$Value <- as.numeric((My_SDG$Value))
+# My_SDG %>%
+#   filter(Indicator=="1.1.1", GeoAreaName == "Poland")
 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
                  colNames = TRUE) %>%
   mutate(praw=as.logical(praw))
+
+
 
 # save(pyt, file="pytania.RData")
 
