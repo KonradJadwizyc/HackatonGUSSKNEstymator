@@ -17,7 +17,8 @@ My_SDG$Value <- as.numeric((My_SDG$Value))
 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
                  colNames = TRUE) %>%
-  mutate(praw=as.logical(praw))
+  mutate(praw=as.logical(praw)) %>%
+  mutate(plot_img=as.logical(plot_img))
 
 # save(pyt, file="pytania.RData")
 
