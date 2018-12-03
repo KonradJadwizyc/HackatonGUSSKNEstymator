@@ -65,7 +65,7 @@ observeEvent(input$answer, {
   if(nrow(pyt_rea$nr) > 0){
     #Jezeli uzytkownik zaznaczyl zle, to pokaz mu ze zaznaczyl zle i dodaj zla odpowiedz
     if(!isTRUE(as.logical(input$radiopyt))) {
-      output$answer <- renderText ({"Your answer is wrong."})
+      output$answer <- renderText ({"Twoja odpowiedz jest zla"})
       bad_ans$countervalue <- bad_ans$countervalue + 1
       output$count_test <- renderText ({bad_ans$countervalue})
     } else {
@@ -82,33 +82,33 @@ observeEvent(input$answer, {
       }
       #Warunek wspomagajacy, pozwala po jednym kliknieciu na ostatnie pytanie wyswietlic informacje o koncu pytan, dodatkowo pytanie zmienia sie w informacje (jak i odpowiedzi). Klikanie na answer nic nie zmienia
       if(nrow(pyt_rea$nr) == 0){
-        showModal(modalDialog("All questions from this category were used. Congratulations!"))
+        showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostały uzyte. Gratulacje!")))
         updateRadioButtons(session = session,
                            input = "radiopyt",
-                           label =  "All questions used",
-                           choices = c("Pick another lvl")
+                           label =  i18n$t("Wszystkie pytania uzyte"),
+                           choices = c(i18n$t("Wybierz inny poziom"))
         )
         return
       }
       
       #Wyswietlenie informacji o poprawnosci odpowiedzi. Zbior poprawnych odpowiedzi rosnie po kazdej poprawnej, co mozna sprawdzic w wersji testowej
-      output$answer <- renderText ({"Your answer is correct!"})
+      output$answer <- renderText ({"Twoja odpowiedz jest poprawna"})
       good_ans$countervalue <- good_ans$countervalue + 1
       user_xp$countervalue <- user_xp$countervalue + 50
       output$count_test <- renderText ({good_ans$countervalue})
       #Jezeli ktos chce by byl pokazywany exp to wyswietli sie informacja 
       if (input$exp_gain) {
-        output$answer_xp <- renderText ({"You gained 50xp!"})
+        output$answer_xp <- renderText ({"Dostales 50xp"})
         output$count_test_xp <- renderText ({user_xp$countervalue})
       }
     }
   } else {
     #ten else jest potrzebny by po kazym kliknieciu na answer pokazywalo sie okno dialogowe
-    showModal(modalDialog("All questions from this category were used. Congratulations!"))
+    showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostały uzyte. Gratulacje!")))
     updateRadioButtons(session = session,
                        input = "radiopyt",
-                       label =  "All questions used",
-                       choices = c("Pick another lvl")
+                       label =  i18n$t("Wszystkie pytania uzyte"),
+                       choices = c(i18n$t("Wybierz inny poziom"))
     )
   }
 })
@@ -140,11 +140,11 @@ observeEvent(input$answer, {
   
   # Pokaz okno dialogowe i zmien radio buttony na koniec quizu 
   if (values$disable) {
-    showModal(modalDialog("You finished quiz! Congratulations!"))
+    showModal(modalDialog(i18n$t("Zakonczyłeś Quiz! Gratulacje")))
     updateRadioButtons(session = session,
                        input = "radiopyt",
-                       label =  "All questions used",
-                       choices = c("support us")
+                       label =  i18n$t("Wszystkie pytania uzyte"),
+                       choices = c("Gratulacje!")
     )
   }
   
