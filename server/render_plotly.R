@@ -1,34 +1,138 @@
-
-
 observeEvent(input$add_my_page, {
   alert("You can download this chart ;) Just point mouse at the top of the chart and pick camera icon. ")
 })
+ # przypisanie wartości pustej i dodawanie numeru do zapisu wykresu
+plot <- reactiveValues(plot = NULL, numer = 1)
 
-data <- read.csv2("data.csv", sep = ",")
-data_manager <- data %>% filter(SeriesDescription == "Proportion of women in managerial positions (%)")
-library(tidyverse)
 
-data_manager <- data_manager[c(7, 8, 9)]
-data_manager$Value <- as.numeric(as.character(data_manager$Value))
-data_poland <- data_manager %>% filter(GeoAreaName == "Poland")
-data_inter <- reactive(
-  data_manager %>% filter(GeoAreaName == input$searchCountry)
+# wybór opisów do listy rozwijanej na podstawie wybranego celu
+output$description <- renderUI({
+  
+  goal <- My_SDG %>%
+    dplyr::filter(Goal == as.numeric(input$goal))
+  
+  selectInput("description", 
+              label = "Choose description",
+              choices = unique(goal$SeriesDescription),
+              selected = unique(goal$SeriesDescription)[1])
+})
+# wybór krajów do listy rozwijanej na podstawie wybranego celu
+output$countries <- renderUI({
+  
+  goal <- My_SDG %>%
+    dplyr::filter(Goal == as.numeric(input$goal), SeriesDescription == input$description)
+  
+  selectInput("countries", 
+              label = "Choose country",
+              choices = unique(goal$GeoAreaName),
+              selected = unique(goal$GeoAreaName)[2], multiple = TRUE)
+  
+  
+})
+
+# output$group <- renderUI({
+#   
+#   goal <- My_SDG %>%
+#     dplyr::filter(Goal == as.numeric(input$goal))
+#  
+#   selectInput("group",
+#               label = "Group by:")
+#   
+# })
+# 
+# output$group2 <- renderUI({
+#   
+#   goal <- My_SDG %>% 
+#     dplyr::filter(Goal == as.numeric(input$goal))
+#   
+#   selectInput("group2",
+#               label = "Group by:")
+# })
+
+output$plot_inter <- renderPlotly({
+  # seria <- My_SDG
+  # if(seria$units == "PERCENT") {
+  #   seria <- My_SDG$Value*0.001
+  # }
+  seria <- My_SDG %>%
+    dplyr::filter(Goal == as.numeric(input$goal),
+                  GeoAreaName %in% input$countries,
+                  SeriesDescription == input$description)
+
+                  #X.Age. == input$group,
+                  #X.Sex. == input$group2) %>% group_by(X.Age.)
+  
+  p <- plotly::plot_ly(data = seria,
+                  y = ~Value,
+                  x = ~TimePeriod,
+                  color = ~GeoAreaName,
+                  type = "scatter",
+                  mode = "lines") %>%
+    layout(title = input$description,
+           xaxis=list(range=c(2000,2018),
+                      title = "Time"),
+           ysxis = list(title = "Value"))
+  
+  plot$plot <- p
+  
+  p
+  
+})
+# funkcja która ma zapisywać wykres do bazy danych wykresów które będą dodane do quizu
+output$save <- downloadHandler(
+  
+  if(!is.null(plot$plot)){
+    
+    p <- plot$plot
+    
+    i <- plot$numer
+    
+    save(p, file = paste0("plot/imgtest",i,".RData"))
+    
+    plot$numer <- i + 1
+  }
+  
+  
 )
 
-output$plot_poland <- renderPlotly(
-  plotly::plot_ly(data_poland, x= ~TimePeriod, y=~Value, type = "scatter", mode = "lines")
-)
+ # wyświetlenie u Ui wykresó wybranych przez użytkownika 
+output$plot_bar_inter <- renderPlotly({
 
-output$plot_inter <- renderPlotly(
-  p <- plot_ly(data = data_inter()) %>%
-    add_lines( x = ~TimePeriod, y = ~Value, color = ~GeoAreaName, mode = "lines", line = list(width = 3))
-)
+  seria_2 <- My_SDG %>% 
+    dplyr::filter(Goal == as.numeric(input$goal),
+                  GeoAreaName %in% input$countries,
+                  SeriesDescription == input$description)#
+ 
+  
+  plotly::plot_ly(data = seria_2,
+                  x = ~TimePeriod,
+                  y = ~Value,
+                  color = ~GeoAreaName,
+                  type = "bar",
+                  mode = "markers") %>% 
+    layout(title = input$description,
+           xaxis=list(range=c(2000,2018),
+                      title = "Time"),
+           ysxis = list(title = "Value")
+    )
+  
+})
 
-output$plot_inter_bar <- renderPlotly(
-  p <- plot_ly(data = data_inter()) %>% 
-    add_trace( x = ~TimePeriod, y = ~Value, color = ~GeoAreaName, type = "bar")
-)
+output$plot_scatter_inter <- renderPlotly({
+  
+  seria_3 <- My_SDG %>% 
+    dplyr::filter(Goal == as.numeric(input$goal), GeoAreaName %in% input$countries, SeriesDescription == input$description)
 
-output$plot_inter_pie <- renderPlotly(
-  p <- plot_ly(data = data_inter(), labels = ~GeoAreaName, values = ~Value, type = "pie")
-)
+     plotly::plot_ly(data = seria_3,
+                  x = ~TimePeriod,
+                  y = ~Value,
+                  color = ~GeoAreaName,
+                  size = ~Value,
+                  type = "scatter",
+                  mode = "markers") %>% 
+    layout(title = input$description,
+           xaxis=list(range=c(2000,2018),
+                      title = "Time"),
+           ysxis = list(title = "Value")
+    )
+})

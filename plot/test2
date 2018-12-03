@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <script type="application/shiny-singletons">b8d79706b067e925accf37c2d5d6cf4524fed520</script>
+  <script type="application/html-dependencies">json2[2014.02.04];jquery[1.12.4];shiny[1.2.0];bootstrap[3.3.7];selectize[0.11.2];font-awesome[5.3.1];htmlwidgets[1.0];plotly-binding[4.7.1]</script>
+<script src="shared/json2-min.js"></script>
+<script src="shared/jquery.min.js"></script>
+<link href="shared/shiny.css" rel="stylesheet" />
+<script src="shared/shiny.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="shared/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="shared/bootstrap/js/bootstrap.min.js"></script>
+<script src="shared/bootstrap/shim/html5shiv.min.js"></script>
+<script src="shared/bootstrap/shim/respond.min.js"></script>
+<link href="shared/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<!--[if lt IE 9]>
+<script src="shared/selectize/js/es5-shim.min.js"></script>
+<![endif]-->
+<script src="shared/selectize/js/selectize.min.js"></script>
+<link href="font-awesome-5.3.1/css/all.min.css" rel="stylesheet" />
+<link href="font-awesome-5.3.1/css/v4-shims.min.css" rel="stylesheet" />
+<script src="htmlwidgets-1.0/htmlwidgets.js"></script>
+<script src="plotly-binding-4.7.1/plotly.js"></script>  <style>.shinyjs-hide { display: none !important; }</style>
+  <script>Shiny.addCustomMessageHandler('shinyjs-show', function(params) { shinyjs.debugMessage('shinyjs: calling function "show" with parameters:'); shinyjs.debugMessage(params); shinyjs.show(params);});
+Shiny.addCustomMessageHandler('shinyjs-hide', function(params) { shinyjs.debugMessage('shinyjs: calling function "hide" with parameters:'); shinyjs.debugMessage(params); shinyjs.hide(params);});
+Shiny.addCustomMessageHandler('shinyjs-toggle', function(params) { shinyjs.debugMessage('shinyjs: calling function "toggle" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggle(params);});
+Shiny.addCustomMessageHandler('shinyjs-enable', function(params) { shinyjs.debugMessage('shinyjs: calling function "enable" with parameters:'); shinyjs.debugMessage(params); shinyjs.enable(params);});
+Shiny.addCustomMessageHandler('shinyjs-disable', function(params) { shinyjs.debugMessage('shinyjs: calling function "disable" with parameters:'); shinyjs.debugMessage(params); shinyjs.disable(params);});
+Shiny.addCustomMessageHandler('shinyjs-toggleState', function(params) { shinyjs.debugMessage('shinyjs: calling function "toggleState" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleState(params);});
+Shiny.addCustomMessageHandler('shinyjs-addClass', function(params) { shinyjs.debugMessage('shinyjs: calling function "addClass" with parameters:'); shinyjs.debugMessage(params); shinyjs.addClass(params);});
+Shiny.addCustomMessageHandler('shinyjs-removeClass', function(params) { shinyjs.debugMessage('shinyjs: calling function "removeClass" with parameters:'); shinyjs.debugMessage(params); shinyjs.removeClass(params);});
+Shiny.addCustomMessageHandler('shinyjs-toggleClass', function(params) { shinyjs.debugMessage('shinyjs: calling function "toggleClass" with parameters:'); shinyjs.debugMessage(params); shinyjs.toggleClass(params);});
+Shiny.addCustomMessageHandler('shinyjs-html', function(params) { shinyjs.debugMessage('shinyjs: calling function "html" with parameters:'); shinyjs.debugMessage(params); shinyjs.html(params);});
+Shiny.addCustomMessageHandler('shinyjs-onevent', function(params) { shinyjs.debugMessage('shinyjs: calling function "onevent" with parameters:'); shinyjs.debugMessage(params); shinyjs.onevent(params);});
+Shiny.addCustomMessageHandler('shinyjs-alert', function(params) { shinyjs.debugMessage('shinyjs: calling function "alert" with parameters:'); shinyjs.debugMessage(params); shinyjs.alert(params);});
+Shiny.addCustomMessageHandler('shinyjs-logjs', function(params) { shinyjs.debugMessage('shinyjs: calling function "logjs" with parameters:'); shinyjs.debugMessage(params); shinyjs.logjs(params);});
+Shiny.addCustomMessageHandler('shinyjs-runjs', function(params) { shinyjs.debugMessage('shinyjs: calling function "runjs" with parameters:'); shinyjs.debugMessage(params); shinyjs.runjs(params);});
+Shiny.addCustomMessageHandler('shinyjs-reset', function(params) { shinyjs.debugMessage('shinyjs: calling function "reset" with parameters:'); shinyjs.debugMessage(params); shinyjs.reset(params);});
+Shiny.addCustomMessageHandler('shinyjs-delay', function(params) { shinyjs.debugMessage('shinyjs: calling function "delay" with parameters:'); shinyjs.debugMessage(params); shinyjs.delay(params);});
+Shiny.addCustomMessageHandler('shinyjs-click', function(params) { shinyjs.debugMessage('shinyjs: calling function "click" with parameters:'); shinyjs.debugMessage(params); shinyjs.click(params);});</script>
+  <script src="shinyjs/shinyjs-default-funcs.js"></script>
+  <script>shinyjs.debug = false;</script>
+  <title>SDG</title>
+  <link rel="stylesheet" type="text/css" href="shinythemes/css/united.min.css"/>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <br/>
+    <br/>
+    <br/>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <span class="navbar-brand">SDG</span>
+        </div>
+        <ul class="nav navbar-nav shiny-tab-input" id="navbar" data-tabsetid="2747">
+          <li class="active">
+            <a href="#tab-2747-1" data-toggle="tab" data-value="Start">Start</a>
+          </li>
+          <li>
+            <a href="#tab-2747-2" data-toggle="tab" data-value="Education">Education</a>
+          </li>
+          <li>
+            <a href="#tab-2747-3" data-toggle="tab" data-value="Quiz">Quiz</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="tab-content" data-tabsetid="2747">
+        <div class="tab-pane active" data-value="Start" id="tab-2747-1">
+          <div class="container-fluid">
+            <a id="img_1" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-01.jpg" width="15%"/>
+            </a>
+            <a id="img_2" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-02.jpg" width="15%"/>
+            </a>
+            <a id="img_3" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-03.jpg" width="15%"/>
+            </a>
+            <a id="img_4" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-04.jpg" width="15%"/>
+            </a>
+            <a id="img_5" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-05.jpg" width="15%"/>
+            </a>
+            <a id="img_6" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-06.jpg" width="15%"/>
+            </a>
+            <a id="img_7" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-07.jpg" width="15%"/>
+            </a>
+            <a id="img_8" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-08.jpg" width="15%"/>
+            </a>
+            <a id="img_9" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-09.jpg" width="15%"/>
+            </a>
+            <a id="img_10" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-10.jpg" width="15%"/>
+            </a>
+            <a id="img_11" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-11.jpg" width="15%"/>
+            </a>
+            <a id="img_12" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-12.jpg" width="15%"/>
+            </a>
+            <a id="img_13" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-13.jpg" width="15%"/>
+            </a>
+            <a id="img_14" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-14.jpg" width="15%"/>
+            </a>
+            <a id="img_15" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-15.jpg" width="15%"/>
+            </a>
+            <a id="img_16" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-16.jpg" width="15%"/>
+            </a>
+            <a id="img_17" href="#" class="action-button">
+              <img src="E_SDG goals_icons-individual-cmyk-17.jpg" width="15%"/>
+            </a>
+            <a id="img_18" href="#" class="action-button">
+              <img src="E_SDG_logo_with_UN_Emblem_square_cmyk.jpg" width="15%"/>
+            </a>
+          </div>
+        </div>
+        <div class="tab-pane" data-value="Education" id="tab-2747-2">
+          <div class="row">
+            <div class="col-sm-4">
+              <form class="well">
+                <div id="panel" style="text-align: center;">
+                  <h4>
+                    <div id="modalName" class="shiny-text-output"></div>
+                  </h4>
+                </div>
+                <div id="upper_panel" style="text-align: center;">
+                  <div class="form-group shiny-input-container">
+                    <label class="control-label" for="goal">Choose goal</label>
+                    <div>
+                      <select id="goal" multiple="multiple"><option value="1">No poverty</option>
+<option value="2">Zero hunger</option>
+<option value="3">Good health and well-being</option>
+<option value="4">Quality education</option>
+<option value="5">Gender equality</option>
+<option value="6">Clean water and sanitation</option>
+<option value="7">Affordable and clean energy</option>
+<option value="8">Decent work and economic growth</option>
+<option value="9">Industry, innovation and infrastructure</option>
+<option value="10">Reduced inequality</option>
+<option value="11">Sustainable cities and communities</option>
+<option value="12">Responsible consumption and production</option>
+<option value="13">Climate action</option>
+<option value="14">Life below water</option>
+<option value="15">Life on land</option>
+<option value="16">Peace, justice and strong institutions</option>
+<option value="17">Partnership for the goals</option></select>
+                      <script type="application/json" data-for="goal">{}</script>
+                    </div>
+                  </div>
+                  <div id="description" class="shiny-html-output"></div>
+                  <div id="countries" class="shiny-html-output"></div>
+                  <div id="chartType" class="form-group shiny-input-radiogroup shiny-input-container">
+                    <label class="control-label" for="chartType">Choose chart type!</label>
+                    <div class="shiny-options-group">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="chartType" value="line" checked="checked"/>
+                          <span>line</span>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="chartType" value="bar"/>
+                          <span>bar</span>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="chartType" value="scatter"/>
+                          <span>scatter</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button id="add_my_page" type="button" class="btn btn-default action-button">Add this plot to your page</button>
+                <br/>
+                <br/>
+                <a id="download" class="btn btn-default shiny-download-link " href="" target="_blank" download>
+                  <i class="fa fa-download"></i>
+                  Add this chart to quiz
+                </a>
+              </form>
+            </div>
+            <div class="col-sm-8">
+              <div data-display-if="input.chartType == &#39;line&#39;" data-ns-prefix="">
+                <div id="plot_inter" style="width:100%; height:400px; " class="plotly html-widget html-widget-output"></div>
+              </div>
+              <div data-display-if="input.chartType == &#39;bar&#39;" data-ns-prefix="">
+                <div id="plot_bar_inter" style="width:100%; height:400px; " class="plotly html-widget html-widget-output"></div>
+              </div>
+              <div data-display-if="input.chartType == &#39;scatter&#39;" data-ns-prefix="">
+                <div id="plot_scatter_inter" style="width:100%; height:400px; " class="plotly html-widget html-widget-output"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" data-value="Quiz" id="tab-2747-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <form class="well">
+                <div class="well">
+                  <h3>Difficult lvl:</h3>
+                  <div id="question_lvl" style="width: 50%;" class="form-group shiny-input-radiogroup shiny-input-container">
+                    <div class="shiny-options-group">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="question_lvl" value="1" checked="checked"/>
+                          <span>easy</span>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="question_lvl" value="2"/>
+                          <span>medium</span>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="question_lvl" value="3"/>
+                          <span>hard</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="well">
+                  <div class="form-group shiny-input-container">
+                    <div class="checkbox">
+                      <label>
+                        <input id="exp_gain" type="checkbox"/>
+                        <span>Show exp gain</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-sm-8">
+              <div id="obrazek" class="shiny-html-output"></div>
+              <div id="pytanie" class="shiny-html-output"></div>
+              <button id="answer" style="width: 50%;" type="button" class="btn btn-default action-button">ANSWER</button>
+              <div style="text-align: center;">
+                <div id="answer" class="shiny-text-output"></div>
+              </div>
+              <div style="text-align: center;">
+                <div id="count_test" class="shiny-text-output"></div>
+              </div>
+              <div style="text-align: center;">
+                <div id="answer_xp" class="shiny-text-output"></div>
+              </div>
+              <div style="text-align: center;">
+                <div id="count_test_xp" class="shiny-text-output"></div>
+              </div>
+              <div id="usuwanie" class="shiny-html-output"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,93 +1,75 @@
-data <- read.csv2("data.csv", sep = ",")
-data_manager <- data %>% filter(SeriesDescription == "Proportion of women in managerial positions (%)")
 sidebarLayout(
   sidebarPanel(
+    tags$style(type="text/css",
+               ".shiny-output-error { visibility: hidden; }",
+               ".shiny-output-error:before { visibility: hidden; }"
+    ),
     div(id = "panel",
         style="text-align: center;",
         h4(textOutput("modalName"))),
     div(id = "upper_panel",
         style="text-align: center;",
-        selectInput(
-          inputId = "data_panel",
-          
-          label = "Choose data you want to see!",
-          
-          choices = (c("No poverty", "Zero hunger", "Good health and well-being",  
-                       'Quality education', 'Gender equality', 
-                       'Clean water and sanitation', 'Affordable and clean energy', 
-                       'Decent work and economic growth', 
-                       'Industry, innovation and infrastructure', 'Reduced inequality', 
-                       'Sustainable cities and communities', 
-                       'Responsible consumption and production', 'Climate action', 
-                       'Life below water', 'Life on land',  
-                       'Peace,  justice and strong institutions', 
-                       'Partnership for the goals'))
-          #selected = "Gender equality"
-        )),
-    
-    div(id = 'hidden_part',
-        style="text-align: center;",
-        #uiOutput("searchPriceUI"),
-        selectizeInput(
-          inputId = "searchCountry",
-          label = "Choose countries to compare:",
-          choices = c(as.character(unique(data_manager$GeoAreaName))),
-          multiple = TRUE,
-          selected = "Poland",
-          options = list(maxItems = 5,
-                         placeholder = "Choose countries (max. 5)")
-        ),
+        selectInput("goal", 
+                    label = "Choose goal",
+                    choices = c("No poverty" = 1,
+                                "Zero hunger" = 2,
+                                "Good health and well-being" = 3,
+                                "Quality education" = 4,
+                                "Gender equality" = 5,
+                                "Clean water and sanitation" = 6,
+                                "Affordable and clean energy" = 7,
+                                "Decent work and economic growth" = 8,
+                                "Industry, innovation and infrastructure" = 9,
+                                "Reduced inequality" = 10,
+                                "Sustainable cities and communities" = 11,
+                                "Responsible consumption and production" = 12,
+                                "Climate action" = 13,
+                                "Life below water" = 14,
+                                "Life on land" = 15,
+                                "Peace, justice and strong institutions" = 16,
+                                "Partnership for the goals" = 17),
+                    selected = 1,
+                    multiple = TRUE),
         
-        radioButtons(
-          inputId = "Choose_topic",
-          label = "Choose topics interesting for you:",
-          choices = c("% of women in managarial positions", "% of women in government"),
-          selected = NULL
-        ),
+        
+        uiOutput("description"),
+        uiOutput("countries"),
         
         radioButtons(
           inputId = "chartType",
           label = "Choose chart type!",
-          choices = c("bar", "line", "pie"),
+          choices = c("line","bar","scatter"),
           selected = "line"
+          
         )),
-    
     
     actionButton("add_my_page", 
                  "Add this plot to your page"),
-    
     br(),
     br(),
     
-    actionButton("add_to_quiz", 
-                 "Add this chart to quiz")
+    actionButton("save", "Add this chart to quiz")
     
-    
-    
-  ),
+  ),    
+  
+  
   
   
   mainPanel(
-    tabsetPanel(
-      tabPanel("Other countries",
                conditionalPanel(
                  condition = "input.chartType == 'line'",
                  plotlyOutput("plot_inter")
                ),
                conditionalPanel(
                  condition = "input.chartType == 'bar'",
-                 plotlyOutput("plot_inter_bar")
+                 plotlyOutput("plot_bar_inter")
                ),
                conditionalPanel(
-                 condition = "input.chartType == 'pie'",
-                 plotlyOutput("plot_inter_pie")
+                 condition = "input.chartType == 'scatter'",
+                 plotlyOutput("plot_scatter_inter")
                )
-      ),
-      tabPanel(
-        "Poland",
-        plotlyOutput("plot_poland")
-      )
       
-    )
+    
   )
 )
+
