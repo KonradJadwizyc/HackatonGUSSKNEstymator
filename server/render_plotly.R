@@ -1,27 +1,28 @@
 observeEvent(input$add_my_page, {
   alert("You can download this chart ;) Just point mouse at the top of the chart and pick camera icon. ")
 })
- # przypisanie wartości pustej i dodawanie numeru do zapisu wykresu
+ # assigning an empty value and adding a number to write the chart
 plot <- reactiveValues(plot = NULL, numer = 1)
 
 
-# wybór opisów do listy rozwijanej na podstawie wybranego celu
+# selection of descriptions to the drop-down list based on the selected goal
 output$description <- renderUI({
-  
+  # choos goal 
   goal <- My_SDG %>%
     dplyr::filter(Goal == as.numeric(input$goal))
-  
+  # choose description goal
   selectInput("description", 
               label = "Choose description",
               choices = unique(goal$SeriesDescription),
               selected = unique(goal$SeriesDescription)[1])
 })
-# wybór krajów do listy rozwijanej na podstawie wybranego celu
+# selection of countries to the drop-down list based on the selected goal
 output$countries <- renderUI({
   
+  # choose countri if is description 
   goal <- My_SDG %>%
     dplyr::filter(Goal == as.numeric(input$goal), SeriesDescription == input$description)
-  
+  # choose country to the drop-down list
   selectInput("countries", 
               label = "Choose country",
               choices = unique(goal$GeoAreaName),
@@ -30,38 +31,17 @@ output$countries <- renderUI({
   
 })
 
-# output$group <- renderUI({
-#   
-#   goal <- My_SDG %>%
-#     dplyr::filter(Goal == as.numeric(input$goal))
-#  
-#   selectInput("group",
-#               label = "Group by:")
-#   
-# })
-# 
-# output$group2 <- renderUI({
-#   
-#   goal <- My_SDG %>% 
-#     dplyr::filter(Goal == as.numeric(input$goal))
-#   
-#   selectInput("group2",
-#               label = "Group by:")
-# })
+
 
 output$plot_inter <- renderPlotly({
-  # seria <- My_SDG
-  # if(seria$units == "PERCENT") {
-  #   seria <- My_SDG$Value*0.001
-  # }
+ 
+  # filter data to plot
   seria <- My_SDG %>%
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)
 
-                  #X.Age. == input$group,
-                  #X.Sex. == input$group2) %>% group_by(X.Age.)
-  
+  # create plotly chart
   p <- plotly::plot_ly(data = seria,
                   y = ~Value,
                   x = ~TimePeriod,
@@ -73,12 +53,13 @@ output$plot_inter <- renderPlotly({
                       title = "Time"),
            ysxis = list(title = "Value"))
   
+  # translating the variable into the chartues
   plot$plot <- p
   
   p
   
 })
-# funkcja która ma zapisywać wykres do bazy danych wykresów które będą dodane do quizu
+# function to save img chart to database 
 output$save <- downloadHandler(
   
   if(!is.null(plot$plot)){
@@ -95,9 +76,9 @@ output$save <- downloadHandler(
   
 )
 
- # wyświetlenie u Ui wykresó wybranych przez użytkownika 
+ # display of user-selected graphs at Ui
 output$plot_bar_inter <- renderPlotly({
-
+# filtr data to create line plot
   seria_2 <- My_SDG %>% 
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,

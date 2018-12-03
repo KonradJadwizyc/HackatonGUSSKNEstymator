@@ -15,6 +15,7 @@ library(openxlsx)
 #   mutate(Value=as.numeric(levels(Value))[Value])
 # saveRDS(My_SDG, file = "My_SDG.rds")
 
+#load datadase
 My_SDG <- readRDS("My_SDG.rds")
 
 # My_SDG %>%

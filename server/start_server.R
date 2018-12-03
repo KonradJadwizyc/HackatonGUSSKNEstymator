@@ -1,12 +1,14 @@
 
 
 observeEvent(input$img_1, {
+  # add waiting panel 
   progress1 <- shiny::Progress$new()
   on.exit(progress1$close())
   progress1$set(message = "waiting", value = 0)
-  
+  # load session and education tabpanel
   updateTabsetPanel(session, "navbar",
                     selected = "Education")
+  # load data if clik goal image  and this same to all function at the bottom
   updateSelectInput(session = session, "goal", selected = 1) 
   
   n <- 5 
