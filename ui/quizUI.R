@@ -1,11 +1,10 @@
 
-
-#dodanie lewego paska (menu na karcie quiz) i zmiana szerokości
+#added left menu on quiz tabpanel. Width was changed.
 sidebarLayout(
   sidebarPanel (width = 4,
-                #Dodanie ramek oddzielających od siebie odpowiednie elementy widoczne przez uzytkownika
+                 #Added frame that separet 2 elements which user see (chosing question lvl and showin exp gain)
                 wellPanel(
-                  #Dodanie radio buttonow z wyborem poziomu trudnosci, zmiana jego szerokości.
+                  #Adding radio buttons, which held the difficult lvl, with changed width.
                   h3(("Difficult lvl:")),
                   radioButtons(inputId = 'question_lvl', 
                                label =  NULL, 
@@ -13,7 +12,7 @@ sidebarLayout(
                                choiceValues = c(1,2,3),
                                width = "50%")
                 ),
-                #Dodanie w ramce inputu na pokazywanie poziomu expa, klikniecie go jest opcjonalne
+                #Adding input that enables to show exp lvl. Clicking it is optional for user.
                 wellPanel(
                   checkboxInput(inputId = "exp_gain",
                                 label = ("Show exp gain"),
@@ -21,22 +20,22 @@ sidebarLayout(
                 )
   ), 
   
-  #sekcja mieszczaca sie na glownej stronie
+  #Main page section
   mainPanel(
     
-    #Pole dla obrazu
+    #Field for img
     div(htmlOutput(outputId = "obrazek"), style="text-align: center;"),
-    #Pole dla pytania
+    #Field for question (basicly for radion buttons)
     div(htmlOutput(outputId = "pytanie"), style="text-align: center;"),
-    #Dodanie action buttona, odpowiadajacego za odpowiedzi
+    #Add action button, that commits answers
     div(actionButton(inputId = "answer", label = ("ANSWER"), width = "50%"), style="text-align: center;"),
-    #Wyswietlenie informacji o poprawnosci odpowiedzi 
+    #Showin info about picking correct answer
     div(textOutput("answer"), style="text-align: center;"),
-    #Tester, ktory pokazuje, ze zliczanie dziala - w wersji ostatecznej do wyrzucenia (zakomentowania - przyda sie przy testowaniu czy wszystko chodzi)
+    #For testing that counting good and bad answer works. Comment it in official version, but it;s usefull for working on app (if you wanna upgrade it)
     div(textOutput("count_test"), style="text-align: center;"),
-    #Pokazywanie ile xp daje dana odpowiedz
+    #showing exp for certain answer.
     div(textOutput("answer_xp"), style="text-align: center;"),
-    # Tet pokazujacy, ze system zlicza expa zdobytego przez danego uzytkownika 
+    # Testing amount of exp that user held. 
     div(textOutput("count_test_xp"), style="text-align: center;")
   )
 )
