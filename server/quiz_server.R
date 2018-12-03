@@ -1,57 +1,58 @@
-#Stworzenie 3 licznikow - zbieraczy danych, przechowuja zle odp, dobre odp i poziom expa
+#Creating 3 counters - collecting datas - bad answers, good answers and exp lvl 
 bad_ans <- reactiveValues(countervalue = 0)
 good_ans <- reactiveValues(countervalue = 0)
 user_xp <- reactiveValues(countervalue = 0)
 
-#obserwator sprawdzajacy czy uzytkownik decyduje sie na pokazanie expa 
+# Observ that checks if user wants to show exp to him
 observe({
   toggle(id = "count_test_xp", condition = input$exp_gain)
   toggle(id = "answer_xp", condition = input$exp_gain)
 })
 
-#Stworzenie reaktywnej tabeli z pobranymi z pliku pytaniami (pobrane w globalu z pliku excel)
+#Creating reactive table with datas downloaded from file with questions (downloaded in global from excel file)
 pyt_rea <- reactiveValues(dfWorking = pyt, 
                           wylosowane = NULL, 
                           nr = NULL, 
                           poziomy = c(4,2,1))
 
 
-#funckja odpowiedzialna za losowanie pytan ze zbioru 
+
+#Function that draws question 
 losowanie <- reactive({
-  #warunek sprawdzajacy czy w zbiorze jest jeszcze co losowac 
+  #Condition that checks if it's something to draw in data frame
   if(nrow(pyt_rea$dfWorking) > 0){
-    #Filtorwanie zgodnie z wybranym przez uzytkownika poziomem trudnosci
+    #Filtering with picked difficulto lvl 
     pyt_nr <- pyt_rea$dfWorking %>% 
               filter(poz_trud == as.numeric(input$question_lvl)) 
-    #Sprawdzenie czy jest mozliwe losowanie
+    # Checks if drawing is possible
     if(nrow(pyt_nr) > 0){
-      #Wylosowanie jednego nr pytania na liscie 
+      #Draw one number of question from list
       pyt_nr <- pyt_nr %>%
                 sample_n(1) %>%
                 select(nr)
       
-      #Wyfiltorwanie wybranego nr pytania z listy wszystkich pytan i zapisanie w zmiennej
+      #Filter picked question based on question nr (from frame of all question), then save it to variable
       pyt_fil <- pyt_rea$dfWorking %>%
                  filter(nr == pyt_nr$nr)
       
-      #dodane wysolowanego pytania do utworzonej wczesniej reaktywnej tabeli
+      #Adding draw question to created reactive table
       pyt_rea$wylosowane <- pyt_fil
     }
-    #Przypisanie aktualnie posiadanego nr pytania
+    #adding actual number of question - important for removing questions from data base
     pyt_rea$nr <- pyt_nr
   } 
 })
 
-#Renderowanie obrazka, ktory jest przypisany do pytania w bazie danych 
+# Render img, that is connected with question in data base
 output$obrazek <- renderUI ({
   img(src = pyt_rea$wylosowane$img_src[1], width="400px", height="250px")
 })
 
-#Render pola, w ktorym wyswietla sie grupa buttonow z pytaniem.
+#Render field that shows radio buttons
 output$pytanie <- renderUI ({
-  #zastosowanie napisanej funkcji na losowanie
+  #Using function for drawing (created earlier)
   losowanie()
-  #Stworzenie buttonow. tytulem jest tres pytania, odpowiedzi wyswietlane uzytkownikowi to teksty, za to wartosci pod nimi to argumenty logiczne (falsze i jedna prawda)
+   #Creating radio buttons, title of radio button is question, anserwer that are showed to user are string, but values are logical arguments 
   div(radioButtons(inputId = 'radiopyt', 
                label =  pyt_rea$wylosowane$pytanie[1], 
                choiceNames = pyt_rea$wylosowane$odp,
@@ -59,19 +60,20 @@ output$pytanie <- renderUI ({
                width = "100%"), style="text-align: center;")
 })
 
-#Co sie stanie po kliknieciu przysiku z odpwoiedzia 
+
+#What happens after clicling on answer action button
 observeEvent(input$answer, {
-  #Sprawdzenie czy jeszcze pozostaly jakies pytania 
+  #Checks if any questions are left.
   if(nrow(pyt_rea$nr) > 0){
-    #Jezeli uzytkownik zaznaczyl zle, to pokaz mu ze zaznaczyl zle i dodaj zla odpowiedz
+    #If useres picked wrong answer it shows him that is's bad, and adds answer to counter
     if(!isTRUE(as.logical(input$radiopyt))) {
       output$answer <- renderText ({"Your answer is wrong."})
       bad_ans$countervalue <- bad_ans$countervalue + 1
       output$count_test <- renderText ({bad_ans$countervalue})
     } else {
-      #jezeli uzytonwik zaznaczyl dobrze to usun pytanie
+      #If user picked good answer the delete it from data base
       usuwanie()
-      #Po usunieciu pytania dokonaj ponownego losowanie i wyswietl nowe pytanie na zasadzie poprzedniego
+      #Drawing new question and adding it to radio buttons (update radio buttons)
       if(nrow(pyt_rea$nr) > 0){
         losowanie()
         updateRadioButtons(session = session,
@@ -80,7 +82,7 @@ observeEvent(input$answer, {
                            choiceNames = pyt_rea$wylosowane$odp,
                            choiceValues = pyt_rea$wylosowane$praw)
       }
-      #Warunek wspomagajacy, pozwala po jednym kliknieciu na ostatnie pytanie wyswietlic informacje o koncu pytan, dodatkowo pytanie zmienia sie w informacje (jak i odpowiedzi). Klikanie na answer nic nie zmienia
+      #Conditional that supports function it enables to show modal dialog after 1 click at last question 
       if(nrow(pyt_rea$nr) == 0){
         showModal(modalDialog("All questions from this category were used. Congratulations!"))
         updateRadioButtons(session = session,
@@ -91,19 +93,19 @@ observeEvent(input$answer, {
         return
       }
       
-      #Wyswietlenie informacji o poprawnosci odpowiedzi. Zbior poprawnych odpowiedzi rosnie po kazdej poprawnej, co mozna sprawdzic w wersji testowej
+      #Showing info about picking good answer. Counter of good answers grows same as exp.
       output$answer <- renderText ({"Your answer is correct!"})
       good_ans$countervalue <- good_ans$countervalue + 1
       user_xp$countervalue <- user_xp$countervalue + 50
       output$count_test <- renderText ({good_ans$countervalue})
-      #Jezeli ktos chce by byl pokazywany exp to wyswietli sie informacja 
+      #Condition for showing exp 
       if (input$exp_gain) {
         output$answer_xp <- renderText ({"You gained 50xp!"})
         output$count_test_xp <- renderText ({user_xp$countervalue})
       }
     }
     } else {
-      #ten else jest potrzebny by po kazym kliknieciu na answer pokazywalo sie okno dialogowe
+      #This else statment is used for showing info about finishing this lvl of questions every time, after they're finished
     showModal(modalDialog("All questions from this category were used. Congratulations!"))
     updateRadioButtons(session = session,
                        input = "radiopyt",
@@ -113,32 +115,32 @@ observeEvent(input$answer, {
     }
 })
 
-#funckja odpowiedzialna za usuwanie pytan z utworzonej reaktywnej bazy danych, zgodnie z nr pytania, ktory zostal wybrany
+#Function that removes question from created reactive data base. Based on question nr
 usuwanie <- reactive({
   pyt_rea$dfWorking <- pyt_rea$dfWorking[!(pyt_rea$dfWorking$nr == pyt_rea$nr$nr),]
 })
 
-#Wyswietl nowy zestaw radio buttonow po kliknieciu dobrej odpowiedzi. 
+#Shows new radio buttons after good answer 
 observeEvent(input$answer, {
   if(isTRUE(as.logical(input$radiopyt))) {
   }
 })
 
-#utworzenie zmiennej reaktywnej, ktora pozwoli nam dotrzec do elementow radio buttona
+#Creating reactive value that let us connect to elements inside radio buttons group 
 values <- reactiveValues(disable = FALSE)
 
-#dynamiczne zmienianie zmiennej 
+#changing variable 
 observe({
   values$disable <- (nrow(pyt_rea$dfWorking) == 0)
 })
 
 #
 observeEvent(input$answer, {
-  #Zablokowanie wyboru poziomow i odpowiadanie po skonczeniu quizu 
+  #Blocing possibility of picking difficult lvl, and clicing answer button
   toggleState(id = "question_lvl", !values$disable)
   toggleState(id = "answer", !values$disable)
   
-  # Pokaz okno dialogowe i zmien radio buttony na koniec quizu 
+  # Showing modal dialog at the end, and chagin radio buttons 
   if (values$disable) {
     showModal(modalDialog("You finished quiz! Congratulations!"))
     updateRadioButtons(session = session,
