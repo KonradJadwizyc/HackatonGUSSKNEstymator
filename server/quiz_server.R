@@ -33,12 +33,14 @@ output$obrazek <- renderUI ({
 
 
 output$pytanie <- renderUI ({
+
   losowanie()
   radioButtons(inputId = 'radiopyt', 
                label =  pyt_rea$wylosowane$pytanie[1], 
                choiceNames = pyt_rea$wylosowane$odp,
                choiceValues = pyt_rea$wylosowane$praw,
                width = "50%")
+  
 })
 
 observeEvent(input$answer, {
