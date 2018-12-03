@@ -27,7 +27,8 @@ sidebarLayout(
                                 "Peace, justice and strong institutions" = 16,
                                 "Partnership for the goals" = 17),
                     # dzięki true można dodawac kolejne graje
-                    multiple = TRUE),
+                    multiple = TRUE,
+                    selected = 1),
         
         # wyświetlanie opisu
         uiOutput("description"),
