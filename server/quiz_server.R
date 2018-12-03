@@ -10,7 +10,10 @@ observe({
 })
 
 #Stworzenie reaktywnej tabeli z pobranymi z pliku pytaniami (pobrane w globalu z pliku excel)
-pyt_rea <- reactiveValues(dfWorking = pyt, wylosowane = NULL, nr = NULL, poziomy = c(4,2,1))
+pyt_rea <- reactiveValues(dfWorking = pyt, 
+                          wylosowane = NULL, 
+                          nr = NULL, 
+                          poziomy = c(4,2,1))
 
 
 #funckja odpowiedzialna za losowanie pytan ze zbioru 
@@ -19,17 +22,17 @@ losowanie <- reactive({
   if(nrow(pyt_rea$dfWorking) > 0){
     #Filtorwanie zgodnie z wybranym przez uzytkownika poziomem trudnosci
     pyt_nr <- pyt_rea$dfWorking %>% 
-      filter(poz_trud == as.numeric(input$question_lvl)) 
+              filter(poz_trud == as.numeric(input$question_lvl)) 
     #Sprawdzenie czy jest mozliwe losowanie
     if(nrow(pyt_nr) > 0){
       #Wylosowanie jednego nr pytania na liscie 
       pyt_nr <- pyt_nr %>%
-        sample_n(1) %>%
-        select(nr)
+                sample_n(1) %>%
+                select(nr)
       
       #Wyfiltorwanie wybranego nr pytania z listy wszystkich pytan i zapisanie w zmiennej
       pyt_fil <- pyt_rea$dfWorking %>%
-        filter(nr == pyt_nr$nr)
+                 filter(nr == pyt_nr$nr)
       
       #dodane wysolowanego pytania do utworzonej wczesniej reaktywnej tabeli
       pyt_rea$wylosowane <- pyt_fil
