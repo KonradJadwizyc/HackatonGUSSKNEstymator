@@ -1,13 +1,16 @@
+
+
 observeEvent(input$img_1, {
   progress1 <- shiny::Progress$new()
   on.exit(progress1$close())
   progress1$set(message = "waiting", value = 0)
   
+  updateTabsetPanel(session, "navbar",
+                    selected = "Education")
+  updateSelectInput(session = session, "goal", selected = 1) 
+  
   n <- 5 
   for (i in 1:n) {
-    updateTabsetPanel(session, "navbar",
-                      selected = "Education")
-    updateSelectInput(session = session, "goal", selected = 1) 
     progress1$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
   }
