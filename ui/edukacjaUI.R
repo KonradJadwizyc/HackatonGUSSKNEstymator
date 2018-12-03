@@ -11,6 +11,7 @@ sidebarLayout(
         style="text-align: center;",
         selectInput("goal", 
                     label = "Choose goal",
+                    # choices goal if you tap goal img
                     choices = c("No poverty" = 1,
                                 "Zero hunger" = 2,
                                 "Good health and well-being" = 3,
@@ -29,12 +30,15 @@ sidebarLayout(
                                 "Peace, justice and strong institutions" = 16,
                                 "Partnership for the goals" = 17),
                     selected = 1,
+                    # add another country
                     multiple = TRUE),
         
-        
+        # show description country
         uiOutput("description"),
+        # show country
         uiOutput("countries"),
         
+        # choises chart type 
         radioButtons(
           inputId = "chartType",
           label = "Choose chart type!",
@@ -42,12 +46,12 @@ sidebarLayout(
           selected = "line"
           
         )),
-    
+    # add chart to your profil 
     actionButton("add_my_page", 
                  "Add this plot to your page"),
     br(),
     br(),
-    
+    # save button add chart to quiz database
     actionButton("save", "Add this chart to quiz")
     
   ),    
@@ -56,6 +60,7 @@ sidebarLayout(
   
   
   mainPanel(
+    # load plot with render_plotly
                conditionalPanel(
                  condition = "input.chartType == 'line'",
                  plotlyOutput("plot_inter")

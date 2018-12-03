@@ -1,5 +1,5 @@
 fluidPage(
-  
+  # load img and img action link
   actionLink("img_1", label = img(src="E_SDG goals_icons-individual-cmyk-01.jpg", width = "15%")),
   actionLink("img_2", label = img(src="E_SDG goals_icons-individual-cmyk-02.jpg", width = "15%")),
   actionLink("img_3", label = img(src="E_SDG goals_icons-individual-cmyk-03.jpg", width = "15%")),
