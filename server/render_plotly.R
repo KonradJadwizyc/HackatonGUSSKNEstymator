@@ -2,8 +2,11 @@ observeEvent(input$add_my_page, {
   alert("You can download this chart ;) Just point mouse at the top of the chart and pick camera icon. ")
 })
 
+# przypisanie wartości pustej i dodawanie numeru do zapisu wykresu
+plot <- reactiveValues(plot = NULL, numer = 1)
 
 
+# wybór opisów do listy rozwijanej na podstawie wybranego celu
 output$countries <- renderUI({
   
   
@@ -18,7 +21,7 @@ output$countries <- renderUI({
   
 })
 
-
+# wybór krajów do listy rozwijanej na podstawie wybranego celu
 output$description <- renderUI({
   
   goal <- My_SDG %>%
@@ -30,24 +33,6 @@ output$description <- renderUI({
               selected = unique(goal$SeriesDescription)[1])
 })
 
-# output$group <- renderUI({
-#   
-#   goal <- My_SDG %>%
-#     dplyr::filter(Goal == as.numeric(input$goal))
-#  
-#   selectInput("group",
-#               label = "Group by:")
-#   
-# })
-# 
-# output$group2 <- renderUI({
-#   
-#   goal <- My_SDG %>% 
-#     dplyr::filter(Goal == as.numeric(input$goal))
-#   
-#   selectInput("group2",
-#               label = "Group by:")
-# })
 
 
 output$plot_inter <- renderPlotly({
@@ -56,8 +41,7 @@ output$plot_inter <- renderPlotly({
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)
-                  #X.Age. == input$group,
-                  #X.Sex. == input$group2) %>% group_by(X.Age.)
+  
   
   plotly::plot_ly(data = seria,
                   y = ~Value,
@@ -72,14 +56,14 @@ output$plot_inter <- renderPlotly({
 })
 
 output$plot_bar_inter <- renderPlotly({
-
+  
   seria_2 <- My_SDG %>% 
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)#
-                  #X.Age. == input$group,
-                  #X.Sex. == input$group2) %>% group_by(X.Age.)
- 
+  #X.Age. == input$group,
+  #X.Sex. == input$group2) %>% group_by(X.Age.)
+  
   
   plotly::plot_ly(data = seria_2,
                   x = ~TimePeriod,
@@ -95,11 +79,30 @@ output$plot_bar_inter <- renderPlotly({
   
 })
 
+# funkcja która ma zapisywać wykres do bazy danych wykresów które będą dodane do quizu
+# z powodów technicznych i braku dostępu do zewnętrznej bazy danych nie mogliśmy zaimlementować funkcji zapisu wykresów
+# i wykorzystanie ich w quizie 
+output$save <- downloadHandler(
+  
+  if(!is.null(plot$plot)){
+    
+    p <- plot$plot
+    
+    i <- plot$numer
+    
+    save(p, file = paste0("plot/imgtest",i,".RData"))
+    
+    plot$numer <- i + 1
+  }
+  
+  
+)
+# wyświetlenie u Ui wykresó wybranych przez użytkownika wyświetlrnie wyktesu kolumnowego
 output$plot_scatter_inter <- renderPlotly({
   
   seria_3 <- My_SDG %>% 
     dplyr::filter(Goal == as.numeric(input$goal), GeoAreaName %in% input$countries, SeriesDescription == input$description)
-
+  
   plotly::plot_ly(data = seria_3,
                   x = ~TimePeriod,
                   y = ~Value,
@@ -113,4 +116,3 @@ output$plot_scatter_inter <- renderPlotly({
            ysxis = list(title = "Value")
     )
 })
-

@@ -1,5 +1,5 @@
 fluidPage(
-  
+  # wczytanie obrazków na ekranie startowym 
   actionLink("img_1_pl", label = img(src="img1.png", width = "15%")),
   actionLink("img_2_pl", label = img(src="img2.png", width = "15%")),
   actionLink("img_3_pl", label = img(src="img3.png", width = "15%")),
