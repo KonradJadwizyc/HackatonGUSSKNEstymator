@@ -28,7 +28,6 @@ output$countries <- renderUI({
   
 })
 
-
 # output$group <- renderUI({
 #   
 #   goal <- My_SDG %>%
@@ -48,7 +47,6 @@ output$countries <- renderUI({
 #               label = "Group by:")
 # })
 
-
 output$plot_inter <- renderPlotly({
   # seria <- My_SDG
   # if(seria$units == "PERCENT") {
@@ -58,10 +56,9 @@ output$plot_inter <- renderPlotly({
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)
-  
+
                   #X.Age. == input$group,
                   #X.Sex. == input$group2) %>% group_by(X.Age.)
-  
   
   p <- plotly::plot_ly(data = seria,
                   y = ~Value,
@@ -102,8 +99,6 @@ output$plot_bar_inter <- renderPlotly({
     dplyr::filter(Goal == as.numeric(input$goal),
                   GeoAreaName %in% input$countries,
                   SeriesDescription == input$description)#
-                  #X.Age. == input$group,
-                  #X.Sex. == input$group2) %>% group_by(X.Age.)
  
   
   plotly::plot_ly(data = seria_2,
