@@ -19,9 +19,9 @@ sidebarLayout(
   
   mainPanel(
     
-    htmlOutput(outputId = "obrazek"),
-    htmlOutput(outputId = "pytanie"),
-    actionButton(inputId = "answer", label = ("ANSWER"), width = "50%"),
+    div(htmlOutput(outputId = "obrazek"), style="text-align: center;"),
+    div(htmlOutput(outputId = "pytanie"), style="text-align: center;"),
+    div(actionButton(inputId = "answer", label = ("ANSWER"), width = "50%"), style="text-align: center;"),
     div(textOutput("answer"), style="text-align: center;"),
     div(textOutput("count_test"), style="text-align: center;"),
     div(textOutput("answer_xp"), style="text-align: center;"),

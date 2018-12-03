@@ -25,7 +25,8 @@ My_SDG <- readRDS("My_SDG.rds")
 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
                  colNames = TRUE) %>%
-  mutate(praw=as.logical(praw))
+  mutate(praw=as.logical(praw)) %>%
+  mutate(plot_img=as.logical(plot_img))
 
 
 
