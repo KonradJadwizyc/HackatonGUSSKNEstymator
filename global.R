@@ -22,8 +22,7 @@ My_SDG <- readRDS("My_SDG.rds")
 # filter(Indicator=="1.1.1", GeoAreaName == "Poland")
 
 
-
-#Zapisujemy pytania pobrane ze specjalnie przygotowanego pliku xlsx. Zmieniamy 2 kolumny data framu na wartości logiczne! 
+#Save questions that were downloaded from xlsx file. Changed 2 columns of data frame to logical value! 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
                  colNames = TRUE) %>%
   mutate(praw=as.logical(praw)) %>%
