@@ -88,7 +88,7 @@ observeEvent(input$answer, {
                            label =  i18n$t("Wszystkie pytania uzyte"),
                            choices = c(i18n$t("Wybierz inny poziom"))
         )
-        return
+      
       }
       
       #Wyswietlenie informacji o poprawnosci odpowiedzi. Zbior poprawnych odpowiedzi rosnie po kazdej poprawnej, co mozna sprawdzic w wersji testowej
