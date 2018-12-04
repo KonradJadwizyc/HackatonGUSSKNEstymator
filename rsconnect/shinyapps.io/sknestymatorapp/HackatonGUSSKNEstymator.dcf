@@ -5,8 +5,8 @@ account: sknestymatorapp
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 563477
-bundleId: 1693358
+bundleId: 1739519
 url: https://sknestymatorapp.shinyapps.io/HackatonGUSSKNEstymator/
-when: 1541865959.45205
+when: 1543935666.18427
 asMultiple: FALSE
 asStatic: FALSE
