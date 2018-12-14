@@ -164,14 +164,14 @@ observeEvent(input$answer, {
   toggleState(id = "answer", !values$disable)
   
   # Pokaz okno dialogowe i zmien radio buttony na koniec quizu 
-  if (values$disable) {
-    showModal(modalDialog(i18n$t("Zakonczyłeś Quiz! Gratulacje")))
-    updateRadioButtons(session = session,
+    if (values$disable) {
+      showModal(modalDialog(i18n$t("Zakonczyłeś Quiz! Gratulacje")))
+      updateRadioButtons(session = session,
                        input = "radiopyt",
                        label =  i18n$t("Wszystkie pytania uzyte"),
                        choices = c("Gratulacje!")
     )
-  }
+    }
   
   ##Ponizej kod odpowiedzialny za zapisywanie danych z danej sesji ##
   
