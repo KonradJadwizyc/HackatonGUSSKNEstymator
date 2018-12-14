@@ -170,4 +170,4 @@ observeEvent(input$answer, {
 })
 
 #testing that saving files is working fine. This should be comented if we wanna app to work ;) 
-test_1 <- readRDS("user_score.RDS")
+#test_1 <- readRDS("user_score.RDS")
