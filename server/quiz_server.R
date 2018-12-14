@@ -150,4 +150,22 @@ observeEvent(input$answer, {
     )
   }
   
+  ##This code is responsible for saving data from current session ##
+  
+  #Create 3 lists, which hold exp value, good answers and bad answers. We're "getting rid of reactivity" so we can save values to file.
+  exp_sc <- reactiveValuesToList(user_xp)
+  bad_ans_sc <- reactiveValuesToList(bad_ans)
+  good_ans_sc <- reactiveValuesToList(good_ans)
+  
+  #Combine 3 lists to 1 list.
+  score_list <- c(exp_sc, good_ans_sc, bad_ans_sc)
+  
+  #Create data frame form 1 list. Giving column names.
+  exp_df <- as.data.frame(score_list)
+  colnames(exp_df) <- c("Exp","Dobre_odp","Zle_odp")
+  
+  #Saving data frame in to RDS file (typical file for R)
+  saveRDS(exp_df, file="user_score.RDS")
+  
 })
+
