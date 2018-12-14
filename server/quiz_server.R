@@ -65,8 +65,9 @@ observeEvent(input$answer, {
   if(nrow(pyt_rea$nr) > 0){
     #Jezeli uzytkownik zaznaczyl zle, to pokaz mu ze zaznaczyl zle i dodaj zla odpowiedz
     if(!isTRUE(as.logical(input$radiopyt))) {
-      output$answer <- renderText ({"Twoja odpowiedz jest zla"})
+      output$answer <- renderText ({"Twoja odpowiedz byla zla"})
       bad_ans$countervalue <- bad_ans$countervalue + 1
+      #Testowa wartosc, ktora pozwala zobaczyc, ze licznik zlych odp dziala
       output$count_test <- renderText ({bad_ans$countervalue})
     } else {
       #jezeli uzytonwik zaznaczyl dobrze to usun pytanie
@@ -92,14 +93,30 @@ observeEvent(input$answer, {
       }
       
       #Wyswietlenie informacji o poprawnosci odpowiedzi. Zbior poprawnych odpowiedzi rosnie po kazdej poprawnej, co mozna sprawdzic w wersji testowej
-      output$answer <- renderText ({"Twoja odpowiedz jest poprawna"})
+      output$answer <- renderText ({"Twoja odpowiedz byla poprawna"})
+      #Zwiekszenie wartosci poprawnych odp (tzn implementacja licznika odp)
       good_ans$countervalue <- good_ans$countervalue + 1
-      user_xp$countervalue <- user_xp$countervalue + 50
+        #Dostosowanie przyrostu expa do poziomu trudnosci pytania, im pytanie trudniejsze tym wiecej expa. 
+        if (input$question_lvl == 1) {
+        user_xp$countervalue <- user_xp$countervalue + 50
+        } else if (input$question_lvl == 2) {
+        user_xp$countervalue <- user_xp$countervalue + 100  
+        } else {
+        user_xp$countervalue <- user_xp$countervalue + 150  
+        }
+      #Testowa wartosc, ktora pozwala zobaczyc, ze licznik dobrych odp dziala
       output$count_test <- renderText ({good_ans$countervalue})
       #Jezeli ktos chce by byl pokazywany exp to wyswietli sie informacja 
       if (input$exp_gain) {
+        #Dostosowanie informacji wyswietlanej uzytkownikowi o ilosci expa w stosunku do wybranego poziomu  
+        if (input$question_lvl == 1) {
         output$answer_xp <- renderText ({"Dostales 50xp"})
-        output$count_test_xp <- renderText ({user_xp$countervalue})
+        } else if (input$question_lvl == 2) {
+        output$answer_xp <- renderText ({"Dostales 100xp"})  
+        } else {
+        output$answer_xp <- renderText ({"Dostales 150xp"}) 
+        }
+      output$count_test_xp <- renderText ({user_xp$countervalue})
       }
     }
   } else {
