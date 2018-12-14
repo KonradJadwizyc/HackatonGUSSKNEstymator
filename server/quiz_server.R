@@ -69,6 +69,7 @@ observeEvent(input$answer, {
     if(!isTRUE(as.logical(input$radiopyt))) {
       output$answer <- renderText ({"Your answer is wrong."})
       bad_ans$countervalue <- bad_ans$countervalue + 1
+      #Test value, it shows that counter of bad answers is working. Comment it after finishing tests.
       output$count_test <- renderText ({bad_ans$countervalue})
     } else {
       #If user picked good answer the delete it from data base
@@ -95,14 +96,31 @@ observeEvent(input$answer, {
       
       #Showing info about picking good answer. Counter of good answers grows same as exp.
       output$answer <- renderText ({"Your answer is correct!"})
+      #After picking correct answer the counter go up by 1. 
       good_ans$countervalue <- good_ans$countervalue + 1
-      user_xp$countervalue <- user_xp$countervalue + 50
+      #Connecting exp with difficult lvl of questions. The higher is the lvl of question, the more exp user gets. 
+        if (input$question_lvl == 1) {
+        user_xp$countervalue <- user_xp$countervalue + 50
+        } else if (input$question_lvl == 2) {
+        user_xp$countervalue <- user_xp$countervalue + 100  
+        } else {
+        user_xp$countervalue <- user_xp$countervalue + 150  
+        }
+      #Test value, it shows that counter of good answers is working. Comment it after finishing tests.
       output$count_test <- renderText ({good_ans$countervalue})
-      #Condition for showing exp 
-      if (input$exp_gain) {
-        output$answer_xp <- renderText ({"You gained 50xp!"})
-        output$count_test_xp <- renderText ({user_xp$countervalue})
-      }
+          #Condition for showing exp gain for user
+          if (input$exp_gain) {
+            #This "if" controls the information about exp gain that users gets when picking correct answer depending on the difficult lvl they have chosen. 
+            if (input$question_lvl == 1) {
+            output$answer_xp <- renderText ({"You gained 50xp!"})
+            } else if (input$question_lvl == 2) {
+            output$answer_xp <- renderText ({"You gained 100xp!"})  
+            } else {
+            output$answer_xp <- renderText ({"You gained 150xp!"})  
+            }
+          #Test for checing exp counter, it should be commented in normal version of app. 
+          output$count_test_xp <- renderText ({user_xp$countervalue})
+          }
     }
     } else {
       #This else statment is used for showing info about finishing this lvl of questions every time, after they're finished
