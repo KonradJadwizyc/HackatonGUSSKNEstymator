@@ -71,6 +71,9 @@ observeEvent(input$answer, {
       bad_ans$countervalue <- bad_ans$countervalue + 1
       #Test value, it shows that counter of bad answers is working. Comment it after finishing tests.
       output$count_test <- renderText ({bad_ans$countervalue})
+      # Clear the counter of xp (test value) and info about xp gain after picking bad answer
+      output$answer_xp <- NULL
+      output$count_test_xp <- NULL
     } else {
       #If user picked good answer the delete it from data base
       usuwanie()
