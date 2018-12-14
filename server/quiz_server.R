@@ -69,6 +69,9 @@ observeEvent(input$answer, {
       bad_ans$countervalue <- bad_ans$countervalue + 1
       #Testowa wartosc, ktora pozwala zobaczyc, ze licznik zlych odp dziala
       output$count_test <- renderText ({bad_ans$countervalue})
+      # Czysci info o otrzymanym expie i sumie expa (wartosc testowa) po kliknieciu na zla odp 
+      output$answer_xp <- NULL
+      output$count_test_xp <- NULL
     } else {
       #jezeli uzytonwik zaznaczyl dobrze to usun pytanie
       usuwanie()
@@ -104,7 +107,7 @@ observeEvent(input$answer, {
         } else {
         user_xp$countervalue <- user_xp$countervalue + 150  
         }
-      #Testowa wartosc, ktora pozwala zobaczyc, ze licznik dobrych odp dziala
+      #Testowa wartosc, ktora pozwala zobaczyc, ze licznik dobrych odp dziala (zakomentowac w normalnej wersji api)
       output$count_test <- renderText ({good_ans$countervalue})
       #Jezeli ktos chce by byl pokazywany exp to wyswietli sie informacja 
       if (input$exp_gain) {
@@ -116,6 +119,7 @@ observeEvent(input$answer, {
         } else {
         output$answer_xp <- renderText ({"Dostales 150xp"}) 
         }
+      #Testowa wartosc, ktora pozwala zobaczyc, ze licznik sumy expa dziala (zakomentowac w normalnej wersji api)
       output$count_test_xp <- renderText ({user_xp$countervalue})
       }
     }
