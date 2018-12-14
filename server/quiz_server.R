@@ -162,10 +162,12 @@ observeEvent(input$answer, {
   
   #Create data frame form 1 list. Giving column names.
   exp_df <- as.data.frame(score_list)
-  colnames(exp_df) <- c("Exp","Dobre_odp","Zle_odp")
+  colnames(exp_df) <- c("Exp","Good_ans","Bad_ans")
   
   #Saving data frame in to RDS file (typical file for R)
   saveRDS(exp_df, file="user_score.RDS")
   
 })
 
+#testing that saving files is working fine. This should be comented if we wanna app to work ;) 
+test_1 <- readRDS("user_score.RDS")
