@@ -148,4 +148,28 @@ observeEvent(input$answer, {
     )
   }
   
+  ##Ponizej kod odpowiedzialny za zapisywanie danych z danej sesji ##
+  
+  #tworzymy 3 elementy(w postaci listy), ktore przechowuja wartosci zdobytego expa, zlych i dobrych odp. Pozbywamy sie "reaktywnosci" by moc je zapisac do pliku
+  exp_sc <- reactiveValuesToList(user_xp)
+  bad_ans_sc <- reactiveValuesToList(bad_ans)
+  good_ans_sc <- reactiveValuesToList(good_ans)
+  
+  #Tworzymy jedna duza liste z 3 stworzonych wczesniej elementow
+  score_list <- c(exp_sc, good_ans_sc, bad_ans_sc)
+
+  #Lista jest przeksztalcona do Data Frame, nadane zostaja rowniez odpowiednie nazwy kolumn, ulatwiajace okreslenie co jest czym
+  exp_df <- as.data.frame(score_list)
+  colnames(exp_df) <- c("Exp","Dobre_odp","Zle_odp")
+  
+  #Zapisanie stworzonego Data Frame'a w pliku z formatem RDS (przyspiesza odczyt dla R)
+  saveRDS(exp_df, file="user_score.RDS")
+  
+
+  
 })
+
+#Funkcja, ktora odpalamy z poziomu kodu w celu przetestowania czy nasze zapisywanie dziala
+#test_1 <- readRDS("user_score.RDS")
+
+

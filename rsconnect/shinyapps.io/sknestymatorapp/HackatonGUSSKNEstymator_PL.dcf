@@ -1,0 +1,12 @@
+name: HackatonGUSSKNEstymator_PL
+title: HackatonGUSSKNEstymator_PL
+username:
+account: sknestymatorapp
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 603238
+bundleId: 1739715
+url: https://sknestymatorapp.shinyapps.io/HackatonGUSSKNEstymator_PL/
+when: 1543940084.81194
+asMultiple: FALSE
+asStatic: FALSE

@@ -3,25 +3,25 @@
 sidebarLayout(
   sidebarPanel (width = 4,
                 wellPanel(
-                  h3((i18n$t("Difficult lvl:"))),
-                  radioButtons(inputId = 'question_lvl', 
+                  div(h3((i18n$t("Difficult lvl:"))), style="text-align: center;"),
+                  div(radioButtons(inputId = 'question_lvl', 
                                label =  NULL, 
                                choiceNames = c(i18n$t("easy"),i18n$t("medium"),i18n$t("hard")),
                                choiceValues = c(1,2,3),
-                               width = "50%")
+                               width = "100%"), style="text-align: center;")
                 ),
                 wellPanel(
-                  checkboxInput(inputId = i18n$t("exp_gain"),
+                  div(checkboxInput(inputId = i18n$t("exp_gain"),
                                 label = i18n$t(("Show exp gain")),
-                                value = FALSE)
+                                value = FALSE), style="text-align: center;")
                 )
   ), 
   
   mainPanel(
     
-    htmlOutput(outputId = "obrazek"),
+    div(htmlOutput(outputId = "obrazek"), style="text-align: center;"),
     htmlOutput(outputId = "pytanie"),
-    actionButton(inputId = "answer", label = (i18n$t("ANSWER")), width = "50%"),
+    div(actionButton(inputId = "answer", label = (i18n$t("ANSWER")), width = "50%"), style="text-align: center;"),
     div(textOutput("answer"), style="text-align: center;"),
     div(textOutput("count_test"), style="text-align: center;"),
     div(textOutput("answer_xp"), style="text-align: center;"),
