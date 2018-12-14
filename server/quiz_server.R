@@ -57,9 +57,11 @@ output$pytanie <- renderUI ({
                    choiceNames = pyt_rea$wylosowane$odp,
                    choiceValues = pyt_rea$wylosowane$praw,
                    width = "100%"), style="text-align: center;")
+  
+  
 })
 
-#Co sie stanie po kliknieciu przysiku z odpwoiedzia 
+#Co sie stanie po kliknieciu przysiku z odpowiedzia 
 observeEvent(input$answer, {
   #Sprawdzenie czy jeszcze pozostaly jakies pytania 
   if(nrow(pyt_rea$nr) > 0){
@@ -72,28 +74,8 @@ observeEvent(input$answer, {
       # Czysci info o otrzymanym expie i sumie expa (wartosc testowa) po kliknieciu na zla odp 
       output$answer_xp <- NULL
       output$count_test_xp <- NULL
-    } else {
-      #jezeli uzytonwik zaznaczyl dobrze to usun pytanie
-      usuwanie()
-      #Po usunieciu pytania dokonaj ponownego losowanie i wyswietl nowe pytanie na zasadzie poprzedniego
-      if(nrow(pyt_rea$nr) > 0){
-        losowanie()
-        updateRadioButtons(session = session,
-                           input = "radiopyt",
-                           label =  pyt_rea$wylosowane$pytanie[1], 
-                           choiceNames = pyt_rea$wylosowane$odp,
-                           choiceValues = pyt_rea$wylosowane$praw)
-      }
-      #Warunek wspomagajacy, pozwala po jednym kliknieciu na ostatnie pytanie wyswietlic informacje o koncu pytan, dodatkowo pytanie zmienia sie w informacje (jak i odpowiedzi). Klikanie na answer nic nie zmienia
-      if(nrow(pyt_rea$nr) == 0){
-        showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostały uzyte. Gratulacje!")))
-        updateRadioButtons(session = session,
-                           input = "radiopyt",
-                           label =  i18n$t("Wszystkie pytania uzyte"),
-                           choices = c(i18n$t("Wybierz inny poziom"))
-        )
       
-      }
+    } else {
       
       #Wyswietlenie informacji o poprawnosci odpowiedzi. Zbior poprawnych odpowiedzi rosnie po kazdej poprawnej, co mozna sprawdzic w wersji testowej
       output$answer <- renderText ({"Twoja odpowiedz byla poprawna"})
@@ -101,27 +83,49 @@ observeEvent(input$answer, {
       good_ans$countervalue <- good_ans$countervalue + 1
         #Dostosowanie przyrostu expa do poziomu trudnosci pytania, im pytanie trudniejsze tym wiecej expa. 
         if (input$question_lvl == 1) {
-        user_xp$countervalue <- user_xp$countervalue + 50
+          user_xp$countervalue <- user_xp$countervalue + 50
         } else if (input$question_lvl == 2) {
-        user_xp$countervalue <- user_xp$countervalue + 100  
+          user_xp$countervalue <- user_xp$countervalue + 100  
         } else {
-        user_xp$countervalue <- user_xp$countervalue + 150  
+          user_xp$countervalue <- user_xp$countervalue + 150  
         }
       #Testowa wartosc, ktora pozwala zobaczyc, ze licznik dobrych odp dziala (zakomentowac w normalnej wersji api)
       output$count_test <- renderText ({good_ans$countervalue})
-      #Jezeli ktos chce by byl pokazywany exp to wyswietli sie informacja 
+        #Jezeli ktos chce by byl pokazywany exp to wyswietli sie informacja 
       if (input$exp_gain) {
         #Dostosowanie informacji wyswietlanej uzytkownikowi o ilosci expa w stosunku do wybranego poziomu  
         if (input$question_lvl == 1) {
-        output$answer_xp <- renderText ({"Dostales 50xp"})
+          output$answer_xp <- renderText ({"Dostales 50xp"})
         } else if (input$question_lvl == 2) {
-        output$answer_xp <- renderText ({"Dostales 100xp"})  
+          output$answer_xp <- renderText ({"Dostales 100xp"})  
         } else {
-        output$answer_xp <- renderText ({"Dostales 150xp"}) 
-        }
-      #Testowa wartosc, ktora pozwala zobaczyc, ze licznik sumy expa dziala (zakomentowac w normalnej wersji api)
-      output$count_test_xp <- renderText ({user_xp$countervalue})
+          output$answer_xp <- renderText ({"Dostales 150xp"}) 
       }
+        #Testowa wartosc, ktora pozwala zobaczyc, ze licznik sumy expa dziala (zakomentowac w normalnej wersji api)
+        output$count_test_xp <- renderText ({user_xp$countervalue})
+      }
+    }
+    #jezeli uzytonwik dokonal wyboru odpowiedzi to pytanie sie usuwa (niezaleznie od tego czy dobrze czy zle)
+    usuwanie()
+    #Po usunieciu pytania dokonaj ponownego losowanie i wyswietl nowe pytanie na zasadzie poprzedniego
+    if(nrow(pyt_rea$nr) > 0){
+      #Uzycie funkcji losujacej pytanie
+      losowanie()
+      #Uzupelnienie pytania, dziala na zasadzie zaktualizowania radio buttona
+      updateRadioButtons(session = session,
+                         input = "radiopyt",
+                         label =  pyt_rea$wylosowane$pytanie[1], 
+                         choiceNames = pyt_rea$wylosowane$odp,
+                         choiceValues = pyt_rea$wylosowane$praw)
+    }
+    #Warunek wspomagajacy, pozwala po jednym kliknieciu na ostatnie pytanie wyswietlic informacje o koncu pytan, dodatkowo pytanie zmienia sie w informacje (jak i odpowiedzi). Klikanie na answer nic nie zmienia
+    if(nrow(pyt_rea$nr) == 0){
+      showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostały uzyte. Gratulacje!")))
+      updateRadioButtons(session = session,
+                         input = "radiopyt",
+                         label =  i18n$t("Wszystkie pytania uzyte"),
+                         choices = c(i18n$t("Wybierz inny poziom"))
+      )
     }
   } else {
     #ten else jest potrzebny by po kazym kliknieciu na answer pokazywalo sie okno dialogowe
