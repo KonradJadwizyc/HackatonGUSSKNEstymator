@@ -67,66 +67,68 @@ observeEvent(input$answer, {
   if(nrow(pyt_rea$nr) > 0){
     #If useres picked wrong answer it shows him that is's bad, and adds answer to counter
     if(!isTRUE(as.logical(input$radiopyt))) {
-      output$answer <- renderText ({"Your answer is wrong."})
+      output$answer <- renderText ({"Your answer was wrong."})
       bad_ans$countervalue <- bad_ans$countervalue + 1
       #Test value, it shows that counter of bad answers is working. Comment it after finishing tests.
       output$count_test <- renderText ({bad_ans$countervalue})
       # Clear the counter of xp (test value) and info about xp gain after picking bad answer
       output$answer_xp <- NULL
       output$count_test_xp <- NULL
-    } else {
-      #If user picked good answer the delete it from data base
-      usuwanie()
-      #Drawing new question and adding it to radio buttons (update radio buttons)
-      if(nrow(pyt_rea$nr) > 0){
-        losowanie()
-        updateRadioButtons(session = session,
-                           input = "radiopyt",
-                           label =  pyt_rea$wylosowane$pytanie[1], 
-                           choiceNames = pyt_rea$wylosowane$odp,
-                           choiceValues = pyt_rea$wylosowane$praw)
-      }
-      #Conditional that supports function it enables to show modal dialog after 1 click at last question 
-      if(nrow(pyt_rea$nr) == 0){
-        showModal(modalDialog("All questions from this category were used. Congratulations!"))
-        updateRadioButtons(session = session,
-                           input = "radiopyt",
-                           label =  "All questions used",
-                           choices = c("Pick another lvl")
-        )
-        return
-      }
       
-      #Showing info about picking good answer. Counter of good answers grows same as exp.
-      output$answer <- renderText ({"Your answer is correct!"})
+    } else {
+      
+      # #Showing info about picking good answer. Counter of good answers grows same as exp.
+      output$answer <- renderText ({"Your answer was correct!"})
       #After picking correct answer the counter go up by 1. 
       good_ans$countervalue <- good_ans$countervalue + 1
-      #Connecting exp with difficult lvl of questions. The higher is the lvl of question, the more exp user gets. 
-        if (input$question_lvl == 1) {
+      #Connecting exp with difficult lvl of questions. The higher is the lvl of question, the more exp user gets.
+      if (input$question_lvl == 1) {
         user_xp$countervalue <- user_xp$countervalue + 50
-        } else if (input$question_lvl == 2) {
+      } else if (input$question_lvl == 2) {
         user_xp$countervalue <- user_xp$countervalue + 100  
-        } else {
+      } else {
         user_xp$countervalue <- user_xp$countervalue + 150  
-        }
+      }
       #Test value, it shows that counter of good answers is working. Comment it after finishing tests.
       output$count_test <- renderText ({good_ans$countervalue})
-          #Condition for showing exp gain for user
-          if (input$exp_gain) {
-            #This "if" controls the information about exp gain that users gets when picking correct answer depending on the difficult lvl they have chosen. 
-            if (input$question_lvl == 1) {
-            output$answer_xp <- renderText ({"You gained 50xp!"})
-            } else if (input$question_lvl == 2) {
-            output$answer_xp <- renderText ({"You gained 100xp!"})  
-            } else {
-            output$answer_xp <- renderText ({"You gained 150xp!"})  
-            }
-          #Test for checing exp counter, it should be commented in normal version of app. 
-          output$count_test_xp <- renderText ({user_xp$countervalue})
-          }
+      #Condition for showing exp gain for user
+      if (input$exp_gain) {
+        #This "if" controls the information about exp gain that users gets when picking correct answer depending on the difficult lvl they have chosen.  
+        if (input$question_lvl == 1) {
+          output$answer_xp <- renderText ({"Dostales 50xp"})
+        } else if (input$question_lvl == 2) {
+          output$answer_xp <- renderText ({"Dostales 100xp"})  
+        } else {
+          output$answer_xp <- renderText ({"Dostales 150xp"}) 
+        }
+        #Test value, it shows that counter of good answers is working. Comment it after finishing tests.
+        output$count_test_xp <- renderText ({user_xp$countervalue})
+      }
+    }
+    #If user picked answer delete question from from data base
+    usuwanie()
+    #Drawing new question and adding it to radio buttons (update radio buttons)
+    if(nrow(pyt_rea$nr) > 0){
+      #Function that draw questions
+      losowanie()
+      #Showing new question, updating radio buttons
+      updateRadioButtons(session = session,
+                         input = "radiopyt",
+                         label =  pyt_rea$wylosowane$pytanie[1], 
+                         choiceNames = pyt_rea$wylosowane$odp,
+                         choiceValues = pyt_rea$wylosowane$praw)
+    }
+    #Show modal dialog after first click at last question of category
+    if(nrow(pyt_rea$nr) == 0){
+      showModal(modalDialog(i18n$t("All questions from this category were used. Congratulations!")))
+      updateRadioButtons(session = session,
+                         input = "radiopyt",
+                         label =  i18n$t("Wszystkie pytania uzyte"),
+                         choices = c(i18n$t("Wybierz inny poziom"))
+      )
     }
     } else {
-      #This else statment is used for showing info about finishing this lvl of questions every time, after they're finished
+    #This else statment is used for showing info about finishing this lvl of questions after 2 click on answer button (bug protection option)
     showModal(modalDialog("All questions from this category were used. Congratulations!"))
     updateRadioButtons(session = session,
                        input = "radiopyt",
@@ -152,7 +154,14 @@ values <- reactiveValues(disable = FALSE)
 
 #changing variable 
 observe({
-  values$disable <- (nrow(pyt_rea$dfWorking) == 0)
+  #Condition that let finishes the quiz after last question is answered. It depends on choosen difficult  lvl. 
+  if(input$question_lvl == 3) {
+    values$disable <- (nrow(pyt_rea$dfWorking) == 8)
+  }else if(input$question_lvl == 2) {
+    values$disable <- (nrow(pyt_rea$dfWorking) == 6) 
+  }else if(input$question_lvl == 1) {
+    values$disable <- (nrow(pyt_rea$dfWorking) == 4)  
+  }
 })
 
 #
@@ -161,9 +170,23 @@ observeEvent(input$answer, {
   toggleState(id = "question_lvl", !values$disable)
   toggleState(id = "answer", !values$disable)
   
+  
+  #Create 3 lists, which hold exp value, good answers and bad answers. We're "getting rid of reactivity" so we can save values to file or print them to user.
+  exp_sc <- reactiveValuesToList(user_xp)
+  bad_ans_sc <- reactiveValuesToList(bad_ans)
+  good_ans_sc <- reactiveValuesToList(good_ans)
+  
+  #Change format from list to vectors (unlisting) so it'll be easier to show information to the user.
+  exp_sc_vect <- unlist(exp_sc)
+  bad_ans_sc_vec <- unlist(bad_ans_sc)
+  good_ans_sc_vec <- unlist(good_ans_sc)
+  
+  #Creating variable that shows good answer score in percents
+  good_ans_perc <- percent(good_ans_sc_vec/length(unique(pyt$nr)))
+  
   # Showing modal dialog at the end, and chagin radio buttons 
   if (values$disable) {
-    showModal(modalDialog("You finished quiz! Congratulations!"))
+    showModal(modalDialog(paste("You finished Quiz! You Gave:", good_ans_sc_vec, " good answers, from ", length(unique(pyt$nr)) ," question. It is: ", good_ans_perc ,". Congratulations!")))
     updateRadioButtons(session = session,
                        input = "radiopyt",
                        label =  "All questions used",
@@ -172,11 +195,6 @@ observeEvent(input$answer, {
   }
   
   ##This code is responsible for saving data from current session ##
-  
-  #Create 3 lists, which hold exp value, good answers and bad answers. We're "getting rid of reactivity" so we can save values to file.
-  exp_sc <- reactiveValuesToList(user_xp)
-  bad_ans_sc <- reactiveValuesToList(bad_ans)
-  good_ans_sc <- reactiveValuesToList(good_ans)
   
   #Combine 3 lists to 1 list.
   score_list <- c(exp_sc, good_ans_sc, bad_ans_sc)
