@@ -68,6 +68,7 @@ observeEvent(input$answer, {
     #If useres picked wrong answer it shows him that is's bad, and adds answer to counter
     if(!isTRUE(as.logical(input$radiopyt))) {
       output$answer <- renderText ({"Your answer was wrong."})
+      delay(1500 ,output$answer <- NULL)
       bad_ans$countervalue <- bad_ans$countervalue + 1
       #Test value, it shows that counter of bad answers is working. Comment it after finishing tests.
       output$count_test <- renderText ({bad_ans$countervalue})
@@ -79,6 +80,7 @@ observeEvent(input$answer, {
       
       # #Showing info about picking good answer. Counter of good answers grows same as exp.
       output$answer <- renderText ({"Your answer was correct!"})
+      delay(1500 ,output$answer <- NULL)
       #After picking correct answer the counter go up by 1. 
       good_ans$countervalue <- good_ans$countervalue + 1
       #Connecting exp with difficult lvl of questions. The higher is the lvl of question, the more exp user gets.
