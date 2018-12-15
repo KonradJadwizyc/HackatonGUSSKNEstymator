@@ -68,6 +68,8 @@ observeEvent(input$answer, {
     #Jezeli uzytkownik zaznaczyl zle, to pokaz mu ze zaznaczyl zle i dodaj zla odpowiedz
     if(!isTRUE(as.logical(input$radiopyt))) {
       output$answer <- renderText ({"Twoja odpowiedz byla zla"})
+      #Usuniecie informacji o poprawnosci odp po 1,5 sek od klikniecia przycisku
+      delay(1500 ,output$answer <- NULL)
       bad_ans$countervalue <- bad_ans$countervalue + 1
       #Testowa wartosc, ktora pozwala zobaczyc, ze licznik zlych odp dziala
       output$count_test <- renderText ({bad_ans$countervalue})
@@ -79,6 +81,8 @@ observeEvent(input$answer, {
       
       #Wyswietlenie informacji o poprawnosci odpowiedzi. Zbior poprawnych odpowiedzi rosnie po kazdej poprawnej, co mozna sprawdzic w wersji testowej
       output$answer <- renderText ({"Twoja odpowiedz byla poprawna"})
+      #Usuniecie informacji o poprawnosci odp po 1,5 sek od klikniecia przycisku
+      delay(1500 ,output$answer <- NULL)
       #Zwiekszenie wartosci poprawnych odp (tzn implementacja licznika odp)
       good_ans$countervalue <- good_ans$countervalue + 1
         #Dostosowanie przyrostu expa do poziomu trudnosci pytania, im pytanie trudniejsze tym wiecej expa. 
