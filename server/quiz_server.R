@@ -210,8 +210,6 @@ observeEvent(input$answer, {
                        input = "radiopyt",
                        label =  i18n$t("Wszystkie pytania uzyte"),
                        choices = c("Gratulacje!")
-                       
-                       #i18n$t("Zakonczyłeś Quiz! Gratulacje")
     )
     }
   
