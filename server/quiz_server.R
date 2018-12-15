@@ -130,6 +130,19 @@ observeEvent(input$answer, {
                          label =  i18n$t("Wszystkie pytania uzyte"),
                          choices = c(i18n$t("Wybierz inny poziom"))
       )
+      
+      
+      if(input$question_lvl == 1) {
+        #disable(selector = "[type=radio][value=1]")
+        runjs("document.querySelector('[name=question_lvl][value=1]').disabled = true")
+        runjs("$('[name=question_lvl][value=1]').parent().parent().addClass('disabled').css('opacity', 0.4)")
+      } else if (input$question_lvl == 2) {
+        
+        runjs("$('[name=question_lvl][value=2]').parent().parent().addClass('disabled').css('opacity', 0.4)")
+      } else {
+        
+        runjs("$('[name=question_lvl][value=3]').parent().parent().addClass('disabled').css('opacity', 0.4)")
+      }
     }
   } else {
     #ten else jest potrzebny by po kazym kliknieciu na answer pokazywalo sie okno dialogowe
@@ -139,6 +152,7 @@ observeEvent(input$answer, {
                        label =  i18n$t("Wszystkie pytania uzyte"),
                        choices = c(i18n$t("Wybierz inny poziom"))
     )
+    disable(selector ='input[name="question_lvl"]')
   }
 })
 

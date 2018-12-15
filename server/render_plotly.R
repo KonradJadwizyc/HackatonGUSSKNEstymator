@@ -2,6 +2,15 @@ observeEvent(input$add_my_page, {
   alert("You can download this chart ;) Just point mouse at the top of the chart and pick camera icon. ")
 })
 
+observeEvent(input$add_to_quiz, {
+  
+ #Tworzy wektor inputow, ktore wprowadzil uzytkownik w momencie klikniecia action buttona. 
+ plot_input <- c(input$goal, input$description, input$countries, input$chartType)
+ #Zapisuje stworzony wektor do pliku RDS, by mozna go bylo odtworzyc poza sesja
+ saveRDS(plot_input, file="user_plot_input.RDS")
+ #reactiveValuesToList()
+})
+
 # przypisanie wartości pustej i dodawanie numeru do zapisu wykresu
 plot <- reactiveValues(plot = NULL, numer = 1)
 
@@ -43,7 +52,7 @@ output$plot_inter <- renderPlotly({
                   SeriesDescription == input$description)
   
   
-  plotly::plot_ly(data = seria,
+    plotly::plot_ly(data = seria,
                   y = ~Value,
                   x = ~TimePeriod,
                   color = ~GeoAreaName,
