@@ -9,8 +9,8 @@ observe({
   toggle(id = "answer_xp", condition = input$exp_gain)
 })
 
-#Stworzenie reaktywnej tabeli z pobranymi z pliku pytaniami (pobrane w globalu z pliku excel)
-pyt_rea <- reactiveValues(dfWorking = pyt, 
+#Stworzenie reaktywnej tabeli z pytaniami wylosowanymi w global (baza pobrana w globalu z pliku excel)
+pyt_rea <- reactiveValues(dfWorking = pyt_selected, 
                           wylosowane = NULL, 
                           nr = NULL, 
                           poziomy = c(4,2,1))
@@ -200,12 +200,12 @@ observeEvent(input$answer, {
   good_ans_sc_vec <- unlist(good_ans_sc)
   
   #Stworzenie zmiennej pokazujacej wynik poprawnych odp w procentach 
-  good_ans_perc <- percent(good_ans_sc_vec/length(unique(pyt$nr)))
+  good_ans_perc <- percent(good_ans_sc_vec/length(unique(pyt_selected$nr)))
   
   # Pokaz okno dialogowe (z wynikiem pkt dobrych odp) i zmien radio buttony na koniec quizu 
     if (values$disable) {
       
-      showModal(modalDialog(paste("Quiz zakonczony! Udzielono:", good_ans_sc_vec, " poprawnych odpowiedzi, sposrod ", length(unique(pyt$nr)) ," pytan. Jest to: ", good_ans_perc ,". Gratulacje!")))
+      showModal(modalDialog(paste("Quiz zakonczony! Udzielono:", good_ans_sc_vec, " poprawnych odpowiedzi, sposrod ", length(unique(pyt_selected$nr)) ," pytan. Jest to: ", good_ans_perc ,". Gratulacje!")))
       updateRadioButtons(session = session,
                        input = "radiopyt",
                        label =  i18n$t("Wszystkie pytania uzyte"),
