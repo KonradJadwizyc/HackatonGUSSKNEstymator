@@ -1,10 +1,8 @@
-
 library(shiny)
 library(lubridate)
 library(leaflet)
 library(readr)
 library(dplyr)
-#library(DT)
 library(ggplot2)
 library(shinythemes)
 library(shinyWidgets)
@@ -12,6 +10,7 @@ library(plotly)
 library(shinyjs)
 library(openxlsx)
 library(shiny.i18n)
+library(scales)
 
 My_SDG <- readRDS("My_SDG")
 My_SDG <- My_SDG %>%

@@ -120,7 +120,7 @@ observeEvent(input$answer, {
     }
     #Warunek wspomagajacy, pozwala po jednym kliknieciu na ostatnie pytanie wyswietlic informacje o koncu pytan, dodatkowo pytanie zmienia sie w informacje (jak i odpowiedzi). Klikanie na answer nic nie zmienia
     if(nrow(pyt_rea$nr) == 0){
-      showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostały uzyte. Gratulacje!")))
+      showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostaly uzyte. Gratulacje!")))
       updateRadioButtons(session = session,
                          input = "radiopyt",
                          label =  i18n$t("Wszystkie pytania uzyte"),
@@ -129,7 +129,7 @@ observeEvent(input$answer, {
     }
   } else {
     #ten else jest potrzebny by po kazym kliknieciu na answer pokazywalo sie okno dialogowe
-    showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostały uzyte. Gratulacje!")))
+    showModal(modalDialog(i18n$t("Wszystkie pytania z tej kategorii zostaly uzyte. Gratulacje!")))
     updateRadioButtons(session = session,
                        input = "radiopyt",
                        label =  i18n$t("Wszystkie pytania uzyte"),
@@ -154,7 +154,16 @@ values <- reactiveValues(disable = FALSE)
 
 #dynamiczne zmienianie zmiennej 
 observe({
-  values$disable <- (nrow(pyt_rea$dfWorking) == 0)
+  #Warunek, ktory pozwala aktywowac zakonczenie quizu w momencie klikniecia na wybrane pytanie. Jest zalezny od poziomu, ktory uzytkwnik ma aktualnie wybrany.
+  if(input$question_lvl == 3) {
+    values$disable <- (nrow(pyt_rea$dfWorking) == 8)
+  }else if(input$question_lvl == 2) {
+    values$disable <- (nrow(pyt_rea$dfWorking) == 6) 
+  }else if(input$question_lvl == 1) {
+    values$disable <- (nrow(pyt_rea$dfWorking) == 4)  
+  }
+  
+  
 })
 
 #
@@ -163,22 +172,32 @@ observeEvent(input$answer, {
   toggleState(id = "question_lvl", !values$disable)
   toggleState(id = "answer", !values$disable)
   
-  # Pokaz okno dialogowe i zmien radio buttony na koniec quizu 
-    if (values$disable) {
-      showModal(modalDialog(i18n$t("Zakonczyłeś Quiz! Gratulacje")))
-      updateRadioButtons(session = session,
-                       input = "radiopyt",
-                       label =  i18n$t("Wszystkie pytania uzyte"),
-                       choices = c("Gratulacje!")
-    )
-    }
-  
-  ##Ponizej kod odpowiedzialny za zapisywanie danych z danej sesji ##
-  
   #tworzymy 3 elementy(w postaci listy), ktore przechowuja wartosci zdobytego expa, zlych i dobrych odp. Pozbywamy sie "reaktywnosci" by moc je zapisac do pliku
   exp_sc <- reactiveValuesToList(user_xp)
   bad_ans_sc <- reactiveValuesToList(bad_ans)
   good_ans_sc <- reactiveValuesToList(good_ans)
+  #Zmiana formatu z listy na vectory, by ulatwic proces wyswietlania. 
+  exp_sc_vect <- unlist(exp_sc)
+  bad_ans_sc_vec <- unlist(bad_ans_sc)
+  good_ans_sc_vec <- unlist(good_ans_sc)
+  
+  #Stworzenie zmiennej pokazujacej wynik poprawnych odp w procentach 
+  good_ans_perc <- percent(good_ans_sc_vec/length(unique(pyt$nr)))
+  
+  # Pokaz okno dialogowe (z wynikiem pkt dobrych odp) i zmien radio buttony na koniec quizu 
+    if (values$disable) {
+      
+      showModal(modalDialog(paste("Quiz zakonczony! Udzielono:", good_ans_sc_vec, " poprawnych odpowiedzi, sposrod ", length(unique(pyt$nr)) ," pytan. Jest to: ", good_ans_perc ,". Gratulacje!")))
+      updateRadioButtons(session = session,
+                       input = "radiopyt",
+                       label =  i18n$t("Wszystkie pytania uzyte"),
+                       choices = c("Gratulacje!")
+                       
+                       #i18n$t("Zakonczyłeś Quiz! Gratulacje")
+    )
+    }
+  
+  ##Ponizej kod odpowiedzialny za zapisywanie danych z danej sesji ##
   
   #Tworzymy jedna duza liste z 3 stworzonych wczesniej elementow
   score_list <- c(exp_sc, good_ans_sc, bad_ans_sc)
