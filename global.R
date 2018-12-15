@@ -9,6 +9,7 @@ library(shinyWidgets)
 library(plotly)
 library(shinyjs)
 library(openxlsx)
+library(scales)
 
 # My_SDG <- read.csv("SDG.csv", sep = ",", dec=".")
 # My_SDG <- My_SDG %>%
