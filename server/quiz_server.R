@@ -10,7 +10,7 @@ observe({
 })
 
 #Creating reactive table with datas downloaded from file with questions (downloaded in global from excel file)
-pyt_rea <- reactiveValues(dfWorking = pyt, 
+pyt_rea <- reactiveValues(dfWorking = pyt_selected, 
                           wylosowane = NULL, 
                           nr = NULL, 
                           poziomy = c(4,2,1))
@@ -184,11 +184,11 @@ observeEvent(input$answer, {
   good_ans_sc_vec <- unlist(good_ans_sc)
   
   #Creating variable that shows good answer score in percents
-  good_ans_perc <- percent(good_ans_sc_vec/length(unique(pyt$nr)))
+  good_ans_perc <- percent(good_ans_sc_vec/length(unique(pyt_selected$nr)))
   
   # Showing modal dialog at the end, and chagin radio buttons 
   if (values$disable) {
-    showModal(modalDialog(paste("You finished Quiz! You Gave:", good_ans_sc_vec, " good answers, from ", length(unique(pyt$nr)) ," question. It is: ", good_ans_perc ,". Congratulations!")))
+    showModal(modalDialog(paste("You finished Quiz! You Gave:", good_ans_sc_vec, " good answers, from ", length(unique(pyt_selected$nr)) ," question. It is: ", good_ans_perc ,". Congratulations!")))
     updateRadioButtons(session = session,
                        input = "radiopyt",
                        label =  "All questions used",

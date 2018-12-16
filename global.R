@@ -22,17 +22,53 @@ My_SDG <- readRDS("My_SDG.rds")
 # My_SDG %>%
 # filter(Indicator=="1.1.1", GeoAreaName == "Poland")
 
-
 #Save questions that were downloaded from xlsx file. Changed 2 columns of data frame to logical value! 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
                  colNames = TRUE) %>%
   mutate(praw=as.logical(praw)) %>%
   mutate(plot_img=as.logical(plot_img))
 
+#Number of question that we wanna show to the user (depending on the base, test value is 2)
+question_quantity <- 2
 
+#Filtering by difficult lvl, and set to variable questions easy
+ques_easy <<- pyt %>%
+  filter(poz_trud == 1) 
 
+#Delete duplicated rows, and pick choosen number of (given in question_quantity) nr from filtered collection
+ques_easy <- ques_easy[!duplicated(ques_easy$nr),] %>%
+  sample_n(question_quantity) %>%
+  select(nr) 
 
+#Filtering by difficult lvl, and set to variable questions medium
+ques_med <<- pyt %>%
+  filter(poz_trud == 2) 
+
+#Delete duplicated rows, and pick choosen number of (given in question_quantity) nr from filtered collection
+ques_med <- ques_med[!duplicated(ques_med$nr),] %>%
+  sample_n(question_quantity) %>%
+  select(nr) 
+
+#Filtering by difficult lvl, and set to variable questions hard
+ques_hard <<- pyt %>%
+  filter(poz_trud == 3)
+
+#Delete duplicated rows, and pick choosen number of (given in question_quantity) nr from filtered collection
+ques_hard <- ques_hard[!duplicated(ques_hard$nr),] %>%
+  sample_n(question_quantity) %>%
+  select(nr) 
+
+#Fuse picked number into 1 vector
+Numbers_of_questions <<- c(ques_easy, ques_med, ques_hard) %>%
+  unlist()
+
+#Filter picked question, and put them in another data frame
+pyt_selected <- pyt %>%
+  filter(nr %in% Numbers_of_questions)
+
+#Saving data base with question to R format file (for faster loading). You can change load from excel file (but you must update this save R file every time you add question)
 # save(pyt, file="pytania.RData")
+
 summary(My_SDG)
 My_SDG <- My_SDG %>% filter(Value != "", !is.na(Value),
                      GeoAreaName != "", !is.na(GeoAreaName))
