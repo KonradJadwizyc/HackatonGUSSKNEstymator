@@ -36,8 +36,9 @@ ques_easy <<- pyt %>%
   filter(poz_trud == 1) 
 
 #Delete duplicated rows, and pick choosen number of (given in question_quantity) nr from filtered collection
+#replace is protection from putting to high value for question_quantity (higher than number of question in base)
 ques_easy <- ques_easy[!duplicated(ques_easy$nr),] %>%
-  sample_n(question_quantity) %>%
+  sample_n(question_quantity, replace = T) %>%
   select(nr) 
 
 #Filtering by difficult lvl, and set to variable questions medium
@@ -45,8 +46,9 @@ ques_med <<- pyt %>%
   filter(poz_trud == 2) 
 
 #Delete duplicated rows, and pick choosen number of (given in question_quantity) nr from filtered collection
+#replace is protection from putting to high value for question_quantity (higher than number of question in base)
 ques_med <- ques_med[!duplicated(ques_med$nr),] %>%
-  sample_n(question_quantity) %>%
+  sample_n(question_quantity, replace = T) %>%
   select(nr) 
 
 #Filtering by difficult lvl, and set to variable questions hard
@@ -54,8 +56,9 @@ ques_hard <<- pyt %>%
   filter(poz_trud == 3)
 
 #Delete duplicated rows, and pick choosen number of (given in question_quantity) nr from filtered collection
+#replace is protection from putting to high value for question_quantity (higher than number of question in base)
 ques_hard <- ques_hard[!duplicated(ques_hard$nr),] %>%
-  sample_n(question_quantity) %>%
+  sample_n(question_quantity, replace = T) %>%
   select(nr) 
 
 #Fuse picked number into 1 vector
