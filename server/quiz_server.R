@@ -15,7 +15,6 @@ pyt_rea <- reactiveValues(dfWorking = pyt_selected,
                           nr = NULL, 
                           poziomy = c(4,2,1))
 
-
 #funckja odpowiedzialna za losowanie pytan ze zbioru 
 losowanie <- reactive({
   #warunek sprawdzajacy czy w zbiorze jest jeszcze co losowac 
