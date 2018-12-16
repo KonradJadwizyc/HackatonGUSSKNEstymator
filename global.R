@@ -30,8 +30,9 @@ ques_easy <<- pyt %>%
               filter(poz_trud == 1) 
 
 #Usuniecie duplikatow i wybranie ustalonej liczby (nadanej w zmiennej question_quantity) nr ze wczesniej wyfiltrowanego zbioru.
+#Replace to ochrona przed wsadzeniem zbyt wysokiej wartosci w question_quantity (wyzszej niz ilosc pytan w bazie danych)
 ques_easy <- ques_easy[!duplicated(ques_easy$nr),] %>%
-  sample_n(question_quantity) %>%
+  sample_n(question_quantity, replace = T) %>%
   select(nr) 
 
 #Filtrowanie po poziomie trudnosci i przypisanie do zmiennej pytania srednie
@@ -39,8 +40,9 @@ ques_med <<- pyt %>%
              filter(poz_trud == 2) 
 
 #Usuniecie duplikatow i wybranie ustalonej liczby (nadanej w zmiennej question_quantity) nr ze wczesniej wyfiltrowanego zbioru.
+#Replace to ochrona przed wsadzeniem zbyt wysokiej wartosci w question_quantity (wyzszej niz ilosc pytan w bazie danych)
 ques_med <- ques_med[!duplicated(ques_med$nr),] %>%
-            sample_n(question_quantity) %>%
+            sample_n(question_quantity, replace = T) %>%
             select(nr) 
 
 #Filtrowanie po poziomie trudnosci i przypisanie do zmiennej pytania trudne
@@ -48,8 +50,9 @@ ques_hard <<- pyt %>%
               filter(poz_trud == 3)
 
 #Usuniecie duplikatow i wybranie ustalonej liczby (nadanej w zmiennej question_quantity) nr ze wczesniej wyfiltrowanego zbioru.
+#Replace to ochrona przed wsadzeniem zbyt wysokiej wartosci w question_quantity (wyzszej niz ilosc pytan w bazie danych)
 ques_hard <- ques_hard[!duplicated(ques_hard$nr),] %>%
-  sample_n(question_quantity) %>%
+  sample_n(question_quantity, replace = T) %>%
   select(nr) 
 
 #Zlaczenie wczesniej wyfiltrowanych numerow w jeden wektor
