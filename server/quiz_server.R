@@ -122,11 +122,11 @@ observeEvent(input$answer, {
     }
     #Show modal dialog after first click at last question of category
     if(nrow(pyt_rea$nr) == 0){
-      showModal(modalDialog(i18n$t("All questions from this category were used. Congratulations!")))
+      showModal(modalDialog("All questions from this category were used. Congratulations!"))
       updateRadioButtons(session = session,
                          input = "radiopyt",
-                         label =  i18n$t("Wszystkie pytania uzyte"),
-                         choices = c(i18n$t("Wybierz inny poziom"))
+                         label =  ("Wszystkie pytania uzyte"),
+                         choices = c("Wybierz inny poziom")
       )
     }
     } else {
