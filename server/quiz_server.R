@@ -15,8 +15,6 @@ pyt_rea <- reactiveValues(dfWorking = pyt_selected,
                           nr = NULL, 
                           poziomy = c(4,2,1))
 
-
-
 #Function that draws question 
 losowanie <- reactive({
   #Condition that checks if it's something to draw in data frame
