@@ -44,7 +44,7 @@ losowanie <- reactive({
 
 #Renderowanie obrazka, ktory jest przypisany do pytania w bazie danych 
 output$obrazek <- renderUI ({
-  img(src = pyt_rea$wylosowane$img_src[1], width="400px", height="250px")
+  img(src = pyt_rea$wylosowane$img_src[1], width="100%", height="250px")
 })
 
 #Render pola, w ktorym wyswietla sie grupa buttonow z pytaniem.
