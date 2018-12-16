@@ -45,7 +45,7 @@ losowanie <- reactive({
 
 # Render img, that is connected with question in data base
 output$obrazek <- renderUI ({
-  img(src = pyt_rea$wylosowane$img_src[1], width="400px", height="250px")
+  img(src = pyt_rea$wylosowane$img_src[1], width="100%", height="300px")
 })
 
 #Render field that shows radio buttons
