@@ -16,8 +16,6 @@ My_SDG <- readRDS("My_SDG")
 My_SDG <- My_SDG %>%
   mutate(Value=as.numeric(levels(Value))[Value])
 
-
-
 #Zapisujemy pytania pobrane ze specjalnie przygotowanego pliku xlsx. Zmieniamy 2 kolumny data framu na wartości logiczne! 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
                  colNames = TRUE) %>%
@@ -62,6 +60,7 @@ Numbers_of_questions <<- c(ques_easy, ques_med, ques_hard) %>%
 pyt_selected <- pyt %>%
                 filter(nr %in% Numbers_of_questions)
 
+# Mozesz zapisac baze pytan, w RData i umiescic na serwerze. Dzieki temu przyspieszy sie wczytywanie danych.
 # save(pyt, file="pytania.RData")
 
 i18n <- Translator$new(translation_csvs_path = "data")
