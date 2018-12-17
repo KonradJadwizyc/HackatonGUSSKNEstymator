@@ -130,16 +130,12 @@ observeEvent(input$answer, {
                          choices = c(i18n$t("Wybierz inny poziom"))
       )
       
-      
+     #Wylaczenie dostepu dla uzytkownika po zakonczeniu danego poziomu
       if(input$question_lvl == 1) {
-        #disable(selector = "[type=radio][value=1]")
-        runjs("document.querySelector('[name=question_lvl][value=1]').disabled = true")
         runjs("$('[name=question_lvl][value=1]').parent().parent().addClass('disabled').css('opacity', 0.4)")
       } else if (input$question_lvl == 2) {
-        
         runjs("$('[name=question_lvl][value=2]').parent().parent().addClass('disabled').css('opacity', 0.4)")
       } else {
-        
         runjs("$('[name=question_lvl][value=3]').parent().parent().addClass('disabled').css('opacity', 0.4)")
       }
     }
@@ -153,6 +149,7 @@ observeEvent(input$answer, {
     )
     disable(selector ='input[name="question_lvl"]')
   }
+  runjs("setTimeout(function(){$('div.disabled input[name=question_lvl]').prop('disabled', true);}, 100)")
 })
 
 #funckja odpowiedzialna za usuwanie pytan z utworzonej reaktywnej bazy danych, zgodnie z nr pytania, ktory zostal wybrany
