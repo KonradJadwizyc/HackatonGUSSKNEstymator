@@ -26,51 +26,54 @@ sidebarLayout(
                                 "Life on land" = 15,
                                 "Peace, justice and strong institutions" = 16,
                                 "Partnership for the goals" = 17),
-                    # dzięki true można dodawac kolejne graje
-                    multiple = TRUE,
                     selected = 1),
         
-        # wyświetlanie opisu
+        # wyświetlenie opcji wyboru opisu w panelu edukacja 
         uiOutput("description"),
-        # wyswietlenie kraju
+        # wyświetlenie opcji wyboru kraju w panelu edukacja
         uiOutput("countries"),
-        
+        # wyświetlenie opcji wyboru zmiennej grupującej w panelu edukacja
+        uiOutput("group"),
+        # wyświetlenie opcji wyboru zmiennej grupującej w panelu edukacja
+        uiOutput("group2"),
+        # wyświetlenie opcji wyboru wartości zmiennej w panelu edukacja
+        uiOutput("value"),
+        # wyświetlenie opcji wyboru wartości zmiennej w panelu edukacja
+        uiOutput("value2"),
+        # pola wyboru opcji wykresu line , bar, scatter
         radioButtons(
-          # przyciski do wyboru wykresu
           inputId = "chartType",
           label = i18n$t("Choose chart type!"),
-          choices = c("line","bar","scatter"),
+          choices = c("line","bar"),
           selected = "line"
           
         )),
     # wyswietlenie informacji o zapisie wykresu
-    actionButton("add_my_page", 
+    actionButton(i18n$t("add_my_page"), 
                  i18n$t("Add this plot to your page")),
     br(),
     br(),
     # przycisk zapisu wykresu na zwenętrzny serwer potrzebna zewnętrzna baza danych
-    actionButton("add_to_quiz", 
-                 i18n$t("Add this chart to quiz"))
+    actionButton("save", "Add this chart to quiz")
+    
   ),    
   
   
   
   
+  
   mainPanel(
-    # miejsce wyświetlenia wyboru wykresu 
+    # miejsce wyświetlania opcji wyboru wykresu line
     conditionalPanel(
       condition = "input.chartType == 'line'",
       plotlyOutput("plot_inter")
     ),
+    # miejsce wyświetlania opcji wyboru wykresu bar
     conditionalPanel(
       condition = "input.chartType == 'bar'",
       plotlyOutput("plot_bar_inter")
-    ),
-    conditionalPanel(
-      condition = "input.chartType == 'scatter'",
-      plotlyOutput("plot_scatter_inter")
     )
-    
     
   )
 )
+

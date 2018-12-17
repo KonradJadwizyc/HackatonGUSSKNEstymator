@@ -10,84 +10,165 @@ observeEvent(input$add_to_quiz, {
  saveRDS(plot_input, file="user_plot_input.RDS")
  #reactiveValuesToList()
 })
-
 # przypisanie wartości pustej i dodawanie numeru do zapisu wykresu
 plot <- reactiveValues(plot = NULL, numer = 1)
 
 
 # wybór opisów do listy rozwijanej na podstawie wybranego celu
+output$description <- renderUI({
+  
+  goal <- BD_2 %>% 
+    dplyr::filter(Goal == (input$goal))
+  
+  selectInput("description",
+              label = i18n$t("Choose description"),
+              choices = unique(goal$SeriesDescription),
+              selected = unique(goal$SeriesDescription)[1])
+  
+})
+# wybór krajów do listy rozwijanej na podstawie wybranego celu i opisu
 output$countries <- renderUI({
   
+  goal <- BD_2 %>% 
+    dplyr::filter(Goal == (input$goal), SeriesDescription == input$description)
   
-  goal <- My_SDG %>%
-    dplyr::filter(Goal == as.numeric(input$goal))
-  
-  selectInput("countries", 
-              label = i18n$t("Choose region"),
+  selectInput("countries",
+              label = i18n$t("Chooes country / region"),
               choices = unique(goal$GeoAreaName),
               selected = unique(goal$GeoAreaName)[2], multiple = TRUE)
   
   
 })
-
-# wybór krajów do listy rozwijanej na podstawie wybranego celu
-output$description <- renderUI({
+#dodanie opcji sortowania i wybór zmiennej grupującej do listy rozwijanej na podstawie wybranego celu, opisu i kraju
+output$group <- renderUI({
+  goal <- BD_2 %>%
+    dplyr::filter(Goal == (input$goal), SeriesDescription == (input$description))
   
-  goal <- My_SDG %>%
-    dplyr::filter(Goal == as.numeric(input$goal))
   
-  selectInput("description", 
-              label = i18n$t("Choose topic/indicator"),
-              choices = unique(goal$SeriesDescription),
-              selected = unique(goal$SeriesDescription)[1])
+  choices_vector <- unique(goal$key)
+  
+  selectInput("group",
+              label = i18n$t("Group by:"),
+              choices = choices_vector)
+  
+})
+#dodanie opcji sortowania i wybór zmiennej grupującej do listy rozwijanej na podstawie wybranego celu, kraju i opisu
+output$group2 <- renderUI({
+  goal <- BD_2 %>%
+    dplyr::filter(Goal == (input$goal), SeriesDescription == (input$description))
+  
+  
+  selectInput("group2",
+              label = i18n$t("Group by:"),
+              choices = unique(goal$key),
+              selected = unique(goal$key)[1])
+  
+  
 })
 
-
-
+#dodanie opcji sortowania i wybór wartości zmiennej do listy rozwijanej na podstawie wybranego celu, kraju, opisu i zmiennej 
+output$value <- renderUI({
+  #dodanie opcji sortowania
+  goal <- BD_2 %>%
+    dplyr::filter(Goal == (input$goal), SeriesDescription == (input$description), key == (input$group))
+  
+  choices_vector2 <- unique(goal$group_value)
+  
+  
+  selectInput("value",
+              label = i18n$t("Value 1"),
+              choices = choices_vector2)
+  
+})
+#dodanie opcji sortowania i wybór wartości zmiennej do listy rozwijanej na podstawie wybranego celu, kraju, opisu i zmiennej 
+output$value2 <- renderUI({
+  goal <- BD_2 %>%
+    dplyr::filter(Goal == (input$goal), SeriesDescription == (input$description), key == (input$group2))
+  
+  selectInput("value2",
+              label = i18n$t("value 2"),
+              choices = unique(goal$group_value))
+})
+# tworzenie wykresu na podstawie zadeklarowanych wcześniej wartości 
+# wykres liniory
 output$plot_inter <- renderPlotly({
-  
-  seria <- My_SDG %>%
-    dplyr::filter(Goal == as.numeric(input$goal),
-                  GeoAreaName %in% input$countries,
-                  SeriesDescription == input$description)
-  
-  
-    plotly::plot_ly(data = seria,
-                  y = ~Value,
-                  x = ~TimePeriod,
-                  color = ~GeoAreaName,
-                  type = "scatter",
-                  mode = "lines") %>%
-    layout(title = input$description,
-           xaxis=list(range=c(2000,2018),
-                      title = "Time"),
-           ysxis = list(title = "Value"))
+  # jeżeli wartość opisu nie jest pusta to wyświatl tylko cel, kraj i opis
+  if(input$description != "") {
+    # filtrowanie danych 
+    seria <- BD_2 %>%
+      dplyr::filter(Goal == (input$goal), # wybranie celu
+                    GeoAreaName %in% input$countries, # wybranie kraju
+                    SeriesDescription == input$description) # wybranie opisu
+    # rysowanie wykresu
+    p <- plotly::plot_ly(data = seria,
+                         y = ~Value,
+                         x = ~TimePeriod,
+                         color = ~GeoAreaName,
+                         type = "scatter",
+                         mode = "line+markers") %>%
+      # dodanie tytuły pobranego z opisu
+      layout(title = input$description,
+             xaxis=list(range=c(2000,2018),
+                        title = "Time"),
+             yaxis = list(title = "Value"))
+    # jeżeli wartość w polu wyboru zmiennej grupującej nie jest pusta to twórz wykres
+  } else if(input$group != "") {
+    seria <- BD_2 %>%
+      # filtrowanie danych 
+      dplyr::filter(Goal == (input$goal),# wybranie celu
+                    GeoAreaName %in% input$countries,# wybranie kraju
+                    SeriesDescription == input$description, # wybranie opisu
+                    group_value == input$value) # wybranie wartości dla przypisanej zmiennej grupującej
+    # rysowanie wykresu            
+    p <- plotly::plot_ly(data = seria,
+                         y = ~Value,
+                         x = ~TimePeriod,
+                         color = ~GeoAreaName,
+                         type = "scatter",
+                         mode = "line+markers") %>%
+      # dodanie tytuły pobranego z opisu
+      layout(title = input$description,
+             xaxis=list(range=c(2000,2018),
+                        title = "Time"),
+             yaxis = list(title = "Value"))
+    # jeżeli wartość w polu wyboru zmiennej grupującej nie jest pusta to twórz wykres
+  } else if(input$group2 != "") {
+    # filtrowanie danych 
+    seria <- BD_2 %>%
+      dplyr::filter(Goal == (input$goal),# wybranie celu
+                    GeoAreaName %in% input$countries,# wybranie kraju
+                    SeriesDescription == input$description,# wybranie opisu
+                    
+                    group_value == input$value,# wybranie wartości dla przypisanej zmiennej grupującej
+                    group_value == input$value2)# wybranie wartości dla przypisanej zmiennej grupującej
+    
+    # okienko wyskakujące podczas ładowanie wykresu
+    progress1 <- shiny::Progress$new()
+    on.exit(progress1$close())
+    progress1$set(message = "waiting", value = 0)
+    # rysowanie wykresu 
+    p <- plotly::plot_ly(data = seria,
+                         y = ~Value,
+                         x = ~TimePeriod,
+                         color = ~GeoAreaName,
+                         type = "scatter",
+                         mode = "line+markers") %>%
+      # dodanie tytuły pobranego z opisu
+      layout(title = input$description,
+             xaxis=list(range=c(2000,2018),
+                        title = "Time"),
+             yaxis = list(title = "Value"))
+    # pakek ładowania w okienku wyskakującym
+    n <- 5
+    for (i in 1:n) {
+      progress1$inc(1/n, detail = "loading", i)
+      Sys.sleep(0.1)
+    }
+    # przypisanie zmienej do tworzonego wykresu w celu zapisania go 
+    plot$plot <- p
+    p
+  }
 })
-
-output$plot_bar_inter <- renderPlotly({
-  
-  seria_2 <- My_SDG %>% 
-    dplyr::filter(Goal == as.numeric(input$goal),
-                  GeoAreaName %in% input$countries,
-                  SeriesDescription == input$description)#
-  #X.Age. == input$group,
-  #X.Sex. == input$group2) %>% group_by(X.Age.)
-  
-  
-  plotly::plot_ly(data = seria_2,
-                  x = ~TimePeriod,
-                  y = ~Value,
-                  color = ~GeoAreaName,
-                  type = "bar",
-                  mode = "markers") %>% 
-    layout(title = input$description,
-           xaxis=list(range=c(2000,2018),
-                      title = "Time"),
-           ysxis = list(title = "Value")
-    )
-  
-})
-
 # funkcja która ma zapisywać wykres do bazy danych wykresów które będą dodane do quizu
 # z powodów technicznych i braku dostępu do zewnętrznej bazy danych nie mogliśmy zaimlementować funkcji zapisu wykresów
 # i wykorzystanie ich w quizie 
@@ -106,22 +187,86 @@ output$save <- downloadHandler(
   
   
 )
+
 # wyświetlenie u Ui wykresó wybranych przez użytkownika wyświetlrnie wyktesu kolumnowego
-output$plot_scatter_inter <- renderPlotly({
+output$plot_bar_inter <- renderPlotly({
   
-  seria_3 <- My_SDG %>% 
-    dplyr::filter(Goal == as.numeric(input$goal), GeoAreaName %in% input$countries, SeriesDescription == input$description)
-  
-  plotly::plot_ly(data = seria_3,
-                  x = ~TimePeriod,
-                  y = ~Value,
-                  color = ~GeoAreaName,
-                  size = ~Value,
-                  type = "scatter",
-                  mode = "markers") %>% 
-    layout(title = input$description,
-           xaxis=list(range=c(2000,2018),
-                      title = "Time"),
-           ysxis = list(title = "Value")
-    )
+  # jeżeli wartość opisu nie jest pusta to wyświatl tylko cel, kraj i opis
+  if(input$description != "") {
+    # filtrowanie danych 
+    seria <- BD_2 %>%
+      dplyr::filter(Goal == (input$goal), # wybranie celu
+                    GeoAreaName %in% input$countries, # wybranie kraju
+                    SeriesDescription == input$description) # wybranie opisu
+    # rysowanie wykresu
+    p <- plotly::plot_ly(data = seria,
+                         y = ~Value,
+                         x = ~TimePeriod,
+                         color = ~GeoAreaName,
+                         type = "bar",
+                         mode = "markers") %>%
+      # dodanie tytuły pobranego z opisu
+      layout(title = input$description,
+             xaxis=list(range=c(2000,2018),
+                        title = "Time"),
+             yaxis = list(title = "Value"))
+    # jeżeli wartość w polu wyboru zmiennej grupującej nie jest pusta to twórz wykres
+  } else if(input$group != "") {
+    seria <- BD_2 %>%
+      # filtrowanie danych 
+      dplyr::filter(Goal == (input$goal),# wybranie celu
+                    GeoAreaName %in% input$countries,# wybranie kraju
+                    SeriesDescription == input$description, # wybranie opisu
+                    group_value == input$value) # wybranie wartości dla przypisanej zmiennej grupującej
+    # rysowanie wykresu            
+    p <- plotly::plot_ly(data = seria,
+                         y = ~Value,
+                         x = ~TimePeriod,
+                         color = ~GeoAreaName,
+                         type = "bar",
+                         mode = "markers") %>%
+      # dodanie tytuły pobranego z opisu
+      layout(title = input$description,
+             xaxis=list(range=c(2000,2018),
+                        title = "Time"),
+             yaxis = list(title = "Value"))
+    # jeżeli wartość w polu wyboru zmiennej grupującej nie jest pusta to twórz wykres
+  } else if(input$group2 != "") {
+    # filtrowanie danych 
+    seria <- BD_2 %>%
+      dplyr::filter(Goal == (input$goal),# wybranie celu
+                    GeoAreaName %in% input$countries,# wybranie kraju
+                    SeriesDescription == input$description,# wybranie opisu
+                    
+                    group_value == input$value,# wybranie wartości dla przypisanej zmiennej grupującej
+                    group_value == input$value2)# wybranie wartości dla przypisanej zmiennej grupującej
+    
+    # okienko wyskakujące podczas ładowanie wykresu
+    progress1 <- shiny::Progress$new()
+    on.exit(progress1$close())
+    progress1$set(message = "waiting", value = 0)
+    # rysowanie wykresu 
+    p <- plotly::plot_ly(data = seria,
+                         y = ~Value,
+                         x = ~TimePeriod,
+                         color = ~GeoAreaName,
+                         type = "bar",
+                         mode = "markers") %>%
+      # dodanie tytuły pobranego z opisu
+      layout(title = input$description,
+             xaxis=list(range=c(2000,2018),
+                        title = "Time"),
+             yaxis = list(title = "Value"))
+    # pakek ładowania w okienku wyskakującym
+    n <- 5
+    for (i in 1:n) {
+      progress1$inc(1/n, detail = "loading", i)
+      Sys.sleep(0.1)
+    }
+    # przypisanie zmienej do tworzonego wykresu w celu zapisania go 
+    plot$plot <- p
+    p
+  }
 })
+# testowy wykres właściwe wykresy to liniowy i kolumnowy
+

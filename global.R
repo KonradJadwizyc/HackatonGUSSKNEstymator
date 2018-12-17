@@ -15,6 +15,47 @@ library(scales)
 My_SDG <- readRDS("My_SDG")
 My_SDG <- My_SDG %>%
   mutate(Value=as.numeric(levels(Value))[Value])
+My_SDG <- My_SDG %>%
+  mutate_at(.vars = vars(X.Age.,
+                         X.Bounds.,
+                         X.Cities.,
+                         X.Education.level.,
+                         X.Freq.,
+                         X.Hazard.type.,
+                         X.IHR.Capacity.,
+                         X.Level.Status.,
+                         X.Location.,
+                         X.Migratory.status.,
+                         X.Mode.of.transportation.,
+                         X.Name.of.international.institution.,
+                         X.Name.of.non.communicable.disease.,
+                         X.Sex.,
+                         X.Tariff.regime..status..,
+                         X.Type.of.mobile.technology.,
+                         X.Type.of.occupation.,
+                         X.Type.of.product.,
+                         X.Type.of.skill.,
+                         X.Type.of.speed.), .funs = as.character)
+# użycie funkcji gather w celu stworzenia jednej kolumny ze zmiennymi grupującymi 
+BD <- tidyr::gather(My_SDG, key, group_value, X.Age., X.Bounds., X.Cities., X.Education.level., X.Freq., X.Hazard.type.,
+                    X.IHR.Capacity.,
+                    X.Level.Status.,
+                    X.Location.,
+                    X.Migratory.status.,
+                    X.Mode.of.transportation.,
+                    X.Name.of.international.institution.,
+                    X.Name.of.non.communicable.disease.,
+                    X.Sex.,
+                    X.Tariff.regime..status..,
+                    X.Type.of.mobile.technology.,
+                    X.Type.of.occupation.,
+                    X.Type.of.product.,
+                    X.Type.of.skill.,
+                    X.Type.of.speed.)
+# selekcja wartości na te które są potrzebne do tworzenia wykresów 
+BD_2 <- BD %>% select(Goal,SeriesDescription,GeoAreaName,TimePeriod,Value,key,group_value)
+# zmiana wartości zmiennej Value na numeryczną 
+as.numeric(BD_2$Value)
 
 #Zapisujemy pytania pobrane ze specjalnie przygotowanego pliku xlsx. Zmieniamy 2 kolumny data framu na wartości logiczne! 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",

@@ -1,94 +1,133 @@
+
 observeEvent(input$img_1_pl, {
-  # wskakujące okienko ładowania 
+  
+  # wywołanie okna ładowania danych 
+  # okienko paska ładowania tabpanela edukacja
   progress1 <- shiny::Progress$new()
   on.exit(progress1$close())
+  # komunikat z oczekiwaniem 
   progress1$set(message = "waiting", value = 0)
   
+  updateTabsetPanel(session, "navbar",
+                    selected = "Education")
+  # kod ten po kliknięciu na kafelek przenosi do panelu edukacja i ładuje dane dla celu 1 
+  # kod jest powtarzalny dla wszystkich celów tak ja wywoływanie okienka ładowania
+  updateSelectInput(session = session, "goal", selected = 1) 
+  
+  # wykorzystane w ładowaniu pasku postępu
   n <- 5 
   for (i in 1:n) {
-    updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
-    # ładowanie danych z danego celu po kliknieciu w kafelek tak samo dal wszystkich funkcji poniżej
-    updateSelectInput(session = session, "goal", selected = 1) 
-    progress1$inc(1/n, detail = "zerrro", i)
+    # pasek ładowania 
+    progress1$inc(1/n, detail = "loading", i)
+    # uśpienie systemu na 1 sekunde
     Sys.sleep(0.1)
   }
 })
+# obserwowanie kafelka z celem 2 
 observeEvent(input$img_2_pl, {
+  # inicjacja procesy ładowania tabpanelu edukacja
   progress2 <- shiny::Progress$new()
   on.exit(progress2$close())
+  # komunikat z oczekiwaniem 
   progress2$set(message = "waiting", value = 0)
   
+  # wykorzystane w ładowaniu pasku postępu
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
+    # po kliknieciu w kafelek z celem 2 następuje ładowanie danych z bazy
     updateSelectInput(session = session, "goal", selected = 2) 
     
-    progress2$inc(1/n, detail = "cos tammmm", i)
+    # proces pasek ładowania w okienku wyskakującym
+    progress2$inc(1/n, detail = "loading", i)
+    # uśpienie systemu na 1 sek
     Sys.sleep(0.1)
   }
 })
+# obserwowanie kafelka z celem 3 # inicjacja procesy ładowania tabpanelu edukacja
 observeEvent(input$img_3_pl, {
+  # komunikat z oczekiwaniem 
   progress3 <- shiny::Progress$new()
   on.exit(progress3$close())
+  # komunikat z oczekiwaniem
   progress3$set(message = "waiting", value = 0)
   
+  # wykorzystane w ładowaniu pasku postępu
   n <- 5 
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
+    # po kliknieciu w kafelek z celem 3 następuje ładowanie danych z bazy
     updateSelectInput(session = session, "goal", selected = 3) 
-    
+    # proces pasek ładowania w okienku wyskakującym
     progress3$inc(1/n, detail = "loading", i)
+    # uśpienie systemu na 1 sek
     Sys.sleep(0.1)
   }
 })
+# obserwowanie kafelka z celem 4 # inicjacja procesy ładowania tabpanelu edukacja
 observeEvent(input$img_4_pl, {
+  # komunikat z oczekiwaniem 
   progress4 <- shiny::Progress$new()
   on.exit(progress4$close())
+  # komunikat z oczekiwaniem
   progress4$set(message = "waiting", value = 0)
   
+  # wykorzystane w ładowaniu pasku postępu
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
+    # po kliknieciu w kafelek z celem 4 następuje ładowanie danych z bazy
     updateSelectInput(session = session, "goal", selected = 4) 
+    # proces pasek ładowania w okienku wyskakującym
     progress4$inc(1/n, detail = "loading", i)
+    # uśpienie systemu na 1 sek
     Sys.sleep(0.1)
   }
 })
+# obserwowanie kafelka z celem 5 # inicjacja procesy ładowania tabpanelu edukacja
 observeEvent(input$img_5_pl, {
+  # komunikat z oczekiwaniem 
   progress5 <- shiny::Progress$new()
   on.exit(progress5$close())
+  # komunikat z oczekiwaniem
   progress5$set(message = "waiting", value = 0)
   
+  # wykorzystane w ładowaniu pasku postępu
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
+    # po kliknieciu w kafelek z celem 5 następuje ładowanie danych z bazy
     updateSelectInput(session = session, "goal", selected = 5) 
+    # proces pasek ładowania w okienku wyskakującym
     progress5$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
   }
 })
+# obserwowanie kafelka z celem 6 # inicjacja procesy ładowania tabpanelu edukacja
 observeEvent(input$img_6_pl, {
+  # komunikat z oczekiwaniem 
   progress6 <- shiny::Progress$new()
   on.exit(progress6$close())
   progress6$set(message = "waiting", value = 0)
   
+  # wykorzystane w ładowaniu pasku postępu
   n <- 5 
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
+    # po kliknieciu w kafelek z celem 6 następuje ładowanie danych z bazy
     updateSelectInput(session = session, "goal", selected = 6) 
-    
+    # proces pasek ładowania w okienku wyskakującym
     progress6$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
   }
-})
+}) # analogicznie to tych opisanych wyżej działają poniższe wywołania 
 observeEvent(input$img_7_pl, {
   progress7 <- shiny::Progress$new()
   on.exit(progress7$close())
@@ -98,7 +137,7 @@ observeEvent(input$img_7_pl, {
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 7) 
     
     progress7$inc(1/n, detail = "loading", i)
@@ -113,7 +152,7 @@ observeEvent(input$img_8_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 8) 
     
     progress8$inc(1/n, detail = "loading", i)
@@ -128,7 +167,7 @@ observeEvent(input$img_9_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 9) 
     
     progress9$inc(1/n, detail = "loading", i)
@@ -143,7 +182,7 @@ observeEvent(input$img_10_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 10) 
     
     progress10$inc(1/n, detail = "loading", i)
@@ -158,7 +197,7 @@ observeEvent(input$img_11_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 11) 
     
     progress11$inc(1/n, detail = "loading", i)
@@ -173,7 +212,7 @@ observeEvent(input$img_12_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 12) 
     progress12$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -187,7 +226,7 @@ observeEvent(input$img_13_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 13) 
     progress13$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -201,7 +240,7 @@ observeEvent(input$img_14_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 14) 
     progress14$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -215,7 +254,7 @@ observeEvent(input$img_15_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 15) 
     progress15$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -229,7 +268,7 @@ observeEvent(input$img_16_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 16) 
     progress16$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
@@ -243,7 +282,7 @@ observeEvent(input$img_17_pl, {
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
-                      selected = "Edukacja")
+                      selected = "Education")
     updateSelectInput(session = session, "goal", selected = 17) 
     progress17$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
