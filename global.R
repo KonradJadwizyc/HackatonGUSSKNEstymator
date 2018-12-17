@@ -11,16 +11,55 @@ library(shinyjs)
 library(openxlsx)
 library(scales)
 
-# My_SDG <- read.csv("SDG.csv", sep = ",", dec=".")
-# My_SDG <- My_SDG %>%
-#   mutate(Value=as.numeric(levels(Value))[Value])
-# saveRDS(My_SDG, file = "My_SDG.rds")
+
 
 #load datadase
 My_SDG <- readRDS("My_SDG.rds")
-
-# My_SDG %>%
-# filter(Indicator=="1.1.1", GeoAreaName == "Poland")
+# value as numeric
+My_SDG <- My_SDG %>%
+  mutate(Value=as.numeric(levels(Value))[Value])
+# group value as character 
+My_SDG <- My_SDG %>%
+  mutate_at(.vars = vars(X.Age.,
+                         X.Bounds.,
+                         X.Cities.,
+                         X.Education.level.,
+                         X.Freq.,
+                         X.Hazard.type.,
+                         X.IHR.Capacity.,
+                         X.Level.Status.,
+                         X.Location.,
+                         X.Migratory.status.,
+                         X.Mode.of.transportation.,
+                         X.Name.of.international.institution.,
+                         X.Name.of.non.communicable.disease.,
+                         X.Sex.,
+                         X.Tariff.regime..status..,
+                         X.Type.of.mobile.technology.,
+                         X.Type.of.occupation.,
+                         X.Type.of.product.,
+                         X.Type.of.skill.,
+                         X.Type.of.speed.), .funs = as.character)
+# use function gather on group variable  
+BD <- tidyr::gather(My_SDG, key, group_value, X.Age., X.Bounds., X.Cities., X.Education.level., X.Freq., X.Hazard.type.,
+                    X.IHR.Capacity.,
+                    X.Level.Status.,
+                    X.Location.,
+                    X.Migratory.status.,
+                    X.Mode.of.transportation.,
+                    X.Name.of.international.institution.,
+                    X.Name.of.non.communicable.disease.,
+                    X.Sex.,
+                    X.Tariff.regime..status..,
+                    X.Type.of.mobile.technology.,
+                    X.Type.of.occupation.,
+                    X.Type.of.product.,
+                    X.Type.of.skill.,
+                    X.Type.of.speed.)
+# select varible to create plot
+BD_2 <- BD %>% select(Goal,SeriesDescription,GeoAreaName,TimePeriod,Value,key,group_value)
+# value as numeric
+as.numeric(BD_2$Value)
 
 #Save questions that were downloaded from xlsx file. Changed 2 columns of data frame to logical value! 
 pyt <- read.xlsx(xlsxFile = "Pytania.xlsx",
@@ -72,11 +111,5 @@ pyt_selected <- pyt %>%
 #Saving data base with question to R format file (for faster loading). You can change load from excel file (but you must update this save R file every time you add question)
 # save(pyt, file="pytania.RData")
 
-summary(My_SDG)
-My_SDG <- My_SDG %>% filter(Value != "", !is.na(Value),
-                     GeoAreaName != "", !is.na(GeoAreaName))
-summary(My_SDG)
-
-#11284 to są NA
 
 

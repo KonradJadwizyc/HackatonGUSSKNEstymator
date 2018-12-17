@@ -29,52 +29,54 @@ sidebarLayout(
                                 "Life on land" = 15,
                                 "Peace, justice and strong institutions" = 16,
                                 "Partnership for the goals" = 17),
-                    selected = 1,
-                    # add another country
-                    multiple = TRUE),
+                    selected = 1),
+                    # show option choose description in panel education 
+                    uiOutput("description"),
+        # show option choose ceuntries in panel education 
+                    uiOutput("countries"),
+        # show option choose group in panel education 
+                    uiOutput("group"),
+        # show option choose group2 in panel education 
+                    uiOutput("group2"),
+        # show option choose value in panel education 
+                    uiOutput("value"),
+        # show option choose value2 in panel education 
+                    uiOutput("value2"),
         
-        # show description country
-        uiOutput("description"),
-        # show country
-        uiOutput("countries"),
+                    radioButtons(
+                      inputId = "chartType",
+                      label = "Choose chart type!",
+                      choices = c("line","bar"),
+                      selected = "line"
+                      
+                    )),
+        # show infrmation about save plot
+        actionButton("add_my_page", 
+                     "Add this plot to your page"),
+        br(),
+        br(),
+        # save plot
+        actionButton("save", "Add this chart to quiz")
         
-        # choises chart type 
-        radioButtons(
-          inputId = "chartType",
-          label = "Choose chart type!",
-          choices = c("line","bar","scatter"),
-          selected = "line"
-          
-        )),
-    # add chart to your profil 
-    actionButton("add_my_page", 
-                 "Add this plot to your page"),
-    br(),
-    br(),
-    # save button add chart to quiz database
-    actionButton("save", "Add this chart to quiz")
+    ),    
     
-  ),    
-  
-  
-  
-  
-  mainPanel(
-    # load plot with render_plotly
-               conditionalPanel(
-                 condition = "input.chartType == 'line'",
-                 plotlyOutput("plot_inter")
-               ),
-               conditionalPanel(
-                 condition = "input.chartType == 'bar'",
-                 plotlyOutput("plot_bar_inter")
-               ),
-               conditionalPanel(
-                 condition = "input.chartType == 'scatter'",
-                 plotlyOutput("plot_scatter_inter")
-               )
+    
+    
+    
+    
+    mainPanel(
+      # show choos plot line
+      conditionalPanel(
+        condition = "input.chartType == 'line'",
+        plotlyOutput("plot_inter")
+      ),
+      # # show choos plot bar
+      conditionalPanel(
+        condition = "input.chartType == 'bar'",
+        plotlyOutput("plot_bar_inter")
+      )
       
-    
+    )
   )
-)
-
+  
+  

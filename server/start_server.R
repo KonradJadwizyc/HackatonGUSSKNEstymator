@@ -1,97 +1,131 @@
 
-
 observeEvent(input$img_1, {
-  # add waiting panel 
+  
+  # loading waiting message loating tabpanel edukacja
   progress1 <- shiny::Progress$new()
   on.exit(progress1$close())
+  # waiting message
   progress1$set(message = "waiting", value = 0)
-  # load session and education tabpanel
+  
   updateTabsetPanel(session, "navbar",
                     selected = "Education")
-  # load data if clik goal image  and this same to all function at the bottom
+  # if you click IMAGE GOAL1 you go to education panel and loading data
   updateSelectInput(session = session, "goal", selected = 1) 
   
+  # used in loading the progress
   n <- 5 
   for (i in 1:n) {
+    # loading the progress 
     progress1$inc(1/n, detail = "loading", i)
+    # system sleep 1 s
     Sys.sleep(0.1)
   }
 })
+# loading waiting message loating tabpanel edukacja
 observeEvent(input$img_2, {
+
   progress2 <- shiny::Progress$new()
   on.exit(progress2$close())
+  # waiting message
   progress2$set(message = "waiting", value = 0)
   
+  # used in loading the progress
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
                       selected = "Education")
+    ## if you click IMAGE GOAL1 you go to education panel and loading data
     updateSelectInput(session = session, "goal", selected = 2) 
     
+    # loading the progress 
     progress2$inc(1/n, detail = "loading", i)
+    # system sleep 1 s
     Sys.sleep(0.1)
   }
 })
+# loading waiting message loating tabpanel edukacja
 observeEvent(input$img_3, {
+  # waiting message
   progress3 <- shiny::Progress$new()
   on.exit(progress3$close())
+  # waiting message
   progress3$set(message = "waiting", value = 0)
   
+  # loading the progress 
   n <- 5 
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
                       selected = "Education")
+    # if you click IMAGE GOAL1 you go to education panel and loading data
     updateSelectInput(session = session, "goal", selected = 3) 
-    
+    # loading the progress
     progress3$inc(1/n, detail = "loading", i)
+    # system sleep 1 s
     Sys.sleep(0.1)
   }
 })
+# loading waiting message loating tabpanel edukacja
 observeEvent(input$img_4, {
+  # komunikat z oczekiwaniem 
   progress4 <- shiny::Progress$new()
   on.exit(progress4$close())
+  # komunikat z oczekiwaniem
   progress4$set(message = "waiting", value = 0)
   
+  # wykorzystane w ładowaniu pasku postępu
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
                       selected = "Education")
+    # if you click IMAGE GOAL1 you go to education panel and loading data
     updateSelectInput(session = session, "goal", selected = 4) 
+    # loading the progress
     progress4$inc(1/n, detail = "loading", i)
+    # system sleep 1s 
     Sys.sleep(0.1)
   }
 })
+# loading waiting message loating tabpanel edukacja
 observeEvent(input$img_5, {
+ 
   progress5 <- shiny::Progress$new()
   on.exit(progress5$close())
+ 
   progress5$set(message = "waiting", value = 0)
+  
   
   n <- 5 
   for (i in 1:n) {
     updateTabsetPanel(session, "navbar",
                       selected = "Education")
+    # if you click IMAGE GOAL1 you go to education panel and loading data
     updateSelectInput(session = session, "goal", selected = 5) 
+    
     progress5$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
   }
 })
+
 observeEvent(input$img_6, {
+ 
   progress6 <- shiny::Progress$new()
   on.exit(progress6$close())
   progress6$set(message = "waiting", value = 0)
   
+ 
   n <- 5 
   for (i in 1:n) {
     
     updateTabsetPanel(session, "navbar",
                       selected = "Education")
+    # if you click IMAGE GOAL1 you go to education panel and loading data
     updateSelectInput(session = session, "goal", selected = 6) 
-    
+  
     progress6$inc(1/n, detail = "loading", i)
     Sys.sleep(0.1)
   }
-})
+}) # analogously to those described above, the following calls operate
 observeEvent(input$img_7, {
   progress7 <- shiny::Progress$new()
   on.exit(progress7$close())
