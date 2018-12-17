@@ -126,6 +126,15 @@ observeEvent(input$answer, {
                          label =  ("Wszystkie pytania uzyte"),
                          choices = c("Wybierz inny poziom")
       )
+      
+      #Disable the lvl button after finishing 1 difficult lvl
+      if(input$question_lvl == 1) {
+        runjs("$('[name=question_lvl][value=1]').parent().parent().addClass('disabled').css('opacity', 0.4)")
+      } else if (input$question_lvl == 2) {
+        runjs("$('[name=question_lvl][value=2]').parent().parent().addClass('disabled').css('opacity', 0.4)")
+      } else {
+        runjs("$('[name=question_lvl][value=3]').parent().parent().addClass('disabled').css('opacity', 0.4)")
+      }
     }
     } else {
     #This else statment is used for showing info about finishing this lvl of questions after 2 click on answer button (bug protection option)
@@ -135,7 +144,12 @@ observeEvent(input$answer, {
                        label =  "All questions used",
                        choices = c("Pick another lvl")
                        )
+    
+    disable(selector ='input[name="question_lvl"]')
     }
+  
+  #set off radio buttons with diff lvl, after finishing choosen lvl - adding them disable status. 
+  runjs("setTimeout(function(){$('div.disabled input[name=question_lvl]').prop('disabled', true);}, 100)")
 })
 
 #Function that removes question from created reactive data base. Based on question nr
