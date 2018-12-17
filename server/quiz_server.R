@@ -149,6 +149,7 @@ observeEvent(input$answer, {
     )
     disable(selector ='input[name="question_lvl"]')
   }
+  #Wylaczenie guzikow po przejsciu danego poziomu - nadanie im statusu disabled 
   runjs("setTimeout(function(){$('div.disabled input[name=question_lvl]').prop('disabled', true);}, 100)")
 })
 
